@@ -54,7 +54,7 @@ plainwhite:
 
 # Build settings
 remote_theme: plainwhite
-theme: plainwhite
+#theme: plainwhite
 plugins:
   - jekyll-seo-tag
 #  - jekyll-feed
