@@ -1,13 +1,14 @@
 ---
 layout: post
-title:  "node alpine과 dns 이슈"
-date:   2022-03-31 17:55:00 +0900
-categories: docker dns node.js
+title:  "External dns와 K8s의 버전 호환성"
+date:   2022-06-02 20:00:00 +0900
+author: '개발리드 유호석'
+categories: aws eks external-dns k8s
 ---
 
 최근 AWS EKS 버전 업그레이드를 했음.
 
-![img.png](../assets/img.png)
+![img.png](/assets/img.png)
 
 panel-hub 클러스터에서 개발용 도메인 추가할 게 있어서 ingress에 도메인 추가했음
 
@@ -15,13 +16,7 @@ panel-hub 클러스터에서 개발용 도메인 추가할 게 있어서 ingress
 
 아무리 기다려도 레코드 추가가 안됨
 
-<div style="width:20rem;">
-
-![img_1.png](../assets/img_1.png)
-
-</div>
-
-~~그림 왜케 크게 밖에 안됨?~~
+<img src="/assets/img_1.png" style="width:20rem;" />
 
 삽질 끝에 원인을 알아냄
 
