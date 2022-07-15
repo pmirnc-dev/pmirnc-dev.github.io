@@ -1,0 +1,20 @@
+{
+  "name": "pmirnc.github.io",
+  "version": "1.0.0",
+  "description": "PMIRNC 개발부",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bundle exec jekyll serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PMIRNC/pmirnc.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PMIRNC/pmirnc.github.io/issues"
+  },
+  "homepage": "https://github.com/PMIRNC/pmirnc.github.io#readme"
+}
