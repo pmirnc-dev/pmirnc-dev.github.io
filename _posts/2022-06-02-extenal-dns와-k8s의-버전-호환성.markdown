@@ -2,7 +2,7 @@
 layout: post
 title:  "External dns와 K8s의 버전 호환성"
 date:   2022-06-02 20:00:00 +0900
-author: '개발리드 유호석'
+author: hsyoo
 categories: aws eks external-dns k8s
 ---
 

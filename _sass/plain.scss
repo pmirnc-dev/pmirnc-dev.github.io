@@ -274,6 +274,17 @@ main {
   border-bottom: 1px solid #eee;
 }
 
+.post-author-avatar {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  border: .15rem solid white;
+  background-repeat: no-repeat;
+  background-size: 10rem auto;
+  background-position: top;
+  background-color: lightseagreen;
+}
+
 #posts-label {
   font-size: 15px;
   color: #555;

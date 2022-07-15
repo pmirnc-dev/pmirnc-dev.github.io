@@ -2,7 +2,7 @@
 layout: post
 title:  "node alpine과 dns 이슈"
 date:   2022-03-31 17:55:00 +0900
-author: '개발리드 유호석'
+author: hsyoo
 categories: docker dns node.js
 ---
 

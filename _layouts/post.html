@@ -19,6 +19,10 @@ layout: default
   <div class="post">
     {{ content }}
   </div>
+  {% assign author = site.data.authors[page.author] %}
+  {% if author %}
+    {% include author.html description=author.description image=author.image name=author.name position=author.position %}
+  {% endif %}
   {%- if site.plainwhite.disqus_shortname -%}
   <div id="disqus_thread" style="margin-top:25px"></div>
   <script>

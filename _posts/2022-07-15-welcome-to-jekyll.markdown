@@ -2,7 +2,7 @@
 layout: post
 title:  "피앰아이 개발부입니다."
 date:   2022-07-15 14:25:51 +0900
-author: '개발리드 유호석'
+author: hsyoo
 categories: 소개
 ---
 

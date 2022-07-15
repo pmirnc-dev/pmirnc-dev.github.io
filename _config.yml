@@ -24,6 +24,7 @@ plainwhite:
     #- home
     - page
     - post
+    - author
   # generate social links in footer
   social_links:
 #    twitter: samarsault
@@ -58,3 +59,7 @@ remote_theme: samarsault/plainwhite-jekyll
 plugins:
   - jekyll-seo-tag
 #  - jekyll-feed
+# Collections
+collections:
+  authors:
+    output: true

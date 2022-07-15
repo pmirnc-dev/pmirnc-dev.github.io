@@ -106,6 +106,16 @@
 			color: white;
 		}
 	}
+
+	.post-author-avatar {
+		width: 10rem;
+		height: 10rem;
+		border-radius: 50%;
+		border: .15rem solid lightseagreen;
+		background-repeat: no-repeat;
+		background-size: 10rem auto;
+		background-position: top;
+	}
 }
 .dark table {
 	th, td {
