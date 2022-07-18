@@ -275,14 +275,17 @@ main {
 }
 
 .post-author-avatar {
-  width: 10rem;
-  height: 10rem;
+  width: 7.5rem;
+  height: 7.5rem;
   border-radius: 50%;
   border: .15rem solid white;
   background-repeat: no-repeat;
-  background-size: 10rem auto;
+  background-size: 7.5rem;
   background-position: top;
   background-color: lightseagreen;
+}
+.post-author-desc {
+  padding-right: 1.5rem;
 }
 
 #posts-label {
@@ -343,5 +346,11 @@ footer {
       margin: 0 20px;
     }
     border-top: 1px solid #eee;
+  }
+  .post-author-avatar {
+    display: none;
+  }
+  .post-author-desc {
+    padding-right: 0 !important;
   }
 }
