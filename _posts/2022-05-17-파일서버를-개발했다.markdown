@@ -399,7 +399,7 @@ Nest.js lifecycle
 
 ---
 
-![Untitled](/assets/images/ihhwang/untitled (3).png)
+![Untitled](/assets/images/ihhwang/Untitled (3).png)
 
 **User**가 **file-server** 에 접근 혹은 사용을 하면
 
