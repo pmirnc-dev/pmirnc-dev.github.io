@@ -1,0 +1,426 @@
+---
+layout: post
+title:  "파일서버를 개발했다"
+date:   2022-05-17 09:42:00 +0900
+author: ihhwang
+categories: nest.js vue.js
+---
+안녕하세요. PMI 개발부 황인호 입니다.
+
+이번에 파일서버를 개발하기 위해 고민했던 생각들을 공유하려고 합니다.
+
+<aside>
+🗂️ **목차**
+
+</aside>
+
+# 시작
+
+---
+
+위에서 부터 사내 파일 서버를 개발해야 한다는 오더를 받았습니다.
+
+### 파일서버...
+
+![흠... 어떻게 해야될지 감이 안잡히는군...](/assets/images/ihhwang/zzal.webp)
+
+흠... 어떻게 해야될지 감이 안잡히는군...
+
+듣기만 해도 뭔가 어려워 보였지만 **그래도 못할건 없지!**
+
+### 그런데 **기획서**가 없다?!
+
+![음...오...아...](/assets/images/ihhwang/djFBHCM3j.webp)
+
+음...오...아...
+
+뭐... 사내에서만 쓸거니까 없을 수도 있지...
+
+조금 난감하지만 **그래도 못할건 없지!**
+
+파일서버 개발에 필요한 정보들을 수집하고 나름 머리를 굴려 설계를 마친 뒤
+
+본격적으로 개발을 시작했습니다.
+
+# 작업
+
+---
+
+처음부터 끝까지 설계는 처음이라 나름 치밀하게 계획했다고 생각 했지만
+
+개발 중간에 DB구조나 API 등등 초기에 설계했던 내용들이 바뀌고 바뀌고 바뀌었습니다.
+
+## 설계
+
+---
+
+기본 흐름은 PMI Landing Page에서 File-server에 접속하면
+
+유저정보를 전달 받아 해당 유저 정보가 유효하면 파일서버에 접속하게 했습니다.
+
+![PMI File-server Access Process](/assets/images/ihhwang/Untitled.png)
+
+PMI File-server Access Process
+
+또한 윈도우의 파일 탐색기나 각종 클라우드 드라이버 등등
+
+기존에 많이 사용했던 탐색기들과 최대한 비슷하게 만들어 보려 했습니다.
+
+### Front
+
+---
+
+**Frontend**는 **Vue.js**를 사용했습니다.
+
+**TailwindCSS**라는 새로운 UI 프레임워크를 사용해보려 시도 했으나
+
+시간이 한달밖에 주어지지 않아 대신 부장님께서 추천해주신 **Vuetify**를 채택했습니다.
+
+**Vuetify**는 **Vue.js** 프레임워크 중 하나 입니다.
+
+**bootstrap-vue**를 많이 사용했었지만, 이걸 선택한 결정적인 이유는
+
+**Vuetify**로 만든 File Browser가 있어서 시간을 절약하고자 커스텀 하여 사용하기로 했습니다.
+
+[https://github.com/semeniuk/vuetify-file-browser](https://github.com/semeniuk/vuetify-file-browser)
+
+### Backend
+
+---
+
+**backend**는 **Nest.js**를 사용했습니다.
+
+**Nest.js**는 **Node.js기반 프레임워크**로 사용법이 Spring과 유사하여
+
+Java 개발자들은 쉽게 적응할 수 있습니다.
+
+백엔드 EndPoint는 다음과 같이 설계하였습니다.
+
+- **User 관련**: (/user)
+- **디렉토리 & 파일 CRUD**: (/team)
+- **UPLOAD & DOWNLOAD**: (/team)
+- **LOGGING**: (/log)
+
+유저 인증은 페이지 이동시 마다 **verify**를 통해 유저 정보를 체크합니다.
+
+파일을 생성, 삭제 그리고 폴더명, 파일명을 변경하면 업데이트 후 **log collection**에 기록 됩니다.
+
+**logger는** 처음에 ****전역으로 log를 기록하면 어떨까 해서 처음으로 **intercepter**를 사용해 보았으나
+
+생각처럼 쉽게 되지 않아 log를 기록하는 서비스를 만든 후
+
+업로드, 다운로드, 삭제, 이름 변경시 저장되게 따로 빼 두었습니다.
+
+다음의 **16번** I**nterceptor** 부분을 더 깊게 연구하면 logging은 한번에 관리할 수 있을것 같습니다.
+
+![Nest.js lifecycle](/assets/images/ihhwang/Untitled (1).png)
+
+Nest.js lifecycle
+
+### DB
+
+---
+
+**DB**는 **MongoDB**를 사용했습니다.
+
+**Collection**은 크게 5개로 구분 했습니다.
+
+![Untitled](/assets/images/ihhwang/Untitled (2).png)
+
+### Data 구조 설계
+
+---
+
+
+🛠️ **Tree 구조 설계**
+
+- **History**
+
+  Tree가 구현이 어려울것 같아 처음으로 설계했는데
+
+  생각보다 좋은 자료를 찾아서 잘 참고했습니다.
+
+  프론트에서 잘 처리해주셔서 큰 문제없이 마무리 지을 수 있었습니다. 😂
+
+  한 줄기의 빛이 되어준 ✨**git repo** ✨ 그저 빛...
+
+  [https://github.com/Voronenko/Storing_TreeView_Structures_WithMongoDB](https://github.com/Voronenko/Storing_TreeView_Structures_WithMongoDB)
+
+  S**ample Code**
+
+    ```json
+    {
+    	ID: "1",
+    	이름: "folder",
+    	용량: 0,
+    	타입: "directory",
+    	생성한 날짜: "2022-02-22 00:00:00",
+    	수정한 날짜: "2022-02-22 00:00:00",
+    	ancestor: ['root'],
+    	parentID:"root",
+    	isUse: true
+    }
+    ```
+
+  예시 코드로서 ID는 고유 번호를 갖고 있습니다.
+
+  예제에 있는 **ancestor**와 **parent**가 핵심 key point!
+
+  parentId는 상위 폴더의 부모ID이며
+
+  ancestor에는 내 위로 모든 조상의 ID값을 담고 있습니다.
+
+
+🛠️ **files**
+
+- **History**
+
+  처음에는 **directories**라는 항목에 **object array**로 관리하면 편할거라 생각했다.
+
+  그러나 MongoDB의 **document 하나당 크기**가 **16MB**라는 것을 뒤는게 알아
+
+  전반적으로 구조를 변경하게 되었다.
+
+  **directories** 안에 있는 내용들을 **한 row씩** 꺼내서 저장하고
+
+  ID 중복방지를 고려하여 기존의 숫자 Index 값 에서 objectID 값을 채택하였다.
+
+  # **첫 설계 DB 구조**
+
+    ```json
+    {
+    		userId: 'ihhwang1',
+    		accessibleTeam: ['dev', 'panel'],
+    		accessibleRole: ['MASTER', 'TEAM_READER', 'USER'],
+    		accessibleUser: ['name1'],
+    		directories: [
+    			{
+    				ID: "root",
+    				이름: "root",
+    				용량: 0,
+    				타입: "directory",
+    				생성한 날짜: "2022-02-22 00:00:00",
+    				수정한 날짜: "2022-02-22 00:00:00",
+    				ancestor: [],
+    				parentID: '',
+    				isUse: true
+    			},
+    			{
+    				ID: "1",
+    				이름: "folder",
+    				용량: 0,
+    				타입: "directory",
+    				생성한 날짜: "2022-02-22 00:00:00",
+    				수정한 날짜: "2022-02-22 00:00:00",
+    				ancestor: ['root'],
+    				parentID:"root",
+    				isUse: true
+    			},
+    			{
+    				ID: "2",
+    				이름: "subfolder",
+    				용량: 0,
+    				타입: "directory",
+    				생성한 날짜: "2022-02-22 00:00:00",
+    				수정한 날짜: "2022-02-22 00:00:00",
+    				ancestor: ['root', '1'],
+    				parentID:"1",
+    				isUse: true
+    			},
+    			{
+    				ID: "4",
+    				이름: "index.html",
+    				용량: 1000,
+    				타입: "html",
+    				생성한 날짜: "2022-02-22 00:00:00",
+    				수정한 날짜: "2022-02-22 00:00:00",
+    				sharingInfo: [ // 고민 더 해보기
+    					{
+    						userId: 'name1',
+    						isSharing: true
+    					}
+    				],
+    				ancestor: ['root'],
+    				parentID:"root",
+    				isUse: true,
+    				location: "https://pathptah/index.html",
+    				uploadKey: "asdwaddcvde",
+    				etag: "wqer23r21q32rawer",
+    				bucket: "storagy"
+    			},
+    ```
+
+  # **최종 DB구조**
+
+    ```json
+    "_id" : ObjectId("625e0355e0a719c43fcb98d4"),
+    "isUse" : true,
+    "parentId" : "",
+    "ancestor" : [],
+    "updateAt" : ISODate("2022-04-18T21:28:17.045+09:00"),
+    "createAt" : ISODate("2022-04-18T21:28:17.045+09:00"),
+    "type" : "directory",
+    "size" : 0,
+    "name" : "PMI",
+    "id" : "PMI",
+    "userId" : "PMI",
+    "rootLevel": 0
+    ```
+
+🛠️ **Log**
+
+- **History**
+
+  log는 다음과 같이 설계를 했습니다.
+
+    - **기록 할 ACTION 목록**
+
+  |      ACTION |         NAME |
+      | --- | --- |
+  | UPLOAD | 파일 업로드 |
+  | DELETE | 파일, 폴더 삭제 |
+  | RENAME | 파일, 폴더명 변경 |
+  | DOWNLOAD | 파일 다운로드 |
+
+  # **DB 구조**
+
+    ```json
+    [
+    	{
+    		userId: 'ihhwang',
+    		ip: '111.111.111.111',
+    		request: [
+    			{
+    				seq: 1,
+    				method: 'GET',
+    				url: 'api/team/sub',
+    				params: {
+    					'userId': 'ihhwang',
+    					'team': 'dev',
+    					'role': 'user',
+    					'path': '/root/1',
+    				},
+    				date: ISO('2022-03-11T11:11:11Z')
+    			},
+    			{
+    				seq: 2,
+    				method: 'GET',
+    				url: 'api/team/sub',
+    				params: {
+    					'userId': 'ihhwang',
+    					'team': 'dev',
+    					'role': 'user',
+    					'path': '/root/1',
+    				},
+    				date: ISO('2022-03-11T11:11:11Z')
+    			},
+    		],
+    		response: [
+    			{
+    				seq: 1,
+    				message: 'ok',
+    				date: ISO('2022-03-11T11:11:11Z')
+    			},
+    			{
+    				seq: 2,
+    				message: 'error',
+    				date: ISO('2022-03-11T11:11:11Z')
+    			},
+    		],
+    	},
+    	{
+    		userId: 'sh',
+    		ip: '111.111.111.111',
+    		request: [],
+    		response: [],
+    	}
+    ]
+    ```
+  
+🛠️ **Role**
+
+- **History**
+
+  권한은 다음과 같이 설계하였습니다.
+
+  ![Untitled](/assets/images/ihhwang/role.png)
+
+  ![Untitled](/assets/images/ihhwang/role_2.png)
+
+  ![Untitled](/assets/images/ihhwang/role_3.png)
+
+
+⛔ **Share - 중단**
+
+- **History**
+
+  공유 기능에 대해 조금 골머리를 많이 썩긴 했습니다.
+
+  처음에는 Directory에 공유 가능한 ID나 팀 같은 항목을 추가해서 공유하면 어떨까 했지만
+
+  따로 관리하는게 그래도 맞다고 생각해 따로 collection으로 분리해주었습니다.
+
+  지금은 사용하지 않습니다.
+
+  # **DB 구조**
+
+    ```json
+    [
+    	{
+    		userId: 'ihhwang1',
+    		accessibleTeam: ['dev', 'panel'],
+    		accessibleRole: ['MASTER', 'TEAM_READER', 'USER'],
+    		accessibleUser: ['name1'],
+    		sharingInfo: [
+    			{
+    				
+    			}
+    		]
+    	}
+    ]
+    ```
+
+
+### 저장소
+
+---
+
+저장소는 AWS S3를 사용했습니다.
+
+처음에는 S3에도 폴더 형식으로 데이터가 들어갈 수 있는지 모르고 그냥 때려 박았는데
+
+그냥 path를 붙여주면 해결되는 문제였습니다.
+
+초기에는 멀티 다운로드를 도입해 zip으로 압축하게 하였으나
+
+멀티 다운로드 기능은 없어지고 단일 다운로드 방식만 남아 있습니다.
+
+### 전반적인 흐름
+
+---
+
+![Untitled](/assets/images/ihhwang/untitled (3).png)
+
+**User**가 **file-server** 에 접근 혹은 사용을 하면
+
+해당 기능에 대해 **backend** 로 요청을 하고 **DB**에서 파일 및 디렉토리 정보를 호출한 뒤
+
+유저가 조작하는 **ACTION** 값에 따라 **log_history**에 기록을 합니다.
+
+여기까지가 1차 개발에 대한 History 입니다.
+
+# 마무리를 지으며
+
+---
+
+어떻게 해야 합리적으로 설계를 할 수 있을지 참 많이 고민하고 또 고민 했습니다.
+
+부족한 PM을 잘 따라와주며 같이 논의하고 테스트 및 다양한 의견을 제시해준 팀원분들께
+
+무한한 감사함을 느끼며 다시 한번 집단지성의 힘을 느꼈습니다.
+
+이런 고민들을 통해 한걸음 성장할 수 있는 원동력이 될 수 있었으면 좋겠습니다.
+
+그럼 이만...!
+
+![그럼이만](/assets/images/ihhwang/img.gif)
