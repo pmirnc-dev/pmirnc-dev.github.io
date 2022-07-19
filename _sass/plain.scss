@@ -7,7 +7,8 @@ $mobileW: 768px;
 $smallMobileW: 480px;
 $bigScreenW: 1600px;
 $leftWidth: 220px;
-
+$avatarBorderColor: white;
+$avatarBackgroundColor: lightseagreen;
 *,
 *:before,
 *:after {
@@ -274,6 +275,12 @@ main {
   border-bottom: 1px solid #eee;
 }
 
+.post-author  .post-author-desc > pre {
+  font-family: 'Nanum Gothic',sans-serif;
+  font-size: 0.8rem;
+  text-align:right;
+}
+
 .post-author-avatar {
   width: 7.5rem;
   height: 7.5rem;
@@ -282,11 +289,87 @@ main {
   background-repeat: no-repeat;
   background-size: 7.5rem;
   background-position: top;
-  background-color: lightseagreen;
+  background-color: $avatarBackgroundColor;
 }
 .post-author-desc {
   padding-right: 1.5rem;
 }
+
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.people-list .people-list-item .people-list-avatar {
+  width: 5rem;
+  height: 5rem;
+  background-size: 7.5rem;
+  background-repeat: no-repeat;
+  background-position: top center;
+  border-radius: 50%;
+}
+
+.people-list > .people-list-item {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  list-style: none;
+}
+
+.people-list .people-list-item .people-list-anchor {
+  text-decoration: none;
+}
+
+.people-list .people-list-item .people-list-anchor:hover {
+  transform: scale(1.2);
+}
+
+.people {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: .5s;
+}
+
+.people .people-desc {
+  font-family: 'Nanum Gothic',sans-serif;
+  font-size: 1.0rem;
+  text-align: center;
+  padding: .5rem;
+  line-height: 1.2rem;
+}
+
+.people > .people-avatar {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  border: .15rem solid $avatarBorderColor;
+  background-color: $avatarBackgroundColor;
+}
+
+.people > .people-name {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.people > .people-desc {
+
+}
+
 
 #posts-label {
   font-size: 15px;
