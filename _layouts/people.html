@@ -1,0 +1,22 @@
+---
+layout: default
+---
+<div class="post-container">
+{% assign people = page.name | remove:'.md' %}
+{%- if site.data.authors[people] -%}
+    {% assign author = site.data.authors[people] %}
+    <section class="people">
+        <div class="people-avatar" style="background-image: url('{{author.image}}')"></div>
+        <div class="people-name">
+            {{ author.name }} / {{ author.position }}
+        </div>
+        <pre class="people-desc">{{ author.description }}</pre>
+    </section>
+    <hr/>
+
+{%-endif-%}
+
+
+
+
+</div>

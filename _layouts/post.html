@@ -19,6 +19,24 @@ layout: default
   <div class="post">
     {{ content }}
   </div>
+
+  <hr/>
+  <script src="https://utteranc.es/client.js"
+          repo="PMIRNC/pmirnc.github.io"
+          issue-term="url"
+          theme="github-dark"
+          crossorigin="anonymous"
+          async>
+  </script>
+  <script>
+
+    var theme = getCookie('theme');
+    var script = document.querySelector('script[theme]');
+    if (script) script.setAttribute('theme', theme === 'dark' ? 'github-dark' : 'github-light');
+
+
+  </script>
+
   {% assign author = site.data.authors[page.author] %}
   {% if author %}
     {% include author.html description=author.description image=author.image name=author.name position=author.position %}

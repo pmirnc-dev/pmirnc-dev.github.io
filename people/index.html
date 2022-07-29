@@ -1,0 +1,22 @@
+---
+    layout: default
+---
+
+<div class="post-container">
+    <ul class="people-list">
+        {%- for author in site.data.authors -%}
+            {%- assign item = author[1] -%}
+            <li class="people-list-item">
+                <div style="display: flex; align-items: center">
+                    <div class="people-list-avatar" style="background-image: url('{{ item.image }}')">
+                    </div>
+                    <a class="people-list-anchor" href="/people/{{ item.username }}" >
+                        <div>
+                            {{ item.name }}
+                        </div>
+                    </a>
+                </div>
+            </li>
+        {%- endfor -%}
+    </ul>
+</div>
