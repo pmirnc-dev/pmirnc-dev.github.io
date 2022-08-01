@@ -1,0 +1,27 @@
+---
+layout: post
+title:  "k8s 버전 업데이트 이슈"
+date:   2022-05-19 14:00:00 +0900
+author: sh.kim
+categories: k8s docker
+---
+
+docker desktop 버전 업데이트를 했는데 잘 되던 k8s가 아래 같은 오류를 내면서 작동하지 않음..
+
+![img.png](/assets/images/sh/k8s-1.png)
+
+원인은 aws cli와 k8s의 버전이 맞지 않아서 생긴 오류로 깃허브에 이슈가 등록이 되어있었다.
+
+![img.png](/assets/images/sh/k8s-2.png)
+
+[https://github.com/aws/aws-cli/issues/6920]()
+
+아래 링크에서 최신버전의 aws cli를 재설치하고 'aws eks update-kubeconfig' 명령어를 실행해주면 해결된다.
+
+[https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/getting-started-install.html]()
+
+
+
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/
