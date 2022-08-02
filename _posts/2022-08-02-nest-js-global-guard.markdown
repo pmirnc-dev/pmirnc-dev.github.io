@@ -131,13 +131,11 @@ get 메서드는 2개의 인자를 받는다
 
 대충 이해가 될 거라고 생각... 한다
 
-## 그래서..?
+## Guard 제어
 
 ---
 
-그래서 어떻게 metadata와 reflection을 이용하여 guard를 컨트롤할 수 있을까?
-
-바로 예시를 들어 설명하겠다
+위에서 살펴본 metadata와 reflection을 이용하여 guard를 제어해 보자
 
 ![img.png](/assets/images/sh/20220802/img_5.png)
 
