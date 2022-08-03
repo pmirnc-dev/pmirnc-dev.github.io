@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "nestjs 전역 guard와 guard 예외처리(feat. metadata and reflection)"
+title:  "nestjs 전역 guard와 guard 예외처리(metadata and reflection)"
 date:   2022-08-02 10:00:00 +0900
 author: sh.kim
 categories: nestjs
@@ -157,9 +157,9 @@ ProjectGuard 안에서 reflector를 사용하여 noGuard 값을 가져오고
 
 --- 
 
-위에서 진행한 방법대로 그냥 SetMetaata decorator를 사용해도 되지만
+위에서 진행한 방법대로 그냥 SetMetadata decorator를 사용해도 되지만
 
-decorator를 만들어서 SetMetadata를 좀 더 간결하게 사용할 수도 있다
+custom decorator를 만들어서 SetMetadata를 좀 더 간결하게 사용할 수도 있다
 
 * decorator(set)
 
@@ -170,6 +170,7 @@ decorator를 만들어서 SetMetadata를 좀 더 간결하게 사용할 수도 �
 ![img.png](/assets/images/sh/20220802/img_8.png)
 
 ## Reference
+
 [https://docs.nestjs.com/]()
 
 
