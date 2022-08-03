@@ -282,13 +282,13 @@ main {
 }
 
 .post-author-avatar {
-  width: 7.5rem;
-  height: 7.5rem;
+  width: 8.5rem;
+  height: 8.5rem;
   border-radius: 50%;
   border: .15rem solid white;
   background-repeat: no-repeat;
-  background-size: 7.5rem;
-  background-position: top;
+  background-size: cover;
+  background-position: top center;
   background-color: $avatarBackgroundColor;
 }
 .post-author-desc {
@@ -305,28 +305,63 @@ main {
   }
 }
 
-.people-list .people-list-item .people-list-avatar {
-  width: 5rem;
-  height: 5rem;
-  background-size: 7.5rem;
+.people-list {
+  //border-width: .15rem .15rem 0 0;
+  //border-color: rgba($avatarBackgroundColor, .5);
+  //border-style: solid;
+  display: flex; align-content: flex-start; flex-direction: row; flex-wrap: wrap;
+}
+
+.people-list > .people-list-item > .people-list-item-container {
+  transition: transform .2s ease-in-out;
+  filter: grayscale(1.1);
+}
+
+
+.people-list > .people-list-item > .people-list-item-container:hover {
+  transform: scale(1.1);
+  font-weight: bold;
+  filter: none;
+}
+
+
+.people-list > .people-list-item > .people-list-item-container > .people-list-anchor > .people-list-avatar {
+  width: 12em;
+  height: 12rem;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
   border-radius: 50%;
+  background-color: $avatarBackgroundColor;
+  border: .15rem solid $avatarBorderColor;
+  margin-bottom: .5rem;
+
 }
+
 
 .people-list > .people-list-item {
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
+  margin: 2rem;
   list-style: none;
+  //border: rgba($avatarBackgroundColor, .5) 1px solid;
+  padding: 1.5rem;
 }
 
-.people-list .people-list-item .people-list-anchor {
+.people-list > .people-list-item > .people-list-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.people-list > .people-list-item > .people-list-item-container > .people-list-anchor {
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.people-list .people-list-item .people-list-anchor:hover {
-  transform: scale(1.2);
-}
 
 .people {
   display: flex;
@@ -351,8 +386,8 @@ main {
 }
 
 .people > .people-avatar {
-  width: 10rem;
-  height: 10rem;
+  width: 15rem;
+  height: 15rem;
   border-radius: 50%;
   background-repeat: no-repeat;
   background-size: cover;

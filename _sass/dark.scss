@@ -119,6 +119,11 @@ $avatarBackgroundColor: transparent;
 		background-color: $avatarBackgroundColor;
 	}
 
+	.people-list > .people-list-item > .people-list-item-container > .people-list-anchor > .people-list-avatar {
+		background-color: $avatarBackgroundColor;
+		border: .15rem solid $avatarBorderColor;
+	}
+
 }
 .dark table {
 	th, td {
