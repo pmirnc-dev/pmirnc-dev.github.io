@@ -1,0 +1,218 @@
+---
+layout: post
+title:  "컴포넌트간 데이터 전달"
+date:   2022-08-03 12:43:00 +0900
+author: dhjeon
+categories: vue.js
+---
+
+안녕하세요. PMI 개발부 전다훈 입니다.     
+
+컴포넌트로 단위로 작업을 진행하게되면 반드시 해야할게 컴포넌트끼리의 데이터 또는 이벤트 전달입니다.      
+
+이번 시간에 Vue에서는 어떤 방법으로 데이터 & 이벤트를 전달하는지 정리해 보는 시간을 가져볼까 합니다.
+___
+
+기본적으로 데이터를 전달하기 위해서는 props와 emit을 활용할 수 있습니다.       
+        
+상위 컴포넌트에서 하위 컴포넌트한테 데이터를 전달할 떄는 props를 사용하여 데이터를 전달하며,
+
+하위컴포넌트에서 상위 컴포넌트로 이벤트를 전달할 때는 emit을 사용하게 됩니다.       
+
+props는 데이터 전달, emit은 이벤트를 전달 목적으로 사용하는데 아래 예시가 있습니다.
+
+##### 컴포넌트간 이벤트 주고 받기
+___
+```vue
+<!-- 상위 컴포넌트 Result.vue -->
+<template>
+  <main>
+   <ChildrenComponent 
+        :sendData="sendData"  
+        @childrenComponentEvent="emitFunction"
+   />             
+	</main>
+</template>
+```
+
+___
+하위 컴포넌트에게 데이터를 전달하려면 ```v-bind:변수명=’전달할 변수’``` 형태로 쓰이는데 ```v-bind는 :로 축약 표현이 가능```하기 때문에 :변수명 으로 데이터 전달이 가능합니다.             
+
+반대로 하위 컴포넌트가 상위 컴포넌트에서 하위컴포넌트의 이벤트를 전달받으려면 ```@이벤트명```으로 전달받을 이벤트를 바인딩 해줘야 받을 수 있습니다.
+        
+```typescript
+// 하위 컴포넌트
+export default class ChildrenComponent extends Vue {
+	@Prop({ default: '' }) private sendData: string;
+    
+    // 상위 컴포넌트한테 이벤트 전달 emit
+    // 사용법 - 1
+    @Emit('childrenComponentEvent')
+    sendParentComponentEvent() {
+      return 'Hello World';
+    }
+    // 사용법 - 2
+    senParentCompoentEvent() {
+      this.$emit('childrenComponentEvent', payload)   // payload: Emit decorator의 return이랑 동일
+    }
+}
+```
+
+상위 컴포넌트의 데이터를 전달받기 위해서는 @Prop 데코레이터를 활용하였는데요. 이때 상위 컴포넌트에서 보낸 변수명으로 동일하게 해줘야 데이터를 전달 받을 수 있습니다.     
+그럼 하위컴포넌트에서 상위컴포넌트로 이벤트를 전달할 때는 2가지 방법이 있습니다.
+1. Emit 데코레이더 활용
+2. Vue 내장 Emit 활용
+
+여기까지가 기본적인 컴포넌트간의 데이터 & 이벤트 전달 방법이였습니다.
+
+그럼 컴포넌트가 엄청 많이 껴져있을 경우 데이터 전달 방법은..?        
+```emit -> emit -> emit -> emit ->...... props -> props -> props -> ...```
+
+사용된 컴포넌트가 많아 질수록 전달 방식이 길어지게 되는데 어떻게 해야 전달하는 방법을 줄일 수 있을까요?
+    
+<br />
+
+##### | 1. EventBus 활용
+___
+
+EventBus를 사용하게 되면 **상위, 하위 컴포넌트 계층 구분 없이 EventBus를 호출해서 이벤트를 전달**할 수 있습니다.
+
+편한만큼 단점도 존재합니다.        
+컴포넌트 구분이 없기 때문에 많이 사용하게 되면 어디서 뭘 사용했는지 관리하기 불편함이 있을 수 있습니다.
+
+사용하는 방법은 아래와 같습니다.  
+Vue에 내장되어있는 EventBus를 사용해도되지만 컴포넌트 계층에 상관없이 데이터 전달하는 것이 목적이기 때문에 따로 파일을 만들어주어 사용하였습니다.      
+따로 파일을 만들어 사용하게 되면 계층과 상관없이 사용할 수 있습니다.
+
+```typescript
+// EventBus.ts
+
+import Vue from 'vue';
+const EventBus = new Vue();
+
+export default EventBus;
+```
+<br />
+이벤트를 보내는 컴포넌트에서         
+
+```이벤트를 보낼 때 $emit```
+```typescript
+const msg = '테스트 메세지';
+
+EventBus.$emit('전달할 이벤트 ex: TestFunction', '전달할 값 ex:'+msg);
+```
+
+<br />
+이벤트를 받는 컴포넌트에서는         
+
+```이벤트를 받을 때 $on```
+```typescript
+EventBus.$on('emit으로 전달한 이벤트 ex: TestFunction', (payload) => {
+  console.log(payload); // 전달할 값 ex:테스트 메세지
+});
+```
+<br />
+
+**주의할 점**
+EventBus 내에서의 this는 Vue에서의 this와 다르게 동작하게 됩니다.
+따라서, Vue와 동일하게 this를 사용하려면 bind를 해줘야합니다.
+
+```typescript
+EventBus.$on('emit으로 전달한 이벤트 ex: TestFunction', (payload) => {
+  console.log(payload); // 전달할 값 ex:테스트 메세지
+}).bind(this);
+```
+bind를 하지 않으면 this 는 Vue 객체가 아닌 Window 객체를 가져오게 됩니다.
+
+
+이렇게 $on, $emit을 통하여 컴포넌트 계층과는 무관하게 이벤트 전달이 가능하게 됩니다.
+<br />
+
+##### | 2. Store 활용 (Vuex)
+___
+Vue 대표적인 상태값 관리를 도와주는 Vuex를 활용하면 컴포넌트끼리 쉽게 데이터를 주고받을 수 있습니다.
+
+##### 단일 파일 사용
+```typescript
+//index.ts 
+
+import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+  state: {},     // 상태값 관리를 위한 변수 선언
+  getters: {},   // 컴포넌트에서 상태값을 꺼내기 위한 함수 선언
+  mutations: {}, // 동기 작업이 필요한 경우 mutations에 함수 선언
+  actions: {},   // 비동기 작업이 필요한 경우 actions 에 함수 선언
+});
+```
+
+##### 역활별 파일 분할하여 사용      
+단일 파일만을 사용할때와 달라진 점은 modules가 추가 되었습니다.
+역할별로 동일하게 vuex 모듈을 만들고 index에 import 시켜줌으로써 단일로 사용했을 때와 동일하게 사용가능하게 됩니다.
+
+```typescript
+// index.ts
+
+import Vue from 'vue'
+import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate';
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state: {},
+  getters: {},
+  actions: {},
+  mutations: {},
+  modules: {},
+  plugins:[
+    createPersistedState({
+      paths: ['login', 'currentDirectory'],
+    })
+  ],
+})
+
+
+```
+##### 상태값 유지
+
+이번 index 파일에는 plugins이 추가 되었습니다.
+
+Vuex에서 상태값은 기본적으로 일회성으로 밖에 사용하지 못합니다. 즉 페이지 이동이 있거나 새로고침 시에 저장해놨던 상태값이 다 사라지게 되죠.       
+그렇기 때문에 상태값을 계속 유지시켜주기 위해서 vuex-persistedstate npm을 사용하여 일회성이던 값을 계속 유지시킬 수 있습니다.       
+
+```typescript
+// index.ts
+
+import Vue from 'vue'
+import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate';
+import module1 from "@/store/module/module1.vuex";
+import module2 from "@/store/module/module1.vuex";
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {},
+  modules: {
+    module1,
+    module2
+  },
+  plugins:[
+    createPersistedState({
+      paths: ['module1'],
+    })
+  ],
+})
+```
+
+예시에서 module1, module2가 존재하는데 module1에서의 상태값들을 계속 유지 시켜야할 경우
+
+위 npm 을 사용하여 연결해줌으로써 module1의 상태값은 계속 유지되고, module2의 경우는 1회성으로 남게 됩니다.    
+
+이처럼 상태값을 계속 유지할 것과 1회성인 모듈을 분리하여 관리할 수 있습니다.

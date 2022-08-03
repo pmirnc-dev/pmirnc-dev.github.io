@@ -17,6 +17,13 @@ ihhwang:
         PMI 개발부에서 풀스택 및 네이티브 앱 개발을 담당 하고 있습니다.
         드럼과 운동을 좋아하며 철인3종을 목표로 하고 있습니다.
         어제보다 나은 내일을 위해 노력하고 있습니다.
+dhjeon:
+    username: dhjeon
+    name: 전다훈
+    image: /assets/authors/dhjeon.png
+    position: 풀스택
+    description: |-
+        뭐라쓸까
 sh.kim:
     username: sh.kim
     name: 김상협
