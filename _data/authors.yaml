@@ -31,4 +31,11 @@ sh.kim:
     position: 웹 개발
     description: |-
         PMI 개발부에서 웹 개발을 담당하고 있습니다
-
+mclee:
+    username: mclee
+    name: 이명철
+    image: /assets/authors/mclee.png
+    position: 풀스택 & 레거시 유지 보수
+    description: |-
+        PMI 개발부에서 풀스택 & 레거시 유지 보수를 담당 하고 있습니다.
+        
