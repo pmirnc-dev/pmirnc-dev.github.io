@@ -1,0 +1,70 @@
+---
+layout: post
+title:  "javascript에서의 falsy"
+date:   2022-08-03 09:00:00 +0900
+author: hsyoo
+categories: javascript
+---
+
+### 거짓 같은 값
+
+말로만 들으면 이게 뭔가 싶을 수 있습니다.
+falsy라고 불리는 이 값은 boolean으로 판단했을 때 false로 평가되는 걸 뜻합니다.
+
+
+
+### 항목
+
+mdn web docs에 아래와 같이 정리 되어 있습니다.
+
+|<img width=200/>|   |
+|---|---|
+|**false**|	키워드 false|
+|**0**|숫자 zero|
+|**-0**|음수 zero|
+|**0n**|BigInt. 불리언으로 사용될 경우, 숫자와 같은 규칙을 따름. 0n은 거짓 같은 값.|
+|**""**|빈 string|
+|**null**|null - 아무런 값도 없음|
+|**undefined**|undefined - 원시값|
+|**NaN (en-US)**|NaN - 숫자가 아님
+
+
+### 초간단 예제
+
+```javascript
+    const text = "";
+    // text변수에서 null을 기대하고 아래와 같이 처리했습니다.
+    if (!text) {
+        console.log("null입니다.");
+    }
+    // 하지만 text는 null이 아닌 빈 string입니다.
+    // 위에서 보셨듯이 빈 string은 faly하기 때문에 우리가 기대한 결과와 다를 수 있습니다.
+
+    // 위와 같은 경우 좀 더 명시적으로 아래와 같이 선언을 해주는 게 좋겠습니다.
+    if (text === null) {
+        console.log("null입니다.");
+    }
+
+
+```
+
+
+
+### 주의 사항
+
+논리 AND 연산자, &&를 사용할 때는
+첫 번째 객체가 거짓 같은 값이라면, 해당 객체를 반환합니다.
+
+```javascript
+
+false && "dog"
+// ↪ false
+
+0 && "dog"
+// ↪ 0
+
+```
+
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/
