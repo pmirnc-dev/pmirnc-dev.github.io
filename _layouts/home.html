@@ -22,7 +22,7 @@ layout: default
     </li>
 
     {%- for post in site.posts -%}
-      <li>
+      <li style="padding-top: .75rem; padding-bottom: .75rem">
         {%- assign date_format = site.plainwhite.date_format | default: "%b %-d, %Y" -%}
         <a class="post-link" href="{{ post.url | relative_url }}">
           <h2 class="post-title">{{ post.title | escape }}</h2>
