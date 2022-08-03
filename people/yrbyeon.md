@@ -1,4 +1,4 @@
 ---
 layout: people
 ---
-asdsad
+내용이 없습니다

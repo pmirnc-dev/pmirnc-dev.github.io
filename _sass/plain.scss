@@ -405,6 +405,17 @@ main {
 
 }
 
+.people-introduce {
+  min-height: 200px;
+}
+
+.people-post-list > ul > li {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(black, .2);
+}
+
 
 #posts-label {
   font-size: 15px;

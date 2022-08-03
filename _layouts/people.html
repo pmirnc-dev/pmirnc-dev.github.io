@@ -3,6 +3,7 @@ layout: default
 ---
 <div class="post-container">
 {% assign people = page.name | remove:'.md' %}
+{%- assign date_format = site.plainwhite.date_format | default: "%b %-d, %Y" -%}
 {%- if site.data.authors[people] -%}
     {% assign author = site.data.authors[people] %}
     <section class="people">
@@ -13,7 +14,31 @@ layout: default
         <pre class="people-desc">{{ author.description }}</pre>
     </section>
     <hr/>
-    {{ content }}
+    <section class="people-introduce">
+        {{ content }}
+    </section>
+
+    <section class="people-post-list">
+        <h4>작성글</h4>
+        <hr/>
+        <ul>
+            {% for post in site.posts %}
+                {% if post.author==author.username %}
+                    <li>
+                        <a class="post-link" href="{{ post.url | relative_url }}">
+                            <h5>{{ post.title | escape }}</h5>
+                        </a>
+                        <h5>{{ post.date | date: date_format }}</h5>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </section>
+
+
+
+
+
 {%-endif-%}
 
 
