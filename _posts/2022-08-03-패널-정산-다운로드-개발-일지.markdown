@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "intra PNet 패널 정산 다운로드"
+title: "intra PNet 패널 정산 다운로드 개발일지"
 date: 2022-08-03 09:51:00 +0900
 author: mclee
 categories: vue.js typescript javascript
 ---
+<hr/>
+
 <aside>
     **목차**
 
@@ -99,9 +101,9 @@ categories: vue.js typescript javascript
 
 ### 완료
 
-![패널 정산 버튼](/assets/mclee/panel_calculate.jpg)
+![패널 정산 버튼](/assets/images/mclee/panel_calculate.jpg)
 
-![패널 정산 페이지](/assets/mclee/panel_calculate_page.jpg)
+![패널 정산 페이지](/assets/images/mclee/panel_calculate_page.jpg)
 
 패널 정산 페이지 내에 추후 옵션들이 들어갈 예정이라고 한다.(아직은 결정된 사항이 없음)
 

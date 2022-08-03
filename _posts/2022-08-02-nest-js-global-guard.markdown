@@ -5,9 +5,9 @@ date:   2022-08-02 10:00:00 +0900
 author: sh.kim
 categories: nestjs
 ---
+<hr/>
 
 ## 인트로
-
 ---
 nestjs에서 route에 대한 접근 권한을 제어할 때 guard를 사용하는 경우가 있다
 

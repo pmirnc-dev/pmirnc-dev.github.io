@@ -5,6 +5,7 @@ date:   2022-05-19 14:00:00 +0900
 author: sh.kim
 categories: k8s docker
 ---
+<hr/>
 
 docker desktop 버전 업데이트를 했는데 잘 되던 k8s가 아래 같은 오류를 내면서 작동하지 않음..
 

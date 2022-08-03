@@ -38,4 +38,11 @@ mclee:
     position: 풀스택 & 레거시 유지 보수
     description: |-
         PMI 개발부에서 풀스택 & 레거시 유지 보수를 담당 하고 있습니다.
-        
+
+yrbyeon:
+    username: yrbyeon
+    name: 변유라
+    image: /assets/authors/yrbyeon.png
+    position: 웹 개발
+    description: |-
+        PMI 개발부에서 웹 개발을 담당하고 있습니다

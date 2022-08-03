@@ -5,6 +5,7 @@ date:   2022-06-02 20:00:00 +0900
 author: hsyoo
 categories: aws eks external-dns k8s
 ---
+<hr/>
 
 최근 AWS EKS 버전 업그레이드를 했음.
 
