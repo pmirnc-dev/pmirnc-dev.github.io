@@ -1,0 +1,209 @@
+---
+layout: post
+title:  "문자인증 서비스 만들어보기"
+date:   2022-08-05 13:30:00 +0900
+author: ybcho
+categories: nest.js
+---
+<hr/>
+
+안녕하세요 PMI 개발부 조용빈입니다.   
+
+이번에 Nest.js와 Vue.js를 공부하고 배우면서 처음으로 활용하여 로그인과 회원가입 기능을 만들어 봤는데요,
+
+회원가입에서 핸드폰 문자인증 부분이 있어 초보자 입장으로 제가 만들어본 문자인증 내용을 공유해보고자 합니다.   
+
+부족한 부분이 아주 많지만 너그럽게 봐주시면 감사드리겠습니다!
+
+### 두 가지 문자인증 방법
+
+우선 알아본 바로는 두 가지의 문자인증 방법이 있었습니다.   
+
+1. 이통사 API 사용하여 실명 인증 (주민번호, 핸드폰 명의 일치)
+2. 단순 문자 발송 인증 (명의 상관없이 입력 번호로 문자 발송)
+
+이 중 저는 팀장님이 알려주신 DirectSend의 api를 사용하여 2번 단순 문자 발송 인증을 구현해 봤습니다!
+
+> [DirectSned](https://directsend.co.kr/)
+ 
+---
+
+### 우선 사이트에 있는 API메뉴얼을 살펴보자...
+
+![api](/assets/images/ybcho/api-menual.png)
+
+#### node.js 예제가 없는데....
+
+당황하였지만 팀장님이 언어만 다를뿐 JSON 데이터로 주고 받는 통신 방법은 같다라는 힌트를 주셔서   
+다시 한번 살펴 보았습니다.
+
+![api](/assets/images/ybcho/api-ex.png)
+
+아~ 이렇게 보내면 되는구나~
+
+```jsx
+    const data = {
+      title: '문자 발송 제목',
+      message: '[$NAME]님 본인확인 인증번호([$NOTE1])를 입력해 주세요.', //메세지 내용 [$수신자정보 머지 속성] ex) [$NOTE1]
+      sender: 'directSend에 등록된 번호중 발신할 번호',
+      username: 'directsend id',
+      key: '발급받은 key',
+      receiver: [
+        {
+          //수신자 정보
+          name: '매칭할 내용', //매칭값
+          mobile: '수신자 번호', 
+          note1: '매칭할 내용', //매칭값
+        },
+      ],
+      return_url_yn: 1, // 발송내역 리턴 여부  - 1받음 0안받음
+      return_url: 1, //발송내역 리턴 번호 - RedirectSend에 등록된 return_url번호
+    }
+```
+머지기능이 있는데 receiver안에 아무 이름의 key와 변경될 내용을 적어 주면되고   
+message 내용에 변경되어야 할 부분을 [$key값]으로 적어주면 머지가 됩니다.      
+
+   
+
+이제 방법을 알았으니 back-end를 구현해 보았습니다.
+
+### 문자 발송
+```tsx
+//sms.controller.ts
+
+import { SmsService } from '@src/sms/sms.service';
+
+@Controller('sms')
+export class SmsController {
+    constructor(private readonly smsService: SmsService) {
+    }
+
+    @Post()
+    requestSMS(@Body() body) {
+        return this.smsService.requestSMS(body.phone);
+    }
+}
+
+//sms.service.ts
+
+import { HttpService } from '@nestjs/axios';
+
+export class SmsService {
+    constructor(
+        private readonly httpService: HttpService,
+        private readonly smsRepository: SMSRepository,
+    ) {}
+    
+    async requestSMS(phoneNumber: string) {
+        const url = 'https://directsend.co.kr/index.php/api_v2/sms_change_word';
+        const randomNumber: string = Math.floor(Math.random() * 1000000)
+          .toString()
+          .padStart(6, '0');
+        
+        const data = {
+          title: '문자 발송 제목',
+          message: '본인확인 인증번호([$NOTE1])를 입력해 주세요.',
+          sender: '01012341234',
+          username: '#######',
+          key: '##########', 
+          receiver: [
+            {
+              mobile: phoneNumber,
+              note1: randomNumber,
+            },
+          ],
+          return_url_yn: 1,
+          return_url: 1,
+        };
+        
+        try {
+          const result = await this.httpService.post(url, data);
+          await this.smsRepository.createAuthNumber(phoneNumber, randomNumber);
+        } catch (e) {
+          console.log('문자발송 에러');
+          console.log(e);
+        }
+    }
+}
+
+//sms.repository.ts
+
+import {SMS} from "@src/sms/sms.schema"
+import {Model} from "mongoose";
+
+export class SMSRepository {
+    constructor(@InjectModel(SMS.name) private readonly SMSModel: Model<SMS>) {
+    };
+
+    async createAuthNumber(phoneNumber: string, randomNumber: string): Promise<SMS> {
+        const data = {
+            userPhoneNumber: phoneNumber,
+            authCode: randomNumber
+        }
+        return await this.SMSModel.create(data);
+    }
+}
+
+```
+
+요청이 오면 랜덤한 숫자, Body에서 받은 phoneNumber와 함께 내용을 적어주고 객체를 생성하여    
+axios HttpService 클래스로 url로 선언한 주소에 외부 api 요청을 하면 아래와 같이 문자가 발송됩니다.
+
+![sms](/assets/images/ybcho/message.jpg)
+
+※ sender는 DirectSend에 등록 완료된 번호로 적어주셔야 합니다. ※
+
+발송이 되면 인증번호 확인을 위해 인증번호와 핸드폰번호는 db에 저장했습니다.
+   
+### 인증 문자 확인
+
+```tsx
+// sms.controller.ts
+
+@Get()
+  authenticateCode(@Query() query):Promise<boolean>{
+    const { phoneNumber, code } = query;
+    return this.smsService.authenticateCode(phoneNumber, code);
+  }
+  
+/// sms.service.ts
+
+async authenticateCode(phoneNumber: string, authCode: string):Promise<boolean>{
+    return await this.smsRepository.findAuthNumber(phoneNumber, authCode);
+}
+  
+/// sms.repository.ts
+
+async findAuthNumber(userPhoneNumber:string, authCode:string):Promise<boolean>{
+    try {
+        const code = await this.SMSModel.find({userPhoneNumber}).sort({createdAt:-1}).limit(1);
+        if(code[0].authCode===authCode)
+            return true;
+        else
+            return false;
+    }
+    catch (e){
+        console.log(e)
+        return false;
+    }
+}
+```
+유저가 입력한 핸드폰번호로 가장 최근에 삽입된 한개의 레코드를 조회하여 인증번호를 비교하고 결과를 리턴해 줬습니다.
+ 
+여기까지 유저가 입력한 핸드폰번호로 인증문자를 보내고 유저가 받은 인증문자를 검증하는 API를 만들어 봤습니다.   
+
+![front](/assets/images/ybcho/front.png)   
+
+만든 서비스로 front-end까지 잘 만들어 보았습니다~
+
+###  
+nest.js가 어떤 구조로 코드가 작성되어야 하는지, 어떤 기능들이 있는지, typescript는 어떻게 사용해야하는지 모르는게 너무 많은 상태로   
+서비스를 만들어야해서 막막했지만 하나하나씩 공부를 하다보니 조금씩 이해가 되기 시작했고 많이 느리고 부족하고 더 잘 만들 수 있을것 같은데라는   
+아쉬움도 있지만 결과적으로 하나의 서비스를 만들게 되어서 뿌듯했습니다.
+
+공부를 하면 할수록 수정이 필요한 코드들이 보였고 많은 부족함을 느꼈지만 한편으로는 '이렇게 조금씩 성장하는 거구나'라고 생각하며  
+더 열심히 해야겠다 다짐하는 계기가 된것 같습니다.   
+그리고 만들면서 부족한 질문에도 잘 답변해주신 팀원분들 감사합니다~
+
+이상입니다!
+
