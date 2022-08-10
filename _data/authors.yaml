@@ -72,3 +72,20 @@ jseom:
     description: |-
         조직의 유일무이한 존재
         제일 바쁩니다
+tkkim:
+    username: tkkim
+    name: 김태경
+    image: /assets/authors/tkkim.png
+    position: 웹 개발
+    description: |-
+        그림그리기, 노래듣기 좋아합니다. (노래 추천 환영합니다)
+        발전해나가는 개발자가 되겠습니다.
+ymshim:
+    username: ymshim
+    name: 심영민
+    image: /assets/authors/ymshim.png
+    position: 웹 개발
+    description: |-
+        PMI 개발부에서 웹 개발을 담당하고 있습니다.
+        항상 발전하는 개발자를 꿈꾸고 있습니다.
+        음악과 여행을 좋아합니다.
