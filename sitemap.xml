@@ -13,6 +13,18 @@ layout: null
 	    <lastmod>{{ 'now' | date_to_xmlschema }}</lastmod>
             <priority>1.00</priority>
         </url>
+        <url>
+            <loc>{{ site.url }}/about</loc>
+            <lastmod>{{ '2022-01-01' | date_to_xmlschema }}</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.80</priority>
+        </url>
+        <url>
+            <loc>{{ site.url }}/people</loc>
+            <lastmod>{{ '2022-01-01' | date_to_xmlschema }}</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.80</priority>
+        </url>
         {%- for post in site.posts -%}
             <url>
                 <loc>{{ site.url }}{{ post.url }}</loc>
@@ -21,5 +33,5 @@ layout: null
                 <priority>0.80</priority>
             </url>
         {%- endfor -%}
-    </urlset>    
+    </urlset>
 {%- endif -%}
