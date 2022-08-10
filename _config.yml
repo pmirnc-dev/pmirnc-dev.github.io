@@ -2,9 +2,7 @@ title: PMI 기술 블로그
 author: PMI 기술 팀
 email: teamcp@pmirnc.com
 description: > # this means to ignore newlines until "show_exerpts:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  안녕하세요 PMI(피앰아이) 개발부 기술 블로그입니다.
 show_excerpts: true # set to true to show excerpts on the homepage
 
 # Minima date format
