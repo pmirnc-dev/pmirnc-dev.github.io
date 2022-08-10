@@ -419,7 +419,7 @@ main {
 
 .team-images {
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 10rem auto;
   background-position: top center;
   display: flex;
   align-content: center;
@@ -433,6 +433,34 @@ main {
   background-color: rgba(255, 255, 255, 0.5);
   padding: .5rem;
 }
+
+.pmi-team-images {
+  background-size: contain;
+  animation-duration: 15s;
+  animation-name: image-fade;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-delay: .5s;
+}
+
+@keyframes image-fade {
+  0% {
+    background-image: url('/assets/images/teamcp01.jpg');
+  }
+  25% {
+    background-image: url('/assets/images/teamcp02.jpg');
+  }
+  50% {
+    background-image: url('/assets/images/teamcp03.jpg');
+  }
+  75% {
+    background-image: url('/assets/images/teamcp04.jpg');
+  }
+  100% {
+    background-image: url('/assets/images/teamcp01.jpg');
+  }
+}
+
 
 #posts-label {
   font-size: 15px;
