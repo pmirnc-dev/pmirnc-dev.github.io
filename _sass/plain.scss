@@ -296,6 +296,7 @@ main {
 }
 
 
+
 @keyframes fadeInOpacity {
   0% {
     opacity: 0;
@@ -416,6 +417,22 @@ main {
   border-bottom: 1px solid rgba(black, .2);
 }
 
+.team-images {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top center;
+  display: flex;
+  align-content: center;
+  align-items: end;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.team-images > div {
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: .5rem;
+}
 
 #posts-label {
   font-size: 15px;
