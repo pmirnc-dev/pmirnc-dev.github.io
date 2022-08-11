@@ -429,9 +429,14 @@ main {
 }
 
 .team-images > div {
-  height: auto;
+  width: 100%;
+  height: 100%;
   background-color: rgba(255, 255, 255, 0.5);
   padding: .5rem;
+  display: flex;
+  align-items: start;
+  align-content: center;
+  justify-content: end;
 }
 
 .pmi-team-images {
