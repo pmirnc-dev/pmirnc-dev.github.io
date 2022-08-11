@@ -17,20 +17,21 @@ ihhwang:
         PMI 개발부에서 풀스택 및 네이티브 앱 개발을 담당 하고 있습니다.
         드럼과 운동을 좋아하며 철인3종을 목표로 하고 있습니다.
         어제보다 나은 내일을 위해 노력하고 있습니다.
+        아침 잠이 없습니다
 dhjeon:
     username: dhjeon
     name: 전다훈
     image: /assets/authors/dhjeon.png
     position: 풀스택
     description: |-
-        PMI 개발부에서 웹 개발을 담당하고 있습니다.
+        PMI 개발부에서 요리를 하고 있습니다.
 sh.kim:
     username: sh.kim
     name: 김상협
     image: /assets/authors/sh.kim.png
     position: 웹 개발
     description: |-
-        PMI 개발부에서 웹 개발을 담당하고 있습니다
+        PMI 개발부의 주인공입니다.
 mclee:
     username: mclee
     name: 이명철
@@ -45,14 +46,14 @@ yrbyeon:
     image: /assets/authors/yrbyeon.png
     position: 웹 개발
     description: |-
-        PMI 개발부에서 웹 개발을 담당하고 있습니다
+        PMI 개발부에서 서핑을 하고 있습니다
 ybcho:
     username: ybcho
     name: 조용빈
     image: /assets/authors/ybcho.png
     position: 웹 개발
     description: |-
-        PMI 개발부에서 웹 개발을 담당하고 있습니다.
+        PMI 개발부에서 인싸를 맡고 있습니다.
         고수가 되려고 노력하는 초보 개발자입니다.
 skan:
     username: skan
