@@ -2,7 +2,33 @@
 
     async function imageLoad(url) {
         const response = await fetch(url, { method: 'GET' });
-        const blob = await response.blob();
+        const reader = response.body.getReader();
+        const contentLength = +response.headers.get('Content-Length');
+
+        let receivedLength = 0; // received that many bytes at the moment
+        const chunks = []; // array of received binary chunks (comprises the body)
+        while(true) {
+            const {done, value} = await reader.read();
+
+            if (done) {
+                break;
+            }
+            chunks.push(value);
+            receivedLength += value.length;
+            console.log(`Received ${receivedLength} of ${contentLength}`)
+        }
+
+        const chunksAll = new Uint8Array(receivedLength); // (4.1)
+        let position = 0;
+        for(const chunk of chunks) {
+            chunksAll.set(chunk, position); // (4.2)
+            position += chunk.length;
+        }
+
+        const blob = new Blob([chunksAll]);
+        //
+        // const blob = await response.blob();
+        //
         return URL.createObjectURL(blob);
     }
 
@@ -15,12 +41,11 @@
 
     (async () => {
         const image = images[Math.floor(Math.random()*images.length)];
-        const base64 = await imageLoad(image);
+        const blobUrl = await imageLoad(image);
         const div = document.body.querySelector('.team-images');
         if (div) {
-            console.log(base64);
             div.classList.add('pmi-team-images');
-            div.style.backgroundImage = `url("${ base64 }")`;
+            div.style.backgroundImage = `url("${ blobUrl }")`;
         }
     })();
 </script>
