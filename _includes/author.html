@@ -1,12 +1,16 @@
-<div class="post-author" style="margin-top: 5rem;">
-    <hr/>
-    <div style="display: flex; align-items: center; justify-content: end; margin-top: 3rem;">
-        <div class="post-author-desc">
-            <pre>{{ include.description }}</pre>
-        </div>
-        <div class="post-author-avatar" style="background-image: url({{ include.image }})"></div>
+<div class="post-author">
+    <div class="post-relative">
+        {% include related_post.html author=include.id %}
     </div>
-    <div style="display: flex; justify-content: end;">
-        <h3> {{ include.name | escape }} / {{ include.position | escape  }} </h3>
+    <div class="post-author-meta">
+        <div class="post-author-container">
+            <div class="post-author-desc">
+                <pre>{{ include.description }}</pre>
+            </div>
+            <div class="post-author-avatar" style="background-image: url({{ include.image }})"></div>
+        </div>
+        <div class="post-author-name">
+            <h3> {{ include.name | escape }} | {{ include.position | escape  }} </h3>
+        </div>
     </div>
 </div>

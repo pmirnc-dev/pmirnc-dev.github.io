@@ -1,0 +1,12 @@
+<ul style="display: none;">
+    {% for post in site.posts %}
+    {% if post.author==include.author and post.url!=page.url %}
+    <li>
+        <a class="post-link" href="{{ post.url | relative_url }}">
+            <h5>{{ post.title | escape }}</h5>
+        </a>
+        <h5>{{ post.date | date: date_format }}</h5>
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>

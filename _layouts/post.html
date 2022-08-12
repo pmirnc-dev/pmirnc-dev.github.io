@@ -16,6 +16,10 @@ layout: default
     </ul>
     {%- endif -%}
   </div>
+  <div class="post-read-time">
+    {% assign words = content | number_of_words %}
+    ⌛{% if words < 360 %} 1 min {% else %} {{ words | divided_by:180 }} mins {% endif %}
+  </div>
   <div class="post">
     {{ content }}
   </div>
@@ -39,7 +43,7 @@ layout: default
 
   {% assign author = site.data.authors[page.author] %}
   {% if author %}
-    {% include author.html description=author.description image=author.image name=author.name position=author.position %}
+    {% include author.html id=page.author description=author.description image=author.image name=author.name position=author.position %}
   {% endif %}
   {%- if site.plainwhite.disqus_shortname -%}
   <div id="disqus_thread" style="margin-top:25px"></div>

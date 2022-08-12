@@ -109,8 +109,21 @@ $avatarBackgroundColor: transparent;
 		}
 	}
 
-	.post-author-avatar {
-		border: .15rem solid $avatarBorderColor;
+	.post-author {
+		border-top: 1px solid #fff;
+		.post-author-meta {
+			.post-author-container {
+				.post-author-avatar {
+					border: .15rem solid $avatarBorderColor;
+					background-color: $avatarBackgroundColor;
+				}
+				.post-author-desc{
+					pre {
+						color: $dark_text_color;
+					}
+				}
+			}
+		}
 	}
 
 

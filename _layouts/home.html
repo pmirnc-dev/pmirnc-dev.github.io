@@ -40,6 +40,10 @@ layout: default
           </ul>
           {%- endif -%}
         </div>
+        <div class="post-read-time">
+          {% assign words = post.content | number_of_words %}
+          ⌛{% if words < 360 %} 1 min {% else %} {{ words | divided_by:180 }} mins {% endif %}
+        </div>
         <div class="post">
           {%- if site.show_excerpts -%}
             {{ post.excerpt }}
