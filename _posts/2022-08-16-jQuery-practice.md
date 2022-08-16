@@ -70,7 +70,6 @@ jQuery는 HTML의 요소들을 쉽게 조작하고 편리하게 사용할 수 �
 
 ---
 
-
 📢 자바스크립트로 접근
 
 ```jsx
@@ -105,7 +104,7 @@ $('#handleCssById').css(
 
 ---
 
-```attr``` 은 요소의 **속성에 대한 값을 가져오거나** **속성에 관련하여 수정**을 할 때 사용하는 함수입니다.
+**attr** 은 요소의 **속성에 대한 값을 가져오거나** **속성에 관련하여 수정**을 할 때 사용하는 함수입니다.
 
 ```jsx
 // 기본 문법
@@ -117,7 +116,7 @@ $('선택한 요소').attr('속성명', '값');
 
 ### 메타서베이 예제
 
-```attr``` 
+**attr**
 
 📌 readonly 속성 수정
 
@@ -136,7 +135,7 @@ $('input').keydown(function() {
 });
 ```
 
-`removeAttr` 함수는 속성 값을 삭제할 때 사용됩니다.
+**removeAttr** 함수는 속성 값을 삭제할 때 사용됩니다.
 
 ```jsx
 // 기본 문법
@@ -153,19 +152,19 @@ $('div.grade-box[data-current-grade]').removeAttr('data-current-grade');
 
 ---
 
-```before```  **선택한 요소의 앞**에 내용 삽입
+**before**  **선택한 요소의 앞**에 내용 삽입
 
-```after``` **선택한 요소의 뒤**에 내용 삽입
+**after** **선택한 요소의 뒤**에 내용 삽입
 
-```prepend``` **선택한 요소의 자식 요소 앞**에 내용 삽입
+**prepend** **선택한 요소의 자식 요소 앞**에 내용 삽입
 
-```append``` **선택한 요소의 자식 요소 뒤**에 내용 삽입
+**append** **선택한 요소의 자식 요소 뒤**에 내용 삽입
 
 <br />
 
 ### 메타 서베이 예제
 
-📌 ```after```
+📌 **after**
 
 입력한 년도부터 시작하여 올해 2022년까지의 년도를 드랍다운 형식으로 만들어 input 뒤에다가 붙이기
 
@@ -202,7 +201,7 @@ $(document).ready(function(){
 
 <br />
 
-📌 **테이블 만들기** ( ```append```, ```appendTo``` 차이 **)**
+📌 **테이블 만들기** ( **append**, **appendTo** 차이 **)**
 
 ```jsx
 $(document).ready(function(){
@@ -237,7 +236,7 @@ $(document).ready(function(){
 });
 ```
 
-```append``` 의 경우 마지막에 추가
+**append** 의 경우 마지막에 추가
 
 ```jsx
 // sample1 뒤에 sample2를 추가 합니다.
@@ -247,21 +246,21 @@ sample1.append(sample2)
 sample1.appendTo(sample2)
 ```
 
-```appendTo```는 요소 사이에 추가 됩니다.
+**appendTo**는 요소 사이에 추가 됩니다.
 
-예제를 보면 `th` 요소는 `thead` 요소 사이에 있어야 함으로 `append`가 아닌 `appendTo`를 활용해서 `thead` **요소 안**에 `th` **요소를 추가** 시켜준걸 알 수 있습니다.
+예제를 보면 **th** 요소는 **thead** 요소 사이에 있어야 함으로 **append**가 아닌 **appendTo**를 활용해서 **thead** **요소 안**에 **th** **요소를 추가** 시켜준걸 알 수 있습니다.
 
 <br />
 
 ### 2. clone, detach
 
-```clone```은 **HTML 요소를 복사하여 새로운 HTML 요소를 생성**
+**clone**은 **HTML 요소를 복사하여 새로운 HTML 요소를 생성**
 
 → **HTML 요소를 복사하여 변수에 담아만 놨을 뿐**이라 보여주기 위해서서는 보여지는 메소드를 이용해야합니다.
 
-```detach```는 잘라내기와 비슷한 기능을 합니다.
+**detach**는 잘라내기와 비슷한 기능을 합니다.
 
-```detach``` 메소드를 활용해서 변수에 담아 놓으면 언제든지 지웠던 요소를 보여지는 메소드에 이용하여 나타낼 수 있습니다.
+**detach** 메소드를 활용해서 변수에 담아 놓으면 언제든지 지웠던 요소를 보여지는 메소드에 이용하여 나타낼 수 있습니다.
 
 <br />
 
@@ -286,7 +285,7 @@ function addRows() {
 
 ---
 
-**```find```** 선택한 요소의 **하위 요소 중 특정 요소를 찾을 때** 사용
+**find** 선택한 요소의 **하위 요소 중 특정 요소를 찾을 때** 사용
 
 ```jsx
 // question-name이 Q3인 요소를 찾고 class가 s-answer div 안에서 table tbody 의 요소를 찾는다. 
@@ -296,7 +295,7 @@ var $onNode = $("div[question-name='"+qid+"']");
 var $inputNodeClone = $onNode.find("div.s-answer").clone();
 ```
 
-**```eq(index)```**선택한 요소를 index 번호로 찾을 수 있습니다. ( 0 번 부터 시작 )
+**eq(index)**선택한 요소를 index 번호로 찾을 수 있습니다. ( 0 번 부터 시작 )
 
 ```jsx
 // vkey가 idx (값) 인 input 요소의 첫 번째 요소의 값을 가져온다.
@@ -321,7 +320,6 @@ function inputEventAdd(){
           var hKey2 = +$('input[vkey='+idx+']').eq(1).val();
                     .
                     .
-     
   });
 }
 ```
@@ -344,7 +342,7 @@ arrList.forEach(function(ele){
 
 ---
 
-```parent``` 는 특정 요소의 부모 요소 (상위)를 선택합니다.
+**parent** 는 특정 요소의 부모 요소 (상위)를 선택합니다.
 
 ```jsx
 // 기본 문법
@@ -371,7 +369,7 @@ $('label[for=SQ20_'+value+']').parent().parent().show();
 $('tr[vkey='+voteArray[voteIdx]+']').parent().append($nextTr)
 ```
 
-```children``` 는 특정 요소의 자식 요소 (하위)를 선택합니다.
+**children** 는 특정 요소의 자식 요소 (하위)를 선택합니다.
 
 ```jsx
 // 기본 문법
@@ -381,7 +379,7 @@ $( 'div' ).children().css( 'color', 'blue' );
 $( 'div' ).children( 'p.bl' ).css( 'color', 'blue' );
 ```
 
-기본 문법은 `parent` 함수와 동일 합니다. 
+기본 문법은 **parent** 함수와 동일 합니다. 
 
 선택자를 명시하지 않을 경우에는 특정 요소의 하위 요소의 값을 가져오고 선택자를 명시했을 경우에는 반드시 그 선택자가 존재해야 합니다.
 
