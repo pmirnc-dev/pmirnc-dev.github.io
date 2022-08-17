@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "이벤트 루프와 태스크 큐"
-date:   2022-08-17 09:30:00 +0900
+date:   2022-08-17 09:00:00 +0900
 author: hsyoo
-categories: javascript
+categories: javascript eventloop
 ---
 <hr/>
 
@@ -34,6 +34,10 @@ node.js express에서는 수많은 http처리를 할 수 있는 것일까요?
 완벽히 정리된 영상 같습니다. 시각적으로 구현한 위 영상에서  
 콜스택(call stack), 이벤트 루프(event loop), 태스크 큐(task queue)가 모두 설명이 되었군요  
 우리는 setTimeout은 web api 영역에서 구동이 된다는 것도 알았습니다.
+
+###_이벤트 루프는 콜스택이 빈 것을 확인하면 태스크 큐의 작업을 하나씩 콜스택으로 가져와 처리를 한다_###
+로 정리될 것 같군요
+
 
 위 영상에서 빠진 게 있습니다 (위 영상은 2014년 키노트입니다)
 태스크 큐에는 종류가 있다는 겁니다  
