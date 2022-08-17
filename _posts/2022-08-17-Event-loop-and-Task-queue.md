@@ -92,19 +92,19 @@ setTimeout B
 |구분|함수|
 |---|---|
 |매크로 태스크 큐<br/>(Macro task queue)|setTimeout, setInterval, setImmediate, requestAnimationFrame, I/O, UI 렌더링|
-|마이크로태스크 큐<br/><Micro task queue)|process.nextTick, **Promise**, Object.observe, MutationObserver|
+|마이크로태스크 큐<br/>(Micro task queue)|process.nextTick, **Promise**, Object.observe, MutationObserver|
 
 위와 같은 태스크 큐의 종류가 있고,
 **마이크로 태스크 큐**는 **매크로 태스크 큐**보다 우선 순위를 갖게 됩니다.
 
 ## 마치며
-저희가 js개발자라고 자신있게 얘기하기위해서는 동작 원리는 정확히 이해를 해야된다고 생각되서  
+javascript개발자라고 자신있게 얘기하기 위해서는 동작 원리는 정확히 이해를 해야된다고 생각되서  
 저도 어렴풋한 기억을 다시 더듬어 해당 내용들을 작성해봤습니다.  
-재미 없고 와닿을 수 없는 내용들일 수 있지만 fe / be에 모두 javascript를 사용하는  
+재미없고 와닿을 수 없는 내용들일 수 있지만 fe / be에 모두 javascript를 사용하는  
 피앰아이 개발자들에겐 꼭 알려주고 공유하고 싶었던 내용이었기에 시간을 내서 포스팅을 했습니다
 그럼 20000
 
-###참고 자료
+### 참고 자료
  - [https://velog.io/@yejineee](https://velog.io/@yejineee/%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EB%A3%A8%ED%94%84%EC%99%80-%ED%83%9C%EC%8A%A4%ED%81%AC-%ED%81%90-%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C-%ED%83%9C%EC%8A%A4%ED%81%AC-%EB%A7%A4%ED%81%AC%EB%A1%9C-%ED%83%9C%EC%8A%A4%ED%81%AC-g6f0joxx)
  - [https://dkrnfls.tistory.com/362](https://dkrnfls.tistory.com/362)
  - [https://developer.mozilla.org/ko/docs/Web/API/HTML_DOM_API/Microtask_guide](https://developer.mozilla.org/ko/docs/Web/API/HTML_DOM_API/Microtask_guide)
