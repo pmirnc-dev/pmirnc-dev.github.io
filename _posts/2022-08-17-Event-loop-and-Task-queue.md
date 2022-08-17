@@ -35,12 +35,18 @@ node.js express에서는 수많은 http처리를 할 수 있는 것일까요?
 콜스택(call stack), 이벤트 루프(event loop), 태스크 큐(task queue)가 모두 설명이 되었군요  
 우리는 setTimeout은 web api 영역에서 구동이 된다는 것도 알았습니다.
 
+아래는 이벤트 루프의 life cycle입니다
+
+![life cycle](https://evan-moon.github.io/static/dfece5e35b7d9e50b6eac8adb1a348b8/6af66/nodejs-event-loop-phase.png))
+
+_이벤트 루프에는 위와 같은 페이즈(pahse)를 가지며 각자의 처리 방식과 순위가 있지만 오늘은 언급하지 않겠습니다_
+
 다음과 같이 정리될 수 있겠군요
 > ### _이벤트 루프는 콜스택이 빈 것을 확인하면 태스크 큐의 작업을 하나씩 콜스택으로 가져와 처리를 한다_ ###
 
 <br/>
 
-위 영상에서 빠진 게 있습니다 (위 영상은 2014년 키노트입니다)
+위 영상에서 언급하지 않은 게 있습니다 (위 영상은 2014년 키노트입니다)
 태스크 큐에는 종류가 있다는 겁니다  
 
 ## 마이크로태스크(Microtasks)와 매크로태스크(Macrotasks)
@@ -95,14 +101,16 @@ setTimeout B
 |매크로 태스크 큐<br/>(Macro task queue)|setTimeout, setInterval, setImmediate, requestAnimationFrame, I/O, UI 렌더링|
 |마이크로태스크 큐<br/>(Micro task queue)|process.nextTick, **Promise**, Object.observe, MutationObserver|
 
+_setImmediate, requestAnimationFrame, process.nextTick같은 함수는 기회가 되면 추후에 따로 포스팅 하겠습니다(자료 수집중)_
+
 위와 같은 태스크 큐의 종류가 있고,
 **마이크로 태스크 큐**는 **매크로 태스크 큐**보다 우선 순위를 갖게 됩니다.
 
 ## 마치며
 javascript개발자라고 자신있게 얘기하기 위해서는 동작 원리는 정확히 이해를 해야된다고 생각되서  
 저도 어렴풋한 기억을 다시 더듬어 해당 내용들을 작성해봤습니다.  
-재미없고 와닿을 수 없는 내용들일 수 있지만 fe / be에 모두 javascript를 사용하는  
-피앰아이 개발자들에겐 꼭 알려주고 공유하고 싶었던 내용이었기에 시간을 내서 포스팅을 했습니다
+재미없고 당장 와닿지 않는 내용들일 수 있지만 fe / be에 모두 javascript를 사용하는  
+피앰아이 개발자들에겐 꼭 알려주고 공유하고 싶었던 내용이었기에 시간을 내서 포스팅을 했습니다  
 그럼 20000
 
 ### 참고 자료
