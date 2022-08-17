@@ -17,7 +17,8 @@ categories: javascript
 4. IF, ?(조건부 연산자)
 5. 함수
 
-   <br>
+   <br />
+
 ---
 
 ## JavaScript란?
@@ -27,7 +28,9 @@ categories: javascript
 쉽게 웹페이지 요소들을 조작하는 언어라고 생각하시면 되겠습니다
 
 javascript는 원래 frontend에서 사용하는 언어이지만 node.js의 등장으로 backend에서도 사용합니다.
-<br>
+
+<br />
+
 ---
 
 ## 변수와 상수
@@ -102,7 +105,8 @@ let은 var의 문제점들을 해결해줬습니다. 다른 언어의 변수 선
 2. 블록 레벨 스코프
 3. 변수 호이스팅 문제 해결
 
-<br>
+<br />
+
 ---
 
 ## 연산자
@@ -214,7 +218,9 @@ result = "banana" && true; // true
 result = "banana" && false; // false
 ```
 > [단축평가 참고](https://curryyou.tistory.com/193)
-<br>
+
+<br />
+
 ---
 
 ## IF, ?조건부 연산자
@@ -273,6 +279,7 @@ let result = age>=19 ? "성인" :
     age<19 ? "미성년자" : "숫자가 아닙니다." // result = "숫자가 아닙니다."
 ```
 <br>
+
 ---
 
 ## 함수
@@ -341,6 +348,8 @@ let showMassege = str => console.log("메세지 : ",str);
 showMassege("안녕"); // 메세지 : 안녕
 ```
 
+<br />
+
 하지만 일반적으로 위처럼 사용하진 않고 콜백함수에서 화살표 함수를 많이 사용합니다.
 
 ```jsx
@@ -354,7 +363,7 @@ setTimeout(function() {
 }, 1000);
 ```
 
-※ 화살표 함수와 일반 함수 차이
+#### ※ 화살표 함수와 일반 함수 차이
 1. 생성자 함수의 역할을 할 수 없다. (new로 인스턴스 생성 불가)
 2. 화살표 함수는 this를 가지지않고 함수가 정의된 스코프에 존재하는 this를 가르킵니다.
 3. 화살표 함수는 arguemnts 프로퍼티를 생성하지 않는다.
@@ -380,6 +389,9 @@ console.log(account.getBalance()); // yong-bin님의 잔액은 20000입니다.
 account.deposit(2000);
 console.log(account.getBalance()); // yong-bin님의 잔액은 22000입니다.
 ```
+
+<br />
+
 객체에 속한 메소드에서의 this는 메소드가 속한 객체를 가리킵니다.
 ```jsx
 const account = {
@@ -400,7 +412,3 @@ console.log(account.getBalance()); //// yong-bin님의 잔액은 30000입니다.
 ```
 
 > [this 참고](https://bohyeon-n.github.io/deploy/javascript/this.html)
-</br>
-
-
-
