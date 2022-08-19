@@ -125,7 +125,10 @@ print('End of DetectSentiment\n')
 }
 ```
 
-더 자세한 내용은 아래 링크를 참고해 주시길 바라며
+이랜드 이노플에서 Amazon Comprehend 기반 설공 상품평 분석을 통한 트렌드 예측 개선에 활용한 사례
+[https://aws.amazon.com/ko/blogs/korea/amazon-comprehend-goods-trend-prediction/](https://aws.amazon.com/ko/blogs/korea/amazon-comprehend-goods-trend-prediction/)){:target="_blank"}
+
+더 자세한 내용은 아래 링크를 참고해 주시길 바랍니다
 [https://aws.amazon.com/ko/comprehend/](https://aws.amazon.com/ko/comprehend/){:target="_blank"}
 
 요금은 아래 링크를 확인 해주세요  
