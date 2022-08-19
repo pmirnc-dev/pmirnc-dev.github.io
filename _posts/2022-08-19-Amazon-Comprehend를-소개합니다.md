@@ -15,7 +15,7 @@ AWS ML 서비스 중에 도움이 될만한 쉽고 간편하게 써볼 수 있�
 > Amazon Comprehend is a natural-language processing (NLP) service that uses machine learning to uncover valuable insights and connections in text.
 > 
 > _Amazon Comprehend는 기계 학습을 사용하여 텍스트에서 유용한 인사이트 및 관계를 찾아내는 자연어 처리(NLP) 서비스입니다._  
-> [https://aws.amazon.com/comprehend/?nc1=h_ls](https://aws.amazon.com/comprehend/?nc1=h_ls)
+> [https://aws.amazon.com/comprehend/?nc1=h_ls](https://aws.amazon.com/comprehend/?nc1=h_ls){:target="_blank"}
 
 작동방식은 다음과 같습니다
 
@@ -126,8 +126,8 @@ print('End of DetectSentiment\n')
 ```
 
 더 자세한 내용은 아래 링크를 참고해 주시길 바라며
-[https://aws.amazon.com/ko/comprehend/](https://aws.amazon.com/ko/comprehend/)
+[https://aws.amazon.com/ko/comprehend/](https://aws.amazon.com/ko/comprehend/){:target="_blank"}
 
 요금은 아래 링크를 확인 해주세요  
-[https://aws.amazon.com/ko/comprehend/pricing/?pg=ln&sec=hs](https://aws.amazon.com/ko/comprehend/pricing/?pg=ln&sec=hs)
+[https://aws.amazon.com/ko/comprehend/pricing/?pg=ln&sec=hs](https://aws.amazon.com/ko/comprehend/pricing/?pg=ln&sec=hs){:target="_blank"}
 
