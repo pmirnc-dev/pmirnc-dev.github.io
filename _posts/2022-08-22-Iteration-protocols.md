@@ -14,7 +14,7 @@ categories: javascript
 ES6가 출현하면서 여러 문법뿐만 아니라 Iteration Protocol이라는 규칙이 추가되었다. 이것은 JS 자체의 독자적인 특징이라기보다는 여러 언어에서 <b>반복 동작을 수행하기 위해 정의</b>하는 방법에 가깝다. 
 <br />
 
-##Why?
+## Why?
 프로그래밍을 하다 보면, 어떤 구조/객체의 내부에서 반복 동작을 수행하고 싶을 때가 있다. 
 이때 사용할 수 있는 방법이 `for..of`문과 `spread 연산자`인데, 이 문법을 사용하기 위한 전제가 바로 Iteration Protocol이다.<br/>
 현재까지 확인된 바로는, yield*와 destructuring assignment 또한 이 규칙에 의존하는 구문, 표현식이라고 한다.
@@ -129,7 +129,7 @@ for (const i of iterable) {
 ```
 
 ---
-##iterator protocol
+## iterator protocol
 
 Iterator Protocol은 값의 순서를 제공하는 방법에 대한 정의이다.
 next() 매서드를 통해 배열을 순회할 수 있는 객체이다.
@@ -141,7 +141,7 @@ iterable과 마찬가지로 어떤 객체에 아래의 2가지 사항이 구현�
     - `value` - 반복문 안의 단일 값이며 어떠한 타입이든 상관없다.  
     - `done` - 반복문 종결 여부에 대한 판단 값이며 `Boolean` 타입이다.
     
-```jsx
+```typescript
 iterable = { //이터러블
   [Symbol.iterator]() {
     return { //이터레이터 객체
@@ -163,7 +163,7 @@ strIterator.next(); // { value: 'o', done: false }
 strIterator.next(); // { value: undefined, done: true }
 ```
 
-##결론
+## 결론
  - for - of 문 같은 몇몇 반복가능한 기능들을 할 수 있도록 만들어진 대상을 이터러블(iterable)라고 한다.
  - 이터러블(iterable)에는 반드시 Symbol.iterator 프로퍼티가 반드시 구현되어 있어야한다.
  - Symbol.iterator 메소드의 결과를 이터레이터(Iterator)객체 라고하고, 이터레이터는 이어지는 반복 과정을 처리한다.
