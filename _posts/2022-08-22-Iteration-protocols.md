@@ -9,7 +9,7 @@ categories: javascript
 
 ## Iteration protocols란?
 
-https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Iteration_protocols
+[https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Iteration_protocols](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Iteration_protocols){:target="_blank"}
 
 ES6가 출현하면서 여러 문법뿐만 아니라 Iteration Protocol이라는 규칙이 추가되었다. 이것은 JS 자체의 독자적인 특징이라기보다는 여러 언어에서 <b>반복 동작을 수행하기 위해 정의</b>하는 방법에 가깝다. 
 <br />
@@ -20,7 +20,9 @@ ES6가 출현하면서 여러 문법뿐만 아니라 Iteration Protocol이라는
 현재까지 확인된 바로는, yield*와 destructuring assignment 또한 이 규칙에 의존하는 구문, 표현식이라고 한다.
 
 - `for..of`
-```jsx
+
+
+```javascript
 const numbers = [1, 2, 3, 4];
 
 for (const number of numbers) {
@@ -29,7 +31,8 @@ for (const number of numbers) {
 ```
 
 - `spread 연산자`
-```jsx
+
+```javascript
 const numbers = [1, 2, 3, 4];
 
 console.log(...numbers); // 1 2 3 4
