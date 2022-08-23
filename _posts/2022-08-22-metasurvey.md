@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "메타서베이"
-date:   2022-08-18 09:30:00 +0900
+date:   2022-08-22 09:30:00 +0900
 author: sh.kim
 categories: metasurvey
 ---
