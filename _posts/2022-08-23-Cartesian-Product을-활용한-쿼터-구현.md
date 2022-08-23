@@ -171,7 +171,7 @@ function cartesianProduct(setA, setB) {
 
 _결과를 보시려면 "Result"탭을 선택해주세요_
 
-{% include codepen.html hash="zYWbyWx" title="cartesian product" %}
+{% include codepen.html hash="zYWbyWx" title="cartesian product" height="500" %}
 
 
 함수를 중첩해서 사용하면서 해결이 됐습니다.  
@@ -201,7 +201,7 @@ _결과를 보시려면 "Result"탭을 선택해주세요_
 
 
 _결과를 보시려면 "Result"탭을 선택해주세요_
-{% include codepen.html hash="XWEGoBJ" title="cartesian product" %}
+{% include codepen.html hash="XWEGoBJ" title="cartesian product" height="800" %}
 
 2중 배열로 잘 구현된 결과를 보실 수 있습니다.  
 해당 로직을 이용해서 fe에서 레이아웃을 그리고 입력할 수 있는 표를 쉽게 그려줄 수 있겠네요.  
