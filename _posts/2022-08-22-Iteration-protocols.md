@@ -169,5 +169,5 @@ strIterator.next(); // { value: undefined, done: true }
  - Symbol.iterator 메소드의 결과를 이터레이터(Iterator)객체 라고하고, 이터레이터는 이어지는 반복 과정을 처리한다.
  - 이터레이터 객체에는 {done: Boolean, value: any}를 반환하는 메소드인 next() 가 반드시 구현되어 있어야 한다.
 
-이러첨 Iteration Protocol은 객체 내부의 반복 동작을 수행하기 위해 정립된 규칙이다.
+이처럼 Iteration Protocol은 객체 내부의 반복 동작을 수행하기 위해 정립된 규칙이다.
 그 때문에 JS에서 존재하는 대부분의 자료 구조 내부에서 연속적인 값을 얻거나 특정 행동을 실행시키기 위해서는 반드시 이 규칙을 따라야 한다.
