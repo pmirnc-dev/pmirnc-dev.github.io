@@ -231,13 +231,13 @@ globalLexicalEnvironment: {
   EnvironmentRecord: {
     a: 'a',
     fn1: <function>,
-  },
+    fn2: <function>,
+ },
   outer: null, 
 },
 fn1LexicalEnvironment: {
   EnvironmentRecord: {
-    b: 'a',
-    fn2: <function>,
+    b: 'b',
   },
   outer: globalLexicalEnvironment,
 },
