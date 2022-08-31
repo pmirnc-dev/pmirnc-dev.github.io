@@ -114,6 +114,7 @@ globalLexicalEnvironment = {
   EnvironmentRecord: {
     a: 'a',
     b: 'b',
+    fn1: <function>
   },
   outer: null,
 }
