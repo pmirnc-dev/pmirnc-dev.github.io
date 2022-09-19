@@ -125,4 +125,6 @@ npm publish --registry http://192.168.1.1.:3000
 npm install @pmirnc/babylon
 ```
 
-이제 모두 패키지 제작을 시작합시다
+verdaccio를 설치함으로써 javascript 패키지 제작에 있어서  
+좀 더 부담없이 시도할 수 있게 됐습니다.
+이제 모두 패키지 제작을 시작합시다.
