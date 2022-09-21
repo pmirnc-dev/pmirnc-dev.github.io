@@ -33,8 +33,10 @@ callback 대한 설명을 보지도 않고 매개변수와  callback 함수 설�
   삭제했거나 초기화하지 않은 인덱스 속성에 대해서는 실행하지 않습니다.
 
 
-### 2.예제  
-- map
+### 2.예제
+
+- map  
+
 ```javascript
 //map 메서드_1
 var array1 = [1, 2, 3, 4, 5];
@@ -50,6 +52,7 @@ console.log(reArray1);
 ```
 
 - map을 잘못 사용한 예)
+
 ```javascript
 //map 메서드
 var array1 = [1, 2, 3, 4, 5];
