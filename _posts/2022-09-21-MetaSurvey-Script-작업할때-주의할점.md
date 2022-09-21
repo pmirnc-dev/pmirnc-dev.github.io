@@ -43,6 +43,7 @@ $(document).ready(function() {
 
 2. $(document). ready(function() {  }).on(’[이벤트]’, ‘[고유 지정 요소]’, function(){ });
    각 문항별로 지정요소가 다를 경우  
+
 ```javascript
 //Q1 문항 스크립트
 var node1 = "<span>Q1 Test</span>";
@@ -80,7 +81,8 @@ MetaSurvey 설문 문항을 진행시 페이지 이동을 하지 않고
 ### 결론
 $(document)객체에 jquery[난수] 캐싱이 초기화 되지 않고 문항별로 들어올때 문항 스크립트쪽에 jquery 이벤트가 있을 경우  
 해당 events 객체에 이벤트 데이터가 쌓이게 됩니다.
-이벤트를 작동할 지정 요소를 특정한 요소로 지정하여 다른 이벤트가 작동하지 않도록 하는게 중요합니다.
+이벤트를 작동할 지정 요소를 특정한 요소로 지정하여 다른 이벤트가 작동하지 않도록 하는게 중요합니다.  
+
 ```javascript
 //Q1 문항 스크립트
 var node1 = "<span>Q1 Test</span>";
