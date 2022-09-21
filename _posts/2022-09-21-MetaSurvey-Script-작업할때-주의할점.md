@@ -42,7 +42,7 @@ $(document).ready(function() {
 - Test URL : http://metasurvey.io/?ACCESS_KEY=d0ba8a19746649babd86  
 
 2. $(document). ready(function() {  }).on(’[이벤트]’, ‘[고유 지정 요소]’, function(){ });
-   각 문항별로 지정요소가 다를 경우
+   각 문항별로 지정요소가 다를 경우  
 ```javascript
 //Q1 문항 스크립트
 var node1 = "<span>Q1 Test</span>";
