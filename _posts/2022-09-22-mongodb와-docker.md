@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "mongodb docker container 이슈"
-date:   2022-09-22 18:30:00 +0900
+title: "mongodb docker container 이슈"
+date: 2022-09-22 18:30:00 +0900
 author: hsyoo
 categories: mongodb docker
 published: true
