@@ -48,5 +48,5 @@ arguments --wiredTigerCacheSizeGB=2 추가(2GB로 제한)
 거의 아동복 입은 느낌..(~~그것도 유행 다 지난~~)
 
 ### 여담
-centOS는 212년에 지원이 종료되었다
+centOS는 2021년에 지원이 종료되었다
 
