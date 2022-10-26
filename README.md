@@ -1,4 +1,4 @@
-# pmirnc.github.io
+# pmirnc-dev.github.io
 PMIRNC 개발부
 
 
