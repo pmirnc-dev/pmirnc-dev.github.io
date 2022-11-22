@@ -7,12 +7,12 @@ categories: mongodb index
 ---
 <hr/>
 
-PMI의 웹설문 조사 시스템은 Mongodb를 사용하고 있고 cloud 플랫폼인 atlas를 사용하고 있습니다.  
+PMI의 웹설문 조사 시스템은 Mongodb를 cloud 플랫폼인 atlas를 사용하고 있습니다.  
 사용자의 설문 raw data가 쌓이는 컬렉션에 인덱스를 생성해야 할 일이 생겼습니다.  
 초반에 만들었어야 되는데 놓쳤다가 인덱스 관련 오류가 뜨면서 발견이 되었습니다.  
 사실 atlas를 사용하기 때문에 performance advisor에서 추천을 해줬었지만 크게 신경을 안썼던 불찰이 크죠..
 
-어쨌거나 400M이 넘는 사이즈에 document 크기도 제각각에 꽤 큰 컬렉션이고  
+어쨌거나 400M이 넘는 row size에 document size도 제각각에 꽤 큰 컬렉션이고  
 실시간으로 많이 쌓이는 상태라 인덱스 생성을 할 경우 서비스에 장애가 생길 것으로 예상이 됐습니다.
 
 mongodb 4.4이상부터는 롤링 인덱스 생성을 지원 합니다  
