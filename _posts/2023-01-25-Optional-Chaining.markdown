@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "JavaScript Optional Chaining"
-date:   2023-01-25 12:43:00 +0900
+date:   2023-01-25 00:00:00 +0900
 author: dhjeon
 categories: javascript
 ---
