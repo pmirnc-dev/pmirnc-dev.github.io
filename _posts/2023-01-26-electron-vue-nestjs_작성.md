@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "electron+vue+nestjs 작성"
+title:  "electron+vue+nestjs+typescript 작성"
 date:   2023-01-26 16:23:00 +0900
 author: mclee
-categories: electron vue nestjs
+categories: electron vue nestjs typescript
 ---
 <hr/>
 
-## Electron + vue + Nestjs 작성
+## Electron + vue + Nestjs + typescript 작성
 
 ---
 
@@ -25,7 +25,7 @@ bootstrap();
 /**
  * NestJS에 electron 실행 처리
  * */
-const { app, BrowserWindow, Menu } = require('electron')
+const { app, BrowserWindow, Menu } = require("electron")
 
 const createWindow = () =>  {
   const win = new BrowserWindow(
@@ -39,15 +39,15 @@ const createWindow = () =>  {
     }
   );
   win.removeMenu()  //메뉴 삭제
-  win.loadURL('http://localhost:4000/')
+  win.loadURL("http://localhost:4000/")
 }
 /**
  * 메뉴 설정
  * */
 const template = [
   {
-    label: 'File',
-    submenu: [{ role: 'toggleDevTools' }, {role:'quit'}],
+    label: "File",
+    submenu: [{ role: "toggleDevTools" }, { role: "quit" }],
   }
 ];
 
@@ -58,7 +58,7 @@ Menu.setApplicationMenu(menu);
 */
 app.whenReady().then(() => {
   createWindow();
-  app.on('activate', () => {
+  app.on("activate", () => {
     if(BrowserWindow.getAllWindows().length === 0){
       createWindow()
     }
@@ -67,8 +67,8 @@ app.whenReady().then(() => {
 /**
 * electron 종료
 */
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
@@ -95,11 +95,10 @@ app.on('window-all-closed', () => {
 4). tsconfig.json 파일 내에 "include": ["src/**/*.ts"] 추가
 ```json
 {
-"include": [
-"src/**/*.ts"
-],
-"compilerOptions": {
-//...생략
+    "include": [
+      "src/**/*.ts"
+    ]
+    //...생략
 }
 ```
 ※ 이유
@@ -123,7 +122,7 @@ app.on('window-all-closed', () => {
 1). backend 폴더에서 화면을 띄우기 위해서 vue.config.js 파일 내용을 추가
 ```typescript
 module.exports = {
-  outputDir: '../back/public'
+  outputDir: "../back/public"
 }
 ```
 
@@ -144,7 +143,7 @@ module.exports = {
 ```typescript
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.useStaticAssets(join(__dirname, '../', 'public'));
+  app.useStaticAssets(join(__dirname, "../", "public"));
   await app.listen(4000);
 }
 ```
@@ -176,6 +175,7 @@ async function bootstrap() {
    }
 }
 ```
+
 - files에 들어가는 값들은 실행시킬 폴더들로 작성해주시면 됩니다.
 - [추가 2023-01-26] electron:build 할때 마다 용량이 증가되는 막기 위해서 build - directories 속성에
 
@@ -183,20 +183,20 @@ async function bootstrap() {
 
 4). 이걸로 끝입니다.
 
-   electron:build를 실행하게 되면 ~~dist 폴더내에 zip 파일과 win-unpacked 폴더가 생성이 됩니다.~~
+   - electron:build를 실행하게 되면 ~~dist 폴더내에 zip 파일과 win-unpacked 폴더가 생성이 됩니다.~~
 
-   build 폴더가 생성이 되며 빌드한 파일들이 들어가게 됩니다.
-    - build -> win-unpacked 폴더내에 들어가시면
+     build 폴더가 생성됩니다.
+   - build -> win-unpacked 폴더내에 들어가시면
 
-      productName에 적혀 있는 이름이 실행프로그램 이름으로 되어 있을겁니다. 클릭해서 실행 하시면 됩니다.
+     productName에 적혀 있는 값이 실행프로그램 이름으로 생성되어 있습니다. 클릭해서 실행 하시면 됩니다.
 
 ---
 
 ### DB 연결 및 .env 경로 설정
 
-1). DB 연결은 기존에 하던거 처럼 작성하면 됩니다.
+1). DB 연결은 기존에 하던 것처럼 작성하시면 됩니다.
 
-2). Electron 빌드시 포함시킬 폴더 및 파일 경로를 작성하시면 됩니다. 
+2). Electron 빌드시 포함시킬 폴더 및 파일 경로들을 작성 합니다. 
 ```json
 //1안
 {
@@ -221,19 +221,18 @@ async function bootstrap() {
     }
 }
 ```
-- .env 파일을 폴더에 넣어서 포함을 시켜도 되고,
-- 파일명만 작성 하시면 됩니다.
+- .env 파일을 폴더에 넣어서 포함을 시켜도 되고, 파일명만 작성 하시면 됩니다.
 
-3). 소스 툴에서 잘 작동하는데 electron 빌드시에 작동이 안됩니다.
+3). WebStrom에서 실행할때는 잘 작동하는데 electron 빌드하고 나서 작동이 안됩니다.
 
 ```javascript
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env'
-      //1안 join(__dirname, '../..', 'default/.env'),
-      //2안 join(__dirname, '../..', '.env'),
+      envFilePath: ".env"
+      //1안 join(__dirname, "../..", "default/.env"),
+      //2안 join(__dirname, "../..", ".env"),
     }),
     //...생략
   ],
@@ -241,13 +240,19 @@ async function bootstrap() {
 ```
 
 ※ 이유 및 해결 방안
-- .env 파일을 찾을 수가 없어 DB 연결하는 필요한 MONGO_URI를 불러오지 못해서 정상 작동이 안되는 이슈 입니다.
-- 해결 방법은 join(__dirname, '../..', '.env') 
+- .env 파일을 찾을 수가 없어 DB 연결하는 필요한 MONGO_URI의 값을 불러오지 못하여 작동이 안되는 이슈 입니다.
+- 해결 방법은 스크립트 주석으로 1안, 2안으로 작성을 하였습니다. 
  
-  현재 실행중인 파일(Module.ts) 경로인 절대경로를 통해서 .env 파일 경로를 찾으시면 됩니다.
+  설명: 현재 실행중인 파일(Module.ts) 경로인 절대경로를 통해서 .env 파일 경로를 찾으시면 됩니다.
 
+#### 리뷰
+
+electron 알기 전까지는 vue + nestjs + typescript로 다 작성하고 나서 배포를 어떻게 할까 고민하고 있는 도중에 개발부 단체 미팅 중에서 황인호 대리님이 이것을 사용중에 있다고 말을 듣고 나서 electron 검색을 하여 이걸로 배포하면 되겠구나 생각을 하고 바로 기존 작업하던 프로젝트에 electron을 적용시겼습니다.
+
+로컬 실행까지 잘 작동하다가 빌드(배포)후 실행 할때 마다 렌더러 프로세스(front) 페이지가 나타나지 않아서 많이 당황을 했습니다. 결국에는 원인을 찾아서 해결을 한 상황이지만요.
+ 
 
 ---
 참조 사이트
-- https://qiita.com/A_T_B/items/e68b4c85b3e8e4c4aa98#4-vuejs%E3%81%AE%E7%B5%84%E3%81%BF%E8%BE%BC%E3%81%BF
-- https://velog.io/@altmshfkgudtjr/Electron-%EC%A0%81%EC%9A%A9-%EB%B0%8F-%EB%B9%8C%EB%93%9C%ED%95%98%EA%B8%B0
+- [일본 사이트 - electron + vue + nextjs 앱 만들기](https://qiita.com/A_T_B/items/e68b4c85b3e8e4c4aa98#4-vuejs%E3%81%AE%E7%B5%84%E3%81%BF%E8%BE%BC%E3%81%BF)
+- [Electron 적용 및 빌드하기 - 빌드 속성](https://velog.io/@altmshfkgudtjr/Electron-%EC%A0%81%EC%9A%A9-%EB%B0%8F-%EB%B9%8C%EB%93%9C%ED%95%98%EA%B8%B0)
