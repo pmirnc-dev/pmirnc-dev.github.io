@@ -3,7 +3,7 @@ layout: post
 title:  "Electron 초간단 빠른 리뷰"
 date:   2023-01-26 16:23:00 +0900
 author: mclee
-categories: electron javascript
+categories: electron vue nestjs
 ---
 <hr/>
 
