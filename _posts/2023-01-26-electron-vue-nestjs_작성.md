@@ -16,7 +16,7 @@ categories: electron vue nestjs typescript
 ### nest.js 설치 및 electron 설치
 
 1). backend 폴더내에 electron을 설치
-    - npm install -d electron 설치
+- npm install -d electron 설치
 
 2). /src/main.ts electron 실행시키는 소스를 작성
 ```typescript
@@ -88,7 +88,7 @@ app.on("window-all-closed", () => {
     "electron:start": "tsc && npx electron ."
   }
 ```
-- "main": "./dist/main.js" 추가
+- "main": "./dist/main.js" 추가를 합니다. (electron 실행시킬 파일을 경로와 같이 적어 춥니다.)
 - scripts 내에 "electron:start": "tsc && npx electron ." 추가
 
 
@@ -102,12 +102,16 @@ app.on("window-all-closed", () => {
 }
 ```
 ※ 이유
-- npm run electron:start 실행시 dist 폴더내에 src 폴더 포함해서 생성됩니다.
+- npm run electron:start 실행시 dist 폴더내에 src 폴더도 포함해서 생성됩니다.
 
-  dist - src - [파일/폴더 포함]
+  생성된 경로 예) dist - src - [파일/폴더 포함]
+
+
 - npm run start or npm run start:dev 실행시 src 폴더 내에 있는 파일과 폴더들이 dist 폴더에 그대로 생성이 됩니다.
 
-  dist - [파일/폴더 포함]
+  생성된 경로 예) dist - [파일/폴더 포함]
+
+
 - 중복되는 파일과 폴더와 용량 증가 되는 부분을 막기 위해서 include 부분을 추가 하였습니다.
 
 
@@ -123,13 +127,15 @@ app.on("window-all-closed", () => {
 ```typescript
 module.exports = {
   outputDir: "../back/public"
+  //...생략
 }
 ```
 
-2). frontend - package.json - scripts - build를 실행 후에는 backend폴더내에 public 폴더가 생성되는걸 볼 수 있습니다.
+2). frontend - package.json - scripts - build를 실행 후에는 backend 폴더 내에 public 폴더가 생성되는걸 볼 수 있습니다.
 
-3). frontend에서 할 일은 다 끝났습니다.
-    - 추후에 화면 변경시 build로 실행을 하면 됩니다.
+3). 이제 frontend 에서 해야 하는 일들은 끝났습니다.
+
+- 추후에 화면 변경시 front npm run build로 실행을 하면 됩니다.
 
 ---
 
@@ -137,7 +143,8 @@ module.exports = {
 
 ### 빌드 설치
 1). npm install -d electron-builder 설치 후 backend - package.json - scripts에 스크립트 추가
-    - "electron:build" : "electron-builder"
+
+   - "electron:build" : "electron-builder"
 
 2). backend - src - main.ts내에 소스를 수정 작업을 합니다.
 ```typescript
@@ -147,7 +154,8 @@ async function bootstrap() {
   await app.listen(4000);
 }
 ```
-#### ※ 빌드 전에 backend 포트 번호를 변경합시다. 다른 개발중인 것과 간섭을 피하기 위해서 입니다.
+#### ※ 빌드 전에 backend 포트 번호를 변경합시다. 다른 개발중인 것과 간섭 및 포트 충돌을 피하기 위해서 입니다.
+
 
 3). 마지막으로 backend - package.json 소스를 추가를 합시다
 ```json
@@ -223,7 +231,7 @@ async function bootstrap() {
 ```
 - .env 파일을 폴더에 넣어서 포함을 시켜도 되고, 파일명만 작성 하시면 됩니다.
 
-3). WebStrom에서 실행할때는 잘 작동하는데 electron 빌드하고 나서 작동이 안됩니다.
+3). WebStrom에서 실행할 때는 잘 작동하는데 electron 빌드하고 나서 작동이 안됩니다.
 
 ```javascript
 @Module({
@@ -243,14 +251,14 @@ async function bootstrap() {
 - .env 파일을 찾을 수가 없어 DB 연결하는 필요한 MONGO_URI의 값을 불러오지 못하여 작동이 안되는 이슈 입니다.
 - 해결 방법은 스크립트 주석으로 1안, 2안으로 작성을 하였습니다. 
  
-  설명: 현재 실행중인 파일(Module.ts) 경로인 절대경로를 통해서 .env 파일 경로를 찾으시면 됩니다.
+  설명: 현재 실행중인 파일(Module.ts) 경로인 절대경로를 통해서 이전 폴더로 이동을 하여 .env 파일 경로를 찾으시면 됩니다.
 
 #### 리뷰
 
 electron 알기 전까지는 vue + nestjs + typescript로 다 작성하고 나서 배포를 어떻게 할까 고민하고 있는 도중에 개발부 단체 미팅 중에서 황인호 대리님이 이것을 사용중에 있다고 말을 듣고 나서 electron 검색을 하여 이걸로 배포하면 되겠구나 생각을 하고 바로 기존 작업하던 프로젝트에 electron을 적용시겼습니다.
 
 로컬 실행까지 잘 작동하다가 빌드(배포)후 실행 할때 마다 렌더러 프로세스(front) 페이지가 나타나지 않아서 많이 당황을 했습니다. 결국에는 원인을 찾아서 해결을 한 상황이지만요.
- 
+
 
 ---
 참조 사이트
