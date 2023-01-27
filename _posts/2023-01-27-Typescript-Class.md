@@ -58,24 +58,23 @@ class Enemy{
 }
 const lv1Enemy = new Enemy(30,2, '몬스터'); // 생성과 동시에 생성자 실행 됨 "적군 초기화"
 ```
-클래스의 멤버에 접근 하기위해선 `this`를 사용한다.
+클래스의 멤버에 접근 하기위해선 **this**를 사용한다.
 
 ## 접근 제어자
-Typescript엔 세가지의 접근제어자가 있다. 묵시적 타입은 `public`이다.
+Typescript엔 세가지의 접근제어자가 있다. 묵시적 타입은 **public**이다.
 
-`public` : 모든 접근 허용  
-`protected` : 상속받은 클래스내에서만 접근 허용  
-`private` : 클래스 내에서만 접근 허용
+**public** : 모든 접근 허용  
+**protected** : 상속받은 클래스내에서만 접근 허용  
+**private** : 클래스 내에서만 접근 허용
 ```tsx
 class Enemy{
     public hp:number;
     protected power:number;
     private _type:string;
-    private _range:number;
     constructor(hp:number, power:number, type:string){
         this.hp=hp;
-        this.power=_power;
-        this.type=type;
+        this.power=power;
+        this._type=type;
     }
     public attack(){
         console.log(`${this._type}으로 부터 ${this.power} 만큼의 공격을 받았습니다!`);
@@ -94,19 +93,20 @@ class Boss extends Enemy{
     //멤버변수 생략
     constructor(hp:number, power:number, type:string, ultimatePower:number){
         super(hp, power, type);
-        super.attack(); //"type 으로 부터 power 만큼의 공격을 받았습니다!"
+        super.attack(); // "type 으로 부터 power 만큼의 공격을 받았습니다!"
         super._run(); // error : 접근제한 에러
         
     }
 }
 ```
 TypeScript 상에서는 접근 제어자에 따라 접근 또는 차단을 제어할 수 있지만,컴파일된 JavaScript는 접근 제어자를 지원하지 않는다.  
-때문에 실행시 `private`로 선언된 멤버도 호출 되어 실행된다.
+때문에 실행시 **private**로 선언된 멤버도 호출 되어 실행된다.
 
 
 ## 상속
 부모클래스로부터 상속을 받아 자식 클래스에서 부모의 멤버를 사용할 수 있다.
-부모클래스의 생성자 매개변수는 `super()`로 전달할 수 있다.
+부모클래스의 생성자 매개변수는 **super()**로 전달할 수 있다.
+
 ```tsx
 class Enemy{
     private _hp:number;
@@ -140,7 +140,7 @@ boss.ultimateSkill(); // "보스 궁극기 사용! 데미지 : 300"
 
 위와 같이 공통적인 행동은 Enemy 클래스에 보스만의 특별한 행동은 Boss 클래스에 정의하여  
 Enemy 클래스를 상속받아 Boss 클래스는 부모인 Enemy 클래스에 정의된 attack 메소드를  
-중복으로 정의할 필요 없이 사용할 수 있습니다. (`private`로 선언된 메소드는 사용 X)
+중복으로 정의할 필요 없이 사용할 수 있습니다. (**private**로 선언된 메소드는 사용 X)
 
 ## getter setter
 TypeScript는 객체의 멤버에 대한 접근을 getter/setter로 접근할 수 있다.  
@@ -177,7 +177,7 @@ class Boss extends Enemy{
     }
         public ultimateSkill(){ //보스만의 새로운 행위
             super.range = 10;
-            console.log('보스 궁극기 사용! 데미지 : ',this._ultimatePower, "사정거리 : ", super.range);
+            console.log('보스 궁극기 사용! 데미지 : ',this.ultimatePower, "사정거리 : ", super.range);
     }
 }
 const boss = new Boss(1000, 100, '보스', 300, 5);
@@ -189,7 +189,7 @@ console.log(boss.range) // 99
 ```
 
 ## 추상클래스
-일부 메소드가 구현되지 않고 선언만 되어있는 클래스로 `abstract`가 선언된 메소드는 자식 클래스에서 반드시 구현되어야 한다.
+일부 메소드가 구현되지 않고 선언만 되어있는 클래스로 **abstract**가 선언된 메소드는 자식 클래스에서 반드시 구현되어야 한다.
 
 ```tsx
 abstract class Character {
