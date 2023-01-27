@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Typescript Class"
-date:   2023-02-01 20:15:00 +0900
+date:   2023-01-27 20:15:00 +0900
 author: ybcho
 categories: Typescript Class 객체지향
 ---
