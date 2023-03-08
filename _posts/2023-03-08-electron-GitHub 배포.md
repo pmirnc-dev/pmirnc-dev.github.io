@@ -56,7 +56,6 @@ electronBuilder > builderOption > publish 에 github를 추가해 줍니다.
         }
     })
 
-
 4. script 수정
 
 package.json의 script에서 publish 옵션을 추가해 줍니다.
@@ -66,11 +65,9 @@ package.json의 script에서 publish 옵션을 추가해 줍니다.
     
     "electron:build-prod": "vue-cli-service electron:build -p always --mode prod",
 
-
 5. private repository 일 경우 환경변수에 git token을 세팅해 줍니다.
 
 ![downloader2.png](/assets/images/ihhwang/downloader2.png)
-
 
 6. build가 완료되면 github release에 자동으로 올라가고 latest 설정을 해줘야 합니다. 
 
