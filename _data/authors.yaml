@@ -2,17 +2,16 @@ hsyoo :
     username: hsyoo
     name: 유호석
     image: /assets/authors/hsyoo.png
-    position: 개발 리드
+    position: 아저씨
     description: |-
-        개발하는 아재입니다 젊은 척하는 거 좋아합니다
-        음악과 패션을 좋아하고 초보 아기 아빠입니다
-        조사업계에 기술로 혁신을 이룰 수 있다고
-        믿고 있습니다. 믿는 건 자유잖아요
+        초보 아기 아빠입니다. javascript로 모든 걸 해결하고 싶습니다.
+        요즘엔 python도 좋아합니다. cloud는 사랑이고요.
+        온라인 설문 조사 업계에 한획을 긋고 싶은 엔지니어 입니다.
 ihhwang:
     username: ihhwang
     name: 황인호
     image: /assets/authors/ihhwang.png
-    position: 풀스택 & 네이티브 앱 개발
+    position: 마라토너
     description: |-
         PMI 개발부에서 풀스택 및 네이티브 앱 개발을 담당 하고 있습니다.
         드럼과 운동을 좋아하며 철인3종을 목표로 하고 있습니다.
@@ -22,7 +21,7 @@ dhjeon:
     username: dhjeon
     name: 전다훈
     image: /assets/authors/dhjeon.png
-    position: 풀스택
+    position: 요리사
     description: |-
         PMI 개발부에서 요리를 하고 있습니다.
         사시미를 잘씁니다. 회 떠 드릴까요?
@@ -30,22 +29,21 @@ sh.kim:
     username: sh.kim
     name: 김상협
     image: /assets/authors/sh.kim.png
-    position: 웹 개발
+    position: 김상협
     description: |-
         PMI 개발부의 주인공입니다.
 mclee:
     username: mclee
     name: 이명철
     image: /assets/authors/mclee.png
-    position: 풀스택 & 레거시 유지 보수
+    position: 헤비급 챔피언
     description: |-
         PMI 개발부에서 빌런을 맡고 있습니다.
-
 yrbyeon:
     username: yrbyeon
     name: 변유라
     image: /assets/authors/yrbyeon.png
-    position: 웹 개발
+    position: 야구선수
     description: |-
         PMI 개발부에서 서핑을 하고 있고 4번타자를 하고 있습니다.
         투타 겸업 중입니다. 목표는 월드시리즈 우승입니다.
@@ -53,7 +51,7 @@ ybcho:
     username: ybcho
     name: 조용빈
     image: /assets/authors/ybcho.png
-    position: 웹 개발
+    position: MBTI 매니아
     description: |-
         PMI 개발부에서 인싸를 맡고 있습니다.
         고수가 되려고 노력하는 초보 개발자입니다.
@@ -61,7 +59,7 @@ skan:
     username: skan
     name: 안승규
     image: /assets/authors/skan.png
-    position: 만능 개발자
+    position: 돌려차기 마스터
     description: |-
         PMI 개발부의 에이스입니다.
         믿고 맡겨주세요
@@ -70,7 +68,7 @@ jseom:
     username: jseom
     name: 엄진섭
     image: /assets/authors/jseom.png
-    position: 인프라 엔지니어
+    position: 컴퓨존 매니아
     description: |-
         조직의 유일무이한 존재
         제일 바쁩니다
@@ -78,7 +76,7 @@ tkkim:
     username: tkkim
     name: 김태경
     image: /assets/authors/tkkim.png
-    position: 웹 개발
+    position: 점심 패스마스터
     description: |-
         그림그리기, 노래듣기 좋아합니다. (노래 추천 환영합니다)
         발전해나가는 개발자가 되겠습니다.
@@ -86,7 +84,7 @@ ymshim:
     username: ymshim
     name: 심영민
     image: /assets/authors/ymshim.png
-    position: 웹 개발
+    position: 애플 매니아
     description: |-
         PMI 개발부에서 웹 개발을 담당하고 있습니다.
         항상 발전하는 개발자를 꿈꾸고 있습니다.
