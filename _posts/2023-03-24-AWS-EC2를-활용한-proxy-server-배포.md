@@ -21,7 +21,8 @@ categories: AWS EC2 proxy puppeteer
 ## AMI
 
 AMI는 간단하게 EC2의 현재 상태를 이미지화하는 겁니다.  
-proxy server 설치를 위해 저는 다음과 같은 작업을 EC2에 했습니다.
+이미지화 해놓고 새로운 EC2 인스턴스를 생성할 때 해당 이미지와 똑같이 생성할 수 있습니다.  
+proxy server 설치를 위해 저는 다음과 같은 작업을 EC2에 했습니다.  
 
 - EC2 생성
 
