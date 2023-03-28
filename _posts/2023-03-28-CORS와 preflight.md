@@ -3,7 +3,7 @@ layout: post
 title:  "CORS와 preflight"
 date:   2023-03-28 13:59:07 +0900
 author: tkkim
-categories: CORS, API
+categories: CORS API
 ---
 <hr/>
 
