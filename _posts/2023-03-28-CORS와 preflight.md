@@ -17,8 +17,6 @@ categories: CORS API
 CORS에러는 왜 발생하는 것인지 CORS가 정확히 무엇인지에 대해 오늘 알아보고자 한다. 
 
 
-
-
 ## CORS 란
 **Cross-Origin Resource Sharing**
 
