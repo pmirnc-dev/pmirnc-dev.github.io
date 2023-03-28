@@ -40,9 +40,12 @@ CORS에러는 왜 발생하는 것인지 CORS가 정확히 무엇인지에 대�
 
 → 즉, Cross-Origin 정책 지원 리소스는 타 사이트의 리소스에 접근하는것이 가능한 반면에 Same-Origin 정책 지원 리소스는 타 사이트에 대한 접근 제한이 있기 때문에 CORS 를 사용해 접근가능하다.
 
-- **origin**
+
+- origin
+
   사이트 접속 시 인터넷 주소창에서 볼수있는 URL
-  port 부분 까지가 origin에 해당한다.
+  
+    port 부분 까지가 origin에 해당한다.
 
 ![](/assets/images/tkkim/20230328/Untitled 2.png)
 
