@@ -19,48 +19,34 @@ CORS에러는 왜 발생하는 것인지 CORS가 정확히 무엇인지에 대�
 
 
 
-### CORS 란
+## CORS 란
 **Cross-Origin Resource Sharing**
 
 교차 출처 리소스 공유로, 다른 출처에 리소스 요청시 해당 리소스에 접근할수있도록 HTTP header에 추가 설정해 접근권한을 부여하고 브라우저에 알려주는 정책
 
 ![](/assets/images/tkkim/20230328/Untitled 1.png)
 
-- **Cross-Origin** 정책을 지원하는 리소스
 
+- **Cross-Origin** 정책을 지원하는 리소스
     - `<link>` 의 href 에서 타 사이트의 `.css 리소스`에 접근하는 것이 가능
   
     - `<img>` 의 src 에서 타 사이트의 `.png, .jpg 등의 리소스`에 접근하는 것이 가능
   
     - `<script>` 의 src 에서 타 사이트의 `.js 리소스`에 접근하는 것이 가능
-        
-        (type="module" 속성은 제외)
-        
-
-
+      (type="module" 속성은 제외)
 
 - **Same-Origin** 정책을 지원하는 리소스
-
     - 타 도메인 소스에 대해 자바스크립트 `ajax 요청 API 호출`시
   
     - 웹 폰트 CSS 파일 내 @font-face에서 `타 도메인의 폰트 사용` 시
 
-
 → 즉, Cross-Origin 정책 지원 리소스는 타 사이트의 리소스에 접근하는것이 가능한 반면에 Same-Origin 정책 지원 리소스는 타 사이트에 대한 접근 제한이 있기 때문에 CORS 를 사용해 접근가능하다.
 
-
-
-
-
 - **origin**
-    
-    사이트 접속 시 인터넷 주소창에서 볼수있는 URL 
-    
-    port 부분 까지가 origin에 해당한다.
+  사이트 접속 시 인터넷 주소창에서 볼수있는 URL
+  port 부분 까지가 origin에 해당한다.
 
 ![](/assets/images/tkkim/20230328/Untitled 2.png)
-    
-
 
 
 ## CORS 의 필요성
@@ -68,10 +54,8 @@ CORS에러는 왜 발생하는 것인지 CORS가 정확히 무엇인지에 대�
 허용되지 않은 출처에서 보내는 요청들을 무작위로 받게될 경우 로그인 정보를 뺴내거나 무한 요청으로 인한 웹서버의 과도한 트래픽소모, 최종적으로 서버 먹통을 유발 시킬수있다.
 
 →  CORS 정책을 통해 허용되지 않은 출처에서 보내는 요청을 브라우저 단에서 막아준다
-    
 
-
-
+![](/assets/images/tkkim/20230328/Untitled 3.png)
 
 ## CORS 동작원리
 
@@ -82,8 +66,10 @@ CORS에러는 왜 발생하는 것인지 CORS가 정확히 무엇인지에 대�
 3. 클라이언트에서 Origin과 서버가 보내준Access-Control-Allow-Origin을 비교해 차단여부를 결정한다.
 
 - **Simple Request -** 서버에 바로 요청
+
 - **Preflight** - 요청 이전에 유효성 확인을 위한 예비요청
 
+- **Credentialed Request -** 인증된 요청을 사용(보안 강화 시 사용)
 
 ## **Preflight**
 
@@ -91,25 +77,46 @@ CORS에러는 왜 발생하는 것인지 CORS가 정확히 무엇인지에 대�
 
 → 유효하지 않은 요청을 사전 차단 시켜 불필요한 리소스 낭비를 막아줄수있다.
 
-- preflight request가 보내지는 조건
 
+- preflight request가 보내지는 조건
     - `GET`,`HEAD`,`POST` 요청
-  
+
     - 경우에 따른 Contend-Type 값
-  
         - `pplication/x-www-form-urlencoded`
       
         - `multipart/form-data`
       
         - `text/plain`
-      
+  
     - 요청에 사용된 `XMLHttpRequestUpload` 객체에 이벤트 리스너가 등록되어 있지 않을 경우
   
     - 요청에 `ReadableStream` 객체가 사용되지 않을경우
 
+- 서버 설정을 통해 preflight 결과의 캐시를 일정기간 저장가능
+
+  → 캐시정보가 살아있는 시간 동안 preflight를 생략하고 요청전송이 가능
 
 
-    
+![](/assets/images/tkkim/20230328/Untitled 4.png)
+
+- CORS error 이전에 예비요청에 대한 응답을 받기 때문에 예비요청의 성공여부가 아닌
+
+  응답헤더에 Access-Control-Allow-Origin 값의 존재 여부가 중요하다
+
+
+## **Credentialed Request**
+
+기본 제공브라우저가 하는 비동기 리소스 요청 API(`LHttpRequest`객체 or **`fetch`**)
+ API는 별도 옵션 없이 브라우저의 쿠키 정보나 인증과 관련된 헤더를 함부로 요청에 담지 않는다.
+
+이때 `credentials`옵션 사용시 요청에 인증과 관련된 정보를 담을 수 있다.
+
+- Credential request 조건
+    1. `Access-Control-Allow-Origin`에는 `*` 사용불가, 명시적인 URL이어야한다.
+   
+    2. 응답 헤더에는 반드시 `Access-Control-Allow-Credentials: true`가 존재해야한다.
+
+
 ---
 
 참조
