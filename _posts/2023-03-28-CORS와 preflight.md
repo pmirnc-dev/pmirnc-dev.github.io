@@ -1,5 +1,9 @@
-# CORS & preflight
-
+---
+layout: post
+title:  "CORS와 preflight"
+date:   2023-03-28 13:59:07 +0900
+author: tkkim
+---
 ## CORS
 
 ![](/assets/images/tkkim/20230328/Untitled.png)
