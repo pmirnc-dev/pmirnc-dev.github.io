@@ -57,9 +57,9 @@ console.log(`PMI
 - \u UTF-16 문자 표현 (UTF-32는 중괄호{}사용)
 - \\`'" 따옴표
 ```javascript
-console.log( "\"PMI\"" ); /"PMI"
-console.log( "\u2700" ); /✀
-console.log( "\u{1F60D}" ); /😍
+console.log( "\"PMI\"" ); //"PMI"
+console.log( "\u2700" ); //✀
+console.log( "\u{1F60D}" ); //😍
 ```
 ***UTF-16이란?***
 
