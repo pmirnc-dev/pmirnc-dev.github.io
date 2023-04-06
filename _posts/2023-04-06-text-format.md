@@ -9,6 +9,7 @@ categories: String text-format
 
 ## 텍스트서식
 문자열을 일정한 형식에 맞게 정리하거나 표현하는 것
+
 텍스트 문자열을 변경하는 데 사용되는 방법
 
 ### javascript 문자열의 특징
@@ -56,10 +57,24 @@ console.log(`PMI
 - \u UTF-16 문자 표현 (UTF-32는 중괄호{}사용)
 - \\`'" 따옴표
 ```javascript
-console.log( "\"PMI\"" );
-console.log( "\u2700" );
-console.log( "\u{1F60D}" );
+console.log( "\"PMI\"" ); /"PMI"
+console.log( "\u2700" ); /✀
+console.log( "\u{1F60D}" ); /😍
 ```
+***UTF-16이란?***
+
+UTF-16은 유니코드 문자를 나타내기 위한 인코딩 방식 중 하나입니다.
+
+UTF-16은 16비트로 문자를 표현하며, 각 문자마다 2바이트 또는 4바이트(surrogate pair,utf-32)를 사용합니다.
+
+따라서 기본적으론 2^16=65536 개의 문자를 표현할 수 있습니다.
+
+javascript는 UTF-16형식을 따르기 때문에 UTF-16에 포함된 문자 1개는 length를 1로 표현합니다. 때문에 한글과 영어 동일하게 길이가 1로 표현됩니다.
+
+UTF-16에 포함되지 않는 문자들은(emoji 등)2개의 코드를 조합하여(surrogate pair) 표현하거나 utf-32로 표현하기 때문에 length는 2입니다.
+
+ex) 😀의 utf-16코드는 "\uD83D\uDE00" u{1F600}
+
 
 ### String 객체
 String 객체는 문자열 생성자입니다. new 키워드 없이 호출한 String은 일반적으로 사용하는 리터럴 표기법(문자열 원형)과 같은 역할을 합니다.
@@ -80,29 +95,13 @@ console.log(str1); // "2+2"
 console.log(str2); // "2+2"
 console.log(str3); // {"2+2"}
 
-console.log(typeof str1); // "string"
-console.log(typeof str2); // "string"
-console.log(typeof str3); // "object"
+console.log(typeof str1); // string
+console.log(typeof str2); // string
+console.log(typeof str3); // object
 
 console.log(eval(str1));  // 4
 console.log(eval(str3)); // "2 + 2"
 ```
-
-
-
-
-***UTF-16이란?***
-
-UTF-16은 유니코드 문자를 나타내기 위한 인코딩 방식 중 하나입니다.
-
-UTF-16은 16비트로 문자를 표현하며, 각 문자마다 2바이트 또는 4바이트(surrogate pair,utf-32)를 사용합니다.
-
-따라서 기본적으론 2^16=65536 개의 문자를 표현할 수 있습니다.
-
-javascript는 UTF-16형식을 따르기 때문에 UTF-16에 포함된 문자 1개는 length를 1로 표현합니다. 때문에 한글과 영어 동일하게 길이가 1로 표현됩니다. 
-
-UTF-16에 포함되지 않는 문자들은(emoji 등)2개의 코드를 조합하여(surrogate pair) 표현하거나 utf-32로 표현하기 때문에 length는 2입니다. ex) 😀의 utf-16코드는 "\uD83D\uDE00" u{1F600}
-
 
 ### 문자열 메소드
 
@@ -125,7 +124,7 @@ UTF-16에 포함되지 않는 문자들은(emoji 등)2개의 코드를 조합하
 <br />
 
 
-### Intl
+## Intl
 Intl 객체는 여러 가지 언어로 서비스를 할 수 있도록 각 언어에 맞는 문자비교, 숫자, 시간, 날짜비교를 제공하는, ECMAScript 국제화 API를 위한 객체입니다.
 
 예를 들어, 12/11/21라고 표시된 날짜 데이터를 한국 사용자들은 2012년 11월 21일로 생각을 하겠지만, 미국 사용자들에게는 12월 11일 2021년으로 받아들여질 수 있으며,
@@ -138,9 +137,9 @@ Intl 객체는 여러 가지 언어로 서비스를 할 수 있도록 각 언어
 ```javascript
 //default는 window 설정언어
 //style옵션엔 full, long, medium, short 사용
-console.log(new Intl.DateTimeFormat(['ja','ko'],{ dateStyle:'full',timeStyle: 'full'}).format(new Date()));
-console.log(new Intl.DateTimeFormat('en-GB').format(new Date()));
-console.log(new Intl.DateTimeFormat('en-US').format(new Date()));
+console.log(new Intl.DateTimeFormat(['ja','ko'],{ dateStyle:'full',timeStyle: 'full'}).format(new Date())); //2023年4月6日木曜日 9時54分48秒 韓国標準時
+console.log(new Intl.DateTimeFormat('en-GB').format(new Date())); //06/04/2023
+console.log(new Intl.DateTimeFormat('en-US').format(new Date())); //4/6/2023
 ```
 ### Intl.NumberFormat
 언어에 맞는 통화, 백분율, 무게, 길이, 속도, 온도와 같이 단위가 있는 숫자 데이터 서식을 적용할 수 있습니다.
@@ -148,21 +147,21 @@ console.log(new Intl.DateTimeFormat('en-US').format(new Date()));
 
 ```javascript
 //통화
-console.log(new Intl.NumberFormat('ko', { style: 'currency', currency: 'KRW' }).format(50000));
-console.log(new Intl.NumberFormat('ko', { style: 'currency', currency: 'USD' }).format(40.56));
+console.log(new Intl.NumberFormat('ko', { style: 'currency', currency: 'KRW' }).format(50000)); //₩50,000
+console.log(new Intl.NumberFormat('ko', { style: 'currency', currency: 'USD' }).format(40.56)); //US$40.56
 
 //백분율
-console.log(new Intl.NumberFormat('ko', { style: 'percent' }).format(0.7));
-console.log(new Intl.NumberFormat('ko', { style: 'percent' }).format(1 / 4));
+console.log(new Intl.NumberFormat('ko', { style: 'percent' }).format(0.7)); //70%
+console.log(new Intl.NumberFormat('ko', { style: 'percent' }).format(1 / 4)); //25%
 
 //숫자 표기
-console.log(new Intl.NumberFormat('ko').format(15000));
-console.log(new Intl.NumberFormat('de').format(15000));
-console.log(new Intl.NumberFormat('ar-EG').format(15000));
+console.log(new Intl.NumberFormat('ko').format(15000)); //15,000
+console.log(new Intl.NumberFormat('de').format(15000)); //15.000
+console.log(new Intl.NumberFormat('ar-EG').format(15000)); //١٥٬٠٠٠
 
 //킬로그램
-console.log(new Intl.NumberFormat('ko', { style: 'unit', unit: 'kilogram' }).format(50));
-console.log(new Intl.NumberFormat('ar', { style: 'unit', unit: 'kilogram' }).format(50));
+console.log(new Intl.NumberFormat('ko', { style: 'unit', unit: 'kilogram' }).format(50)); //50kg
+console.log(new Intl.NumberFormat('ar', { style: 'unit', unit: 'kilogram' }).format(50)); //50كغم
 ```
 
 
