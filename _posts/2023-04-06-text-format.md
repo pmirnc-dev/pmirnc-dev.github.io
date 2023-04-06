@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "text-format"
-date:   2023-04-06 11:00:00 +0900
+date:   2023-04-06 09:40:00 +0900
 author: ybcho
 categories: String text-format
 ---
@@ -11,10 +11,11 @@ categories: String text-format
 문자열을 일정한 형식에 맞게 정리하거나 표현하는 것
 텍스트 문자열을 변경하는 데 사용되는 방법
 
-## 문자열
-자바스크립트에서는 글자 하나만 저장할 수 있는 별도의 자료형(ex: JAVA의 char)이 없습니다.
-텍스트 형식의 데이터는 길이에 상관없이 문자열은 변경 불가능한 배열과 같은 객체 형태로 저장됩니다.
-UTF-16 형식을 따릅니다.
+## javascript 문자열의 특징
+
+- 자바스크립트에서는 글자 하나만 저장할 수 있는 별도의 자료형(ex: JAVA의 char)이 없습니다.
+- 텍스트 형식의 데이터는 길이에 상관없이 문자열은 변경 불가능한 배열과 같은 객체 형태로 저장됩니다.
+- UTF-16 형식을 따릅니다.
 
 문자열 리터럴은 3가지 방식으로 표현할 수 있습니다.
 
@@ -167,7 +168,9 @@ console.log(new Intl.NumberFormat('ar', { style: 'unit', unit: 'kilogram' }).for
 
 
 참고 사이트   
-[https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Text_formatting](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Text_formatting)  
+[https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Text_formatting](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Text_formatting)
+
 [https://www.daleseo.com/js-intl-api/](https://www.daleseo.com/js-intl-api/)
+
 [https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Intl](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Intl)
 
