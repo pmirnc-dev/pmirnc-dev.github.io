@@ -2,7 +2,7 @@
 layout: post
 title:  "Design Pattern - Singleton & Strategy"
 date:   2023-04-06 09:00:00 +0900
-author: shkim
+author: sh.kim
 categories: typescript design-pattern
 ---
 <hr/>
