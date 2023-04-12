@@ -13,7 +13,6 @@ categories: proxy
 
 ### 
 
-![Untitled](Javascript%E1%84%8B%E1%85%B4%20Proxy%E1%84%80%E1%85%A2%E1%86%A8%E1%84%8E%E1%85%A6%2052edab78afc240b68e8623af5032db8f/Untitled.png)
 ![](/assets/images/yrbyeon/proxyObject.png)
 
 ## 1. Javascript Proxy 객체
