@@ -12,20 +12,31 @@ categories: k8s ssl letsencrypt
 
 이번에는 피앰아이가 서비스 중인 [유니서베이](https://unisurvey.co.kr){:target="_blank"}에   
 
-[cert manager](https://github.com/cert-manager/cert-manager){:target="_blank"}와 [let's encrypt](https://letsencrypt.org/){:target="_blank"}를 이용해 무료 TLS 인증서를 발급하고 적용하는 방법을 알아보겠습니다.ㅏ
+[cert manager](https://github.com/cert-manager/cert-manager){:target="_blank"}와 [let's encrypt](https://letsencrypt.org/){:target="_blank"}를 이용해 무료 TLS 인증서를 발급하고 적용하는 방법을 알아보겠습니다.
 
 
 <div style="display: flex; justify-content: space-around; align-items: center;">
 <div>
-    <img src="https://kubernetes.io/images/kubernetes-horizontal-color.png" width="400" />
+    <img src="https://rastalion.me/wp-content/uploads/2019/09/kubernetes-logo-300x296.png" width="200" />
 </div>
 
 <div>
     <img src="https://avatars.githubusercontent.com/u/39950598?s=280&v=4" width="`200" />
 </div>
+<div>
+    <img src="https://labs.consol.de/assets/images/letsencrypt.png" width="200" />
+</div>
 </div>
 
-우선 kubernetes에 대한 설명은 생략하도록 하겠습니다.  
+
+### kubernetes
+kubernetes에 대한 자세한 설명은 생략하도록 하겠습니다.  
+
+### let's encrypt
+Let's Encrypt는 보안 웹사이트를 위한 인증서의 수동 생성, 유효성 확인, 디지털 서명, 설치, 갱신 등 종전의 복잡한 과정을 없애주는 자동화된 프로세스를 통해 전송 계층 보안(TLS) 암호화를 위해 무료 X.509 인증서를 제공하는 인증 기관입니다.
+
+
+
 
 ### cert-manager
 
