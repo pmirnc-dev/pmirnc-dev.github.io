@@ -96,7 +96,7 @@ module.exports = computing;
 ```
 
 worker.single.thread.ts에서 worker.thread.js를 10번 호출합니다.  
-worker.thread.js는 1e10번의 연산을 수행합니다.  
+worker.thread.js는 1e9번의 연산을 수행합니다.  
 결과를 보겠습니다.  
 
 ```shell
@@ -184,6 +184,7 @@ function computing(index) {
 parentPort?.on('message', async (index) => {
     const value = computing(index);
     parentPort?.postMessage(value);
+    parentPort?.close();
 });
 
 module.exports = computing;
