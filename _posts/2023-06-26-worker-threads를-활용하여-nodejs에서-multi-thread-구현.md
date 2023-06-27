@@ -22,19 +22,30 @@ categories: nodejs worker-threads multi-thread
 
 동시성 문제에 대한 걱정 없이 코드를 작성할 수 있기 때문입니다.
 
+그럼 nodejs도 싱글 스레드일까요?
+
+> Node.js는 Chrome V8 JavaScript 엔진으로 빌드된 자바스크립트 런타임(환경)이다.
+
+nodejs의 이벤트 루프는 싱글 스레드가 맞습니다.
+
+nodejs는 libuv 라이브러리의 thread pool을 이용해서 통해 멀티스레드를 지원합니다.
+
+그래서 우리는 nodejs에서 멀티스레드로 구현이 가능하다고 볼 수 있습니다.
+
 (아래 링크를 참조해주세요.)  
 [https://velog.io/@jaehyeon23/Javascript-%EC%99%80-%EC%8A%A4%EB%A0%88%EB%93%9CThread](https://velog.io/@jaehyeon23/Javascript-%EC%99%80-%EC%8A%A4%EB%A0%88%EB%93%9CThread){:target="_blank"}
 
-
 <hr/>
 
-# 그래서 뭐가 좋다는 거임
+# 그래서 멀티 스레드가 뭐가 좋다는 거임
 
-하지만, 때로는 멀티 스레드가 필요한 경우가 있습니다.
+nodejs에서 병렬처리를 위해 3가지 방법이 있습니다.
 
-CPU 연산이 많이 필요한 작업인 경우 싱글 스레드보다 멀티 스레드가 훨씬 유리합니다.
+1. child_process
+2. cluster
+3. worker_threads
 
-이번 포스팅에서는 싱글 스레드를 사용하는 경우와 멀티 스레드의 차이를 확인해보겠습니다.  
+이번 포스팅에서는 싱글 스레드를 사용하는 경우와 worker threads를 활용한 멀티 스레드의 차이를 확인해보겠습니다.
 
 
 <div style="display:flex;flex-direction: row;align-items: center;justify-content: space-around;border: 1px solid; padding: 5rem;">
@@ -225,6 +236,7 @@ worker_threads로 멀티 스레드를 활성화하여 병렬 처리된 결과 1.
 # worker_threads?
 nodejs에선 멀티스레드를 위해 "worker_threads"라는 모듈을 제공합니다.
 
+
 > Workers (threads) are useful for performing CPU-intensive JavaScript operations.   
 > They do not help much with I/O-intensive work. 
 > The Node.js built-in asynchronous I/O operations are more efficient than Workers can be.
@@ -240,14 +252,20 @@ nodejs 공식 문서에서 worker threads에 대해 위와 같이 설명하고 �
 
 nodejs의 이벤트 루프가 싱글 스레드 논블로킹 모델로써 비동기 I/O작업으로 처리하기 때문입니다.
 
-위에서 한번 언급했듯이 CPU 연산이 많이 필요한 경우에는 아주 큰 차이를 보입니다.
+그렇기 때문에 CPU 연산이 많이 필요한 경우에만 worker_threads를 사용하는 것이 좋습니다.
+
+위에서 언급했듯이 CPU 연산이 많이 필요한 경우는 결과에 아주 큰 차이를 보입니다.
+
 
 <hr/> 
-# 유용한 것들
+# 이외에..
 
 [https://github.com/piscinajs/piscina](https://github.com/piscinajs/piscina){:target="_blank"}  
 piscina는 멀티 스레드를 구현하기에 매우 편하고 인기 많은 worker pool입니다.  
 추후에 기회가 된다면 사용해보고 싶네요.  
+
+[https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/cpu-options-supported-instances-values.html](https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/cpu-options-supported-instances-values.html)
+저희가 가장 많이 이용하는 AWS의 EC2 인스턴스들의 코어와 코어당 기본 스레드는 아래에서 확인하실 수 있습니다.
 
 
 <hr/> 
@@ -265,3 +283,6 @@ nodejs로 개발한지 꽤 오래되었지만 웹 개발 이외의 것을 해본
 시간이 지날수록 nodejs를 http 기반의 API개발의 범주를 넘는 경우가 많이 생기면서, 
 
 nodejs의 다양한 영역에 대해 알아가는 것 같아 기쁘면서도 아직도 멀었다는 생각도 드네요.
+
+도움이 된 글들
+[https://blog.bitsrc.io/node-js-event-loop-and-multi-threading-e42e5fd16a77](https://blog.bitsrc.io/node-js-event-loop-and-multi-threading-e42e5fd16a77){:target="_blank"}
