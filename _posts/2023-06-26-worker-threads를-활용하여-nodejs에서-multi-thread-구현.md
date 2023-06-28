@@ -264,11 +264,15 @@ nodejs의 이벤트 루프가 싱글 스레드 논블로킹 모델로써 비동�
 piscina는 멀티 스레드를 구현하기에 매우 편하고 인기 많은 worker pool입니다.  
 추후에 기회가 된다면 사용해보고 싶네요.  
 
-[https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/cpu-options-supported-instances-values.html](https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/cpu-options-supported-instances-values.html)  
+[https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/cpu-options-supported-instances-values.html](https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/cpu-options-supported-instances-values.html){:target="_blank"}  
 AWS의 EC2 인스턴스들의 코어와 코어당 기본 스레드는 위에서 확인하실 수 있습니다.  
 클라우드로 배포할 경우 참고해서 사용하시면 좋을 것 같아 첨부합니다.
 
-
+[https://developer.mozilla.org/ko/docs/Web/API/Web_Workers_API/Using_web_workers](https://developer.mozilla.org/ko/docs/Web/API/Web_Workers_API/Using_web_workers){:target="_blank"}    
+또 다른 자바스크립트 런타임인 브라우저에서도 멀티 스레드를 구현할 수 있습니다.  
+웹 워커는 웹 브라우저에서 멀티 스레드를 구현하기 위해 사용하는 API입니다.
+콘솔창에서 [navigator.hardwareConcurrency](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/hardwareConcurrency){:target="_blank"}를 입력하면   
+사용자 CPU의 논리 코어 수를 반환할 수 있습니다.
 
 <hr/> 
 # 정리하면서
