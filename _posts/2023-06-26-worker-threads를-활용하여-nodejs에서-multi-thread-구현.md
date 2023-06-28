@@ -12,7 +12,7 @@ categories: nodejs worker-threads multi-thread
 # 스레드?
 
 > 스레드(thread)는 어떠한 프로그램 내에서, 특히 프로세스 내에서 실행되는 흐름의 단위를 말한다. 일반적으로 한 프로그램은 하나의 스레드를 가지고 있지만, 프로그램 환경에 따라 둘 이상의 스레드를 동시에 실행할 수 있다. 이러한 실행 방식을 멀티스레드(multithread)라고 한다
->  [https://ko.wikipedia.org/wiki/%EC%8A%A4%EB%A0%88%EB%93%9C_(%EC%BB%B4%ED%93%A8%ED%8C%85)](https://ko.wikipedia.org/wiki/%EC%8A%A4%EB%A0%88%EB%93%9C_(%EC%BB%B4%ED%93%A8%ED%8C%85))
+>  [https://ko.wikipedia.org/wiki/%EC%8A%A4%EB%A0%88%EB%93%9C_(%EC%BB%B4%ED%93%A8%ED%8C%85)](https://ko.wikipedia.org/wiki/%EC%8A%A4%EB%A0%88%EB%93%9C_(%EC%BB%B4%ED%93%A8%ED%8C%85)){:target="_blank"}
 
 컴퓨터 공학에서 스레드는 위와 같이 정의되고 있습니다.
 
@@ -240,7 +240,7 @@ nodejs에선 멀티스레드를 위해 "worker_threads"라는 모듈을 제공�
 > Workers (threads) are useful for performing CPU-intensive JavaScript operations.   
 > They do not help much with I/O-intensive work. 
 > The Node.js built-in asynchronous I/O operations are more efficient than Workers can be.
-> [https://nodejs.org/api/worker_threads.html](https://nodejs.org/api/worker_threads.html)
+> [https://nodejs.org/api/worker_threads.html](https://nodejs.org/api/worker_threads.html){:target="_blank"}
 
 nodejs 공식 문서에서 worker threads에 대해 위와 같이 설명하고 있습니다.
 
@@ -288,3 +288,6 @@ nodejs의 다양한 영역에 대해 알아가는 것 같아 기쁘면서도 아
 
 도움이 된 글들
 [https://blog.bitsrc.io/node-js-event-loop-and-multi-threading-e42e5fd16a77](https://blog.bitsrc.io/node-js-event-loop-and-multi-threading-e42e5fd16a77){:target="_blank"}
+
+예제 코드
+[https://github.com/pmirnc-dev/worker-threads-example](https://github.com/pmirnc-dev/worker-threads-example){:target="_blank"}
