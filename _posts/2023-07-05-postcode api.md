@@ -218,4 +218,3 @@ postcode 사이트 내에 기재되어있는 다양한 옵션들 중
 [https://www.npmjs.com/package/vue-daum-postcode](https://www.npmjs.com/package/vue-daum-postcode) - **npm 설치 참고 사이트**
 
 [https://vuetifyjs.com/en/components/dialogs/](https://vuetifyjs.com/en/components/dialogs/)
-leedev.tistory.com/178](https://jeleedev.tistory.com/178)
