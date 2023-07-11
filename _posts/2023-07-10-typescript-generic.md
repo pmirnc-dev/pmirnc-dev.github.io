@@ -3,7 +3,7 @@ layout: post
 title:  "typescript Generic"
 date:   2023-07-11 11:00:00 +0900
 author: ybcho
-categories: String text-format
+categories: typescript generic
 ---
 <hr/>
 
