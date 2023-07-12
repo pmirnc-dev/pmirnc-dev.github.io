@@ -122,7 +122,7 @@ AxiosResponse interface 구조
 ![axiosResponse](/assets/images/ybcho/axiosResponse.png)
 <br/>
 
-제네릭 타입 D에 타입을 명시해 주어 data의 타입을 추론함
+제네릭 타입 T에 타입을 명시해 주어 data의 타입을 추론함
 
 ![get](/assets/images/ybcho/get.png)
 <br/>
