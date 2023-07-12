@@ -24,7 +24,7 @@ function 함수이름<T>(매개변수: T): T {
 }
 
 class 클래스1 {
-  메소드이름1<T>(T:매개변수){
+  메소드이름1<T>(매개변수:T){
 
   }
   
@@ -49,7 +49,7 @@ const cls2 = new 클래스2<{name:string, no:number}>();
 ## 제네릭 제약조건
 원하지 않는 속성에 접근하는 것을 막기 위해 Generic에 제약조건을 사용합니다. 제약조건을 사용하여 특정 타입들로만 동작하도록 할 수 있습니다.
 
-* 제약 조건을 걸기 위해선 <T>에 extends 사용
+* 제약 조건을 걸기 위해선 T에 extends 사용
 
 * 제약조건에 벗어나는 타입은 에러 발생
 
@@ -66,7 +66,7 @@ setMessage<object>([1,2,3,4,5]); //type Error
 ```ts
 interface IProperty {
     toString():string;
-    length:number
+    length:number;
 }
 
 function genericFn1<T extends IProperty>(arg: T): T {
@@ -76,7 +76,7 @@ function genericFn1<T extends IProperty>(arg: T): T {
 }
 
 genericFn1<string>("123");
-genericFn1<number>(123); //type Error
+genericFn1<number>(123); //type Error length 속성이 없음
 genericFn1<Array<number>>([1,2,3,4,5]);
 genericFn1<{name:string; no:number}>({name:'pmi',no:1}); //type Error
 ```
@@ -99,7 +99,7 @@ function unionFn(msg: number|string){
 }
 genericFn<string>("123").toString(); 
 genericFn<number>(123).toFixed();
-genericFn<string>("123").toFixed(); // 타입추론되어 사전에 에러 방지
+genericFn<string>("123").toFixed(); //error 타입 추론되어 에러를 사전에 방지
 unionFn(123).toFixed(); //type Error - string 타입엔 toFixed속성이 없다고 에러
 anyFn("123").toFixed() //type 체크 안함
 ```
@@ -111,11 +111,21 @@ anyFn("123").toFixed() //type 체크 안함
 
 
 ### aixos에서 제네릭 사용하기
+
+axios 메소드
+
 ![axios](/assets/images/ybcho/axios.png)
+<br/>
+
+AxiosResponse interface 구조
 
 ![axiosResponse](/assets/images/ybcho/axiosResponse.png)
+<br/>
+
+제네릭 타입 T에 타입을 명시해 주어 data의 타입을 추론함
 
 ![get](/assets/images/ybcho/get.png)
+<br/>
 
 ![post](/assets/images/ybcho/post.png)
 
