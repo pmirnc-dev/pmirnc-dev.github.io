@@ -29,9 +29,10 @@ sh.kim:
     username: sh.kim
     name: 김상협
     image: /assets/authors/sh.kim.png
-    position: 김상협
+    position: 난간다
     description: |-
-        PMI 개발부의 주인공입니다.
+        건강하세요.. 응원합니다
+    quit: true
 mclee:
     username: mclee
     name: 이명철

@@ -6,17 +6,19 @@
     <ul class="people-list">
         {%- for author in site.data.authors -%}
             {%- assign item = author[1] -%}
-            <li class="people-list-item">
-                <div class="people-list-item-container">
-                    <a class="people-list-anchor" href="/people/{{ item.username }}" >
-                        <div class="people-list-avatar" style="background-image: url('{{ item.image }}')">
+                {% if item.quit!= true %}
+                    <li class="people-list-item">
+                        <div class="people-list-item-container">
+                            <a class="people-list-anchor" href="/people/{{ item.username }}" >
+                                <div class="people-list-avatar" style="background-image: url('{{ item.image }}')">
+                                </div>
+                                <div>
+                                    {{ item.name }}
+                                </div>
+                            </a>
                         </div>
-                        <div>
-                            {{ item.name }}
-                        </div>
-                    </a>
-                </div>
-            </li>
+                    </li>
+                {% endif %}
         {%- endfor -%}
     </ul>
 </div>
