@@ -131,6 +131,8 @@ deep - 변경 감지가 필요할 경우
 
 immediate - 변경 & 페이지 읽어들였을 때의 처리가 필요할 경우
 
+---
+
 [참조]
 
 [https://michaelnthiessen.com/force-re-render](https://michaelnthiessen.com/force-re-render)
