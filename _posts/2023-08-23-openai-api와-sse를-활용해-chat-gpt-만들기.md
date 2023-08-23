@@ -120,7 +120,9 @@ subscribe.ts는 클라이언트와 SSE 연결을 맺고 클라이언트의 respo
 
 클라이언트가 연결을 끊으면 store에서 해당 클라이언트의 response를 삭제합니다.
 
-abort는 OpenAI nodejs SDK에서 제공하는 stream을 중단시키는 메서드입니다.(https://github.com/openai/openai-node)[https://github.com/openai/openai-node]
+abort는 OpenAI nodejs SDK에서 제공하는 stream을 중단시키는 메서드입니다.
+
+[https://github.com/openai/openai-node](https://github.com/openai/openai-node)
 
 **여기서 주목할만한 부분은 content-type이 text/event-stream이라는 것입니다. 이것은 SSE를 위한 content-type입니다.**
 
