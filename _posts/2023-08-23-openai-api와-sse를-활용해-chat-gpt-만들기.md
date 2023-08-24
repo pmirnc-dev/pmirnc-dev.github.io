@@ -9,7 +9,7 @@ categories: openai chatgpt sse
 
 ## ChatGPT
 
-[OpenAI](https://openai.com/)에서 chatGPT를 공개한지 거의 1년이 다되어 가는군요.(2022년 11월 30일)
+[OpenAI](https://openai.com/){:target="_blank"}에서 chatGPT를 공개한지 거의 1년이 다되어 가는군요.(2022년 11월 30일)
 
 아이폰 출시에 맞먹는 충격이라고 불릴만큼 그 여파가 엄청 났고, 파생 상품들도 많이 쏟아졌죠.
 
@@ -28,7 +28,7 @@ chatGPT에서 프롬프트를 입력하면 한글자씩 넘어오는 걸 볼 수
 ## SSE(Server-Sent Events)
 > 전통적으로 웹페이지는 새로운 데이터를 받기 위해 서버로 요청을 보내야만 합니다; 서버로 데이터를 요청하는 방식입니다. 하지만 Server-Sent Events 방식으로 웹페이지의 요청 없이도 언제든지 서버가 새로운 데이터를 보내는 것이 가능합니다. 이렇게 보내진 메시지는 웹페이지 안에서 Events + 데이터로 다룰 수 있습니다.
   
-출처: [https://developer.mozilla.org/ko/docs/Web/API/Server-sent_events](https://developer.mozilla.org/ko/docs/Web/API/Server-sent_events)
+출처: [https://developer.mozilla.org/ko/docs/Web/API/Server-sent_events](https://developer.mozilla.org/ko/docs/Web/API/Server-sent_events){:target="_blank"}
 
 SSE는 서버에서 클라이언트로 데이터를 보내는 단방향 통신입니다.
 
@@ -122,7 +122,7 @@ subscribe.ts는 클라이언트와 SSE 연결을 맺고 클라이언트의 respo
 
 abort는 OpenAI nodejs SDK에서 제공하는 stream을 중단시키는 메서드입니다.
 
-[https://github.com/openai/openai-node](https://github.com/openai/openai-node)
+[https://github.com/openai/openai-node](https://github.com/openai/openai-node){:target="_blank"}
 
 **여기서 주목할만한 부분은 content-type이 text/event-stream이라는 것입니다. 이것은 SSE를 위한 content-type입니다.**
 
@@ -196,7 +196,7 @@ export const requestAPI = async (req: Request, res: Response) => {
 }
 ```
 
-[OpenAI node](https://github.com/openai/openai-node)를 이용해서 chatGPT를 호출합니다.
+[OpenAI node](https://github.com/openai/openai-node){:target="_blank"}를 이용해서 chatGPT를 호출합니다.
 
 API를 stream으로 응답받기 위해 중간에 stream: true 옵션을 넣어줍니다.
 
@@ -425,13 +425,13 @@ openai 함수에서 textarea의 값을 가져와서 서버에 전송합니다.(m
 
 비싼 GPT-4 API를 사용했습니다. API는 현재 gpt-4 8k(컨텍스트 사이즈)만 가능하고, 32k는 불가능합니다.
 
-자세한 model들은 [https://platform.openai.com/account/rate-limits](https://platform.openai.com/account/rate-limits)를 참고해주세요.
+자세한 model들은 [https://platform.openai.com/account/rate-limits](https://platform.openai.com/account/rate-limits){:target="_blank"}를 참고해주세요.
 
 참고 자료  
-[https://ably.com/blog/websockets-vs-sse](https://ably.com/blog/websockets-vs-sse)  
-[https://github.com/openai/openai-node](https://github.com/openai/openai-node)  
-[https://developer.mozilla.org/ko/docs/Web/API/Server-sent_events/Using_server-sent_events](https://developer.mozilla.org/ko/docs/Web/API/Server-sent_events/Using_server-sent_events)
+[https://ably.com/blog/websockets-vs-sse](https://ably.com/blog/websockets-vs-sse){:target="_blank"}  
+[https://github.com/openai/openai-node](https://github.com/openai/openai-node){:target="_blank"}  
+[https://developer.mozilla.org/ko/docs/Web/API/Server-sent_events/Using_server-sent_events](https://developer.mozilla.org/ko/docs/Web/API/Server-sent_events/Using_server-sent_events){:target="_blank"}
 
 
 예제 코드  
-[https://github.com/pmirnc-dev/openai-sse-example](https://github.com/pmirnc-dev/openai-sse-example)
+[https://github.com/pmirnc-dev/openai-sse-example](https://github.com/pmirnc-dev/openai-sse-example){:target="_blank"}
