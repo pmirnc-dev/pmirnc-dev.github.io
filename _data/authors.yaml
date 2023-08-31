@@ -2,11 +2,9 @@ hsyoo :
     username: hsyoo
     name: 유호석
     image: /assets/authors/hsyoo.png
-    position: 아저씨
+    position: 애기아빠
     description: |-
-        초보 아기 아빠입니다. javascript로 모든 걸 해결하고 싶습니다.
-        요즘엔 python도 좋아합니다. cloud는 사랑이고요.
-        온라인 설문 조사 업계에 한획을 긋고 싶은 엔지니어 입니다.
+        2살 아기 키우는 애기아빠입니다.
 ihhwang:
     username: ihhwang
     name: 황인호
