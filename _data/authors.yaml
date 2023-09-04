@@ -88,3 +88,10 @@ ymshim:
         PMI 개발부에서 웹 개발을 담당하고 있습니다.
         항상 발전하는 개발자를 꿈꾸고 있습니다.
         음악과 여행을 좋아합니다.
+ejsin:
+    username: ejsin
+    name: 신은진
+    image: /assets/authors/ejsin.png
+    position: 미지의 세계
+    description: |-
+        새롭게 합류했습니다.
