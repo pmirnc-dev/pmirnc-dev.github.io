@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "nestjs main.ts 내에 있는 app.enableCors() 세팅방법"
-date:   2023-09-13 09:00:00 +0900
+date:   2023-09-21 09:00:00 +0900
 author: mclee
 categories: nestjs
 ---
