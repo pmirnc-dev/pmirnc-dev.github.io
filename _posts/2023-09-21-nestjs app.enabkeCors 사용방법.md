@@ -96,20 +96,16 @@ async function bootstrap() {
 bootstrap();
 ```
 1. boolean 타입
-   - true   : CORS를 동일 출처 정책(same-origin policy)으로만 세팅이 됩니다. 
-        ex) localhost:3000 != localhost:8080
-            localhost:3000 == localhost:3000/login
+   - true   : CORS를 활성화 됩니다. 어떤 url로 진입 하듯 Access-Control-Allow-Origin: [url] 로 응답해더를 받습니다.
    - false  : CORS를 비활성화 시킵니다.
-
+   - 배포단계에서는 Cors를 비활성화 하거나 cors 해야 되는 url를 추가 하면 됩니다.
 2. string 타입
     - 단 하나의 특정 origin만 요청을 반영
-    
 3. 정규식
-    - /example\.com$/ 정규식은 example.com로 끝나는 origin에서 오는 모든 요청을 반영을 합니다.
-
+    - /example\.com$/ 정규식은 example.com로 끝나는 url에서 오는 모든 요청을 반영을 합니다.
 4. 배열
-    - 여러개 origin을 필요 경우 배열로 설정 하면 됩니다.
-        ex) ["http://example1.com", /\.example2\.com$/]
+    - 여러개 url이 접속이 필요 경우 배열로 설정 하면 됩니다.
+    - ex) ["http://example1.com", /\.example2\.com$/]
 5. 함수(function)
     - origin 사용자 정의 논리를 구현하는 함수입니다.
     - 들어오는 origin을 어떻게 처리할지 로직을 직접 커스텀하는 함수
@@ -118,9 +114,9 @@ bootstrap();
 
 ### 결론
 
-저희가 웹리포트, 기타 등등 backend 구성을 nestjs로 작성하신다면 참조되셨으면 합니다..
+저희가 웹리포트, 기타 프로젝트 등등 backend를 구성할 nestjs로 작성하신다면 참조되셨으면 합니다.
 
-개발시 app.enableCors()만 사용하시다가 배포전에  origin을 추가 하시면 됩니다.
+개발시 app.enableCors()만 사용하시다가 배포전에  origin 옵션을 추가하여 불필요한 접근을 막으시면 되겠습니다.
 
 ---
 참조사이트 
