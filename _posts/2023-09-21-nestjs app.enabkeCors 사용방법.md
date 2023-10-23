@@ -59,7 +59,7 @@ bootstrap();
 
 origin 값을 설정하기 위해서 아래 코드와 같이 값을 설정 하시면 됩니다.
 
-origin 옵션에 들어가는 구성요소들
+origin 옵션에 들어가는 구성요소
 ```typescript
 declare type StaticOrigin = boolean | string | RegExp | (string | RegExp)[];
 
@@ -67,7 +67,7 @@ export declare type CustomOrigin = (requestOrigin: string, callback: (err: Error
 
 ```
 
-아래의 5가지 방법중 하나를 선택하여 추가하시면 됩니다.
+작성 방법은 5가지 중에서 하나를 선택하여 작성하시면 됩니다.
 
 ```typescript
 async function bootstrap() {
@@ -98,25 +98,24 @@ bootstrap();
 1. boolean 타입
    - true   : CORS를 활성화 됩니다. 어떤 url로 진입 하듯 Access-Control-Allow-Origin: [url] 로 응답해더를 받습니다.
    - false  : CORS를 비활성화 시킵니다.
-   - 배포단계에서는 Cors를 비활성화 하거나 cors 해야 되는 url를 추가 하면 됩니다.
 2. string 타입
-    - 단 하나의 특정 origin만 요청을 반영
+    - 단 하나의 URL만 요청을 받습니다.
 3. 정규식
-    - /example\.com$/ 정규식은 example.com로 끝나는 url에서 오는 모든 요청을 반영을 합니다.
+    - 정규식은 /example\.com$/에 정규표현식에 맞는 URL을 구분하여 요청을 받습니다.
 4. 배열
-    - 여러개 url이 접속이 필요 경우 배열로 설정 하면 됩니다.
+    - 여러개 URL의 접속이 필요 경우 배열로 설정 하면 됩니다.
     - ex) ["http://example1.com", /\.example2\.com$/]
 5. 함수(function)
     - origin 사용자 정의 논리를 구현하는 함수입니다.
-    - 들어오는 origin을 어떻게 처리할지 로직을 직접 커스텀하는 함수
+    - 들어오는 URL을 어떻게 처리할지 로직을 직접 커스텀하는 함수
 
 앞서 말했듯이 5가지 타입에서 하나만 설정을 하신다면 모든요청(*) 기본값을 변경 및 보안 취약점을 예방할 것으로 보입니다.
 
 ### 결론
 
-저희가 웹리포트, 기타 프로젝트 등등 backend를 구성할 nestjs로 작성하신다면 참조되셨으면 합니다.
+웹리포트, 기타 프로젝트 등등 nestjs로 backend 작성하실때 참고가 되었으면 좋겠습니다.
 
-개발시 app.enableCors()만 사용하시다가 배포전에  origin 옵션을 추가하여 불필요한 접근을 막으시면 되겠습니다.
+개발시 app.enableCors()로 사용하시다가 배포전에 origin 옵션을 추가하여 불필요한 접근을 막으시면 되겠습니다.
 
 ---
 참조사이트 
