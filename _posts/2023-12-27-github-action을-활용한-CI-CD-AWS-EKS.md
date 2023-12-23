@@ -1,9 +1,10 @@
 ---
 layout: post
 title:  "github action을 활용한 CI/CD(with AWS EKS)"
-date:   2023-12-27 09:00:00 +0900
+date:   2023-12-23 09:00:00 +0900
 author: hsyoo
 categories: AWS EKS k8s CI/CD github
+published: true
 ---
 <hr>
 
@@ -19,9 +20,17 @@ k8s에 대한 지식이 아직도 부족하지만, 그 동안 쌓은 경험들�
 
 최근 github를 업무에 적극 활용하기 시작했습니다. 회사에서 MS Teams를 사용하게 되면서 그 효과가 더욱 커졌습니다.
 
-**오늘은 그동안 미루어왔던 github action을 활용해 AWS EKS 클러스터 CI/CD 파이프라인을 구축 사례를 공유하려고 합니다.**
+**오늘은 그동안 미루어왔던 github action을 활용해 AWS EKS 클러스터 CI/CD 파이프라인 구축 사례를 공유하려고 합니다.**
+
+<hr/>
 
 ## 본문
+
+인증하는 방법은 2가지가 있습니다.
+
+AWS 자격 증명을 Github에 직접 등록하거나 OIDC를 사용하는 방법입니다.
+
+과정상 더 간편한 방법은 Access key와 Secret key로 자격 증명을 하는게 쉽고 빠르겠지만, 보안상의 이유로 OIDC를 사용하는 게 더 좋습니다.
 
 ### 자격 증명 공급자(Identity providers) 생성
 
@@ -253,19 +262,23 @@ data:
 
 ### 결과
 
-드디어 끝났습니다. 배포버전의 branch를 deploy/** 형태로 생성하고 푸시하면 github action이 실행됩니다.
+드디어 끝났습니다. 잘 따라오셨다면 
+
+배포버전의 branch를 deploy/** 형태로 저장소에 push한다면 github action이 실행되고, EKS deployment가 업데이트 될 것입니다.
 
 ![img.png](/assets/images/hsyoo/github-actions-workflow.png)
 
-## 마치면서..
+<hr/>
 
-이번 포스팅은 github action을 활용해 CI/CD 파이프라인을 구축하는 방법을 공유했습니다.
+## 마치면서..
 
 꼬박 하루를 투자해야 했지만, github action을 활용해 CI/CD 파이프라인을 구축할 수 있게 되었습니다.
 
 branch 관리를 철저히 하지 않으면, 배포 버전이 잘못 배포되는 등의 문제가 발생할 수 있습니다.
 
-이제 앞으로 진행하는 프로젝트들은 github action을 활용해 CI/CD 파이프라인을 통해 배포를 진행할 예정입니다.
+앞으로 진행하는 프로젝트들을 이번에 구현한 파이프라인을 통해 배포를 진행할 예정입니다.
+
+다소 복잡해보이고, 귀찮아보이지만 한번 구축해놓으면 편하게 사용할 수 있습니다.
 
 긴 글 읽어주셔서 감사하고, 이 포스팅에 큰 도움이 된 참고 자료를 남깁니다.
 
