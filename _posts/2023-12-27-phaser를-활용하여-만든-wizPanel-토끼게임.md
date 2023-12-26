@@ -9,10 +9,467 @@ categories: phaser3
 <!--나중에 통합-->
 <!--인호 과장님-->
 
+# 황인호
+
+**역할**
+
+* 메인 게임 개발
+
 ## 이슈 & 해결
+Phaser 를 잘 알지 못할때는 진짜 간단한 가위바위보나 카드 뒤집기 정도 수준만 개발을 해봤는데 실제 상용화 되는 게임을 만들어야 하니 걱정이 됐습니다.
+
+개발 시작단계에는 용빈 주임이 많이 바빠서 상대적으로 시간이 좀 있었던 제가 게임 파트를 만들고 인트로, 랭킹, 통신 같은 후반 작업을 용빈 주임에게 맡기기로 했습니다.
+
+### 개발 순서
+
+다음과 같이 핵심 기능부터 스택을 쌓듯이 차례대로 개발을 했습니다.
+
+    우주선 → 토끼, 쥐 → 폭탄 → 점수 & 폭탄 이벤트 → 시계 & 시계 이벤트 → 점수 & 시간 UI 작업 → Game Over → 폭탄 판정 범위
+
+
+### 우주선(구 바구니)
+
+이 부분은 그렇게 어렵진 않았고 키보드로 움직이게 해야 하나 Drag로 해야 하나 고민했는데 
+
+모바일에서도 사용한다고 하여 Drag 방식으로 변경 했습니다.
+
+### Object Physics Group
+
+labs: [https://labs.phaser.io/edit.html?src=src\\physics\\arcade\\group vs group.js](https://labs.phaser.io/edit.html?src=src%5C%5Cphysics%5C%5Carcade%5C%5Cgroup%20vs%20group.js)
+
+랜덤한 Object Group 을 상단에서 하단으로 떨어트려야 하는데 어떻게 해야 할지 몰라서 Phaser 사이트를 다 뒤져보기 시작했습니다. 
+
+Object에 물리 그룹을 만들어 좌표, 개수, 가속도 등등 설정을 할 수 있다는걸 알게 되었고 위에서 아래로 떨어트리는건 성공 했습니다.
+
+### overlap
+
+labs: [https://labs.phaser.io/edit.html?src=src\\physics\\arcade\\sprite overlap group.js](https://labs.phaser.io/edit.html?src=src%5C%5Cphysics%5C%5Carcade%5C%5Csprite%20overlap%20group.js)
+
+게임에서 설정한 Object들이 서로 부딪치면 특정 이벤트를 줄 수 있는 기능 입니다.
+
+우주선과 오브젝트 그룹이 닿게 되면 사라지는 것 까진 설정 했는데 화면을 넘어가면 object가 그대로 남아있어서 메모리가 상승하기 시작했습니다.
+
+**문제 해결 시도**
+
+1. 화면 밖을 벗어나면 object를 파괴 → 방법을 찾아보려 했으나 뭔가 잘 안됐습니다.
+2. 일정 시간이 지나면 스스로 파괴 → 그렇기엔 메모리 상승을 조금이라도 줄이고 싶었습니다.
+
+**꼼수**
+
+전에 Unity를 잠깐 했을 때 화면 바깥에 보이지 않는 벽을 세워 object가 밖으로 나가지 못하게 했던 것이 생각이 났습니다. 
+
+그래서 여기도 화면 제일 하단에 보이지 않는 투명한 얇은 바닥을 두고 그곳에 닿으면 파괴되도록 해서 개발 시간을 약간 아낄 수 있었습니다.
+
+
+<img src="../assets/images/ihhwang/rabbit-02.png" height="600" alt="rabbit-02">
+
+### 시계 획득시 제한시간 증가
+
+이 부분이 진짜 어려웠던 것 같습니다.
+
+단순히 생각해서 제한시간 30초 가 있고 시계를 획득하면 5초가 증가한다는 개념은 머리로 이해가 가는데
+
+실제로 코드가 적용 되지 않아 정말 머리를 쥐어뜯었던 것 같습니다.
+
+제한시간과 Time Event는 따로 흘러간다는 것을 뒤늦게 알았습니다.
+
+**문제**
+
+시계를 획득하면 제한시간 + 5초를 더하니까 제한시간은 늘어나는데 게임 시간은 30초 고정으로 흘러갔습니다.
+
+**해결**
+
+현재 남은 시간 + 5초를 더하여 Time Event를 다시 리셋을 하니 성공 했습니다.
+**main.scene.ts**
+
+```jsx
+// 우주선과 시계가 overlap 될 때
+this.physics.add.overlap(
+  this.basket,
+  this.clockGroup,
+  (basket, clock) => {
+    this.registry.set("clock");
+    this.clockGetSound.play();
+    const currentTime = this.countdown.getSecond().toString();
+    this.countdown.addSecond(
+      currentTime,
+      5000,
+      this.handleCountDownFinished.bind(this)
+    );
+    clock.destroy();
+  }
+);
+```
+
+**countdown.controller.ts**
+
+```jsx
+start(callback: any) { // 본 게임은 30초
+  this.stop();
+	// 최초 시간 등록
+  this.timerEvent =  this.scene.time.addEvent({
+    delay: this.duration,
+    callback: () => {
+      this.label.text = ''
+
+      this.stop()
+
+      if (callback) {
+        callback()
+      }
+    }
+  })
+}
+
+addSecond(currentTime: string, time: number, callback: any) {
+  const remainTime = (Number(currentTime) * 1000) + time;
+  this.duration = remainTime
+  // 시간 재설정
+  this.timerEvent!.reset({
+    delay: remainTime,
+    callback: () => {
+      this.label.text = ''
+
+      this.stop()
+
+      if (callback) {
+        callback()
+      }
+    }
+  })
+}
+```
+
+## UI 부분
+
+먼저 Phaser 는 Scene 이라는 개념이 있습니다.
+
+한글로 해석하면 장면이고 사용자에게 보여 줄 화면을 나타냅니다.
+
+`**scene.start(’key’)**` 를 통해 실행시키고자 하는 Scene Class 를 실행할 수도 있고
+
+**pause**, **destroy** 같이 Scene 상태를 다양하게 제어할 수 있습니다.
+
+항상 화면에 떠 있어야 하는 **Top-Bar** 와 게임 시작 시에만 나타나는 **UI scene**을 구현하는게 헷갈렸었습니다.
+
+Vue.js 에서는 다음과 같이 Navigation 영역, Main 영역을 쉽게 나눌 수 있지만
+
+Phaser는 영역 구분이 잘 안되고 반드시 Scene 위에 다른 Scene 을 쌓아야 합니다.
+
+```html
+<template>
+	<v-nav>
+		<NavigationView />
+	<v-nav>
+	<v-main>
+		<router-view />
+	</v-main>
+</template>
+```
+
+(아니면 제가 못 찾은 것 일수도…)
+
+다음 화면과 같이 Main Scene 위에 TopBar + UI 를 겹친 화면 입니다.
+
+Vue.js 로 표현하면 자식 컴포넌트 같은 개념입니다.
+
+<img src="../assets/images/ihhwang/rabbit-01.png" height="600" alt="rabbit-01">
+
+**UI Scnee**
+
+처음엔 Main 과 UI 를 같이 합칠까 하다가 코드가 너무 길어져서 가독성이 떨어질 것 같아 분리 했습니다.
+
+**Top-Bar Scene**
+
+이 코드는 어떻게 해줄 지 몰라서 Scene 마다 같이 실행되게 코드를 모두 넣었습니다.
+
+뭔가 Floating Button 같은 전체적으로 통제하는 방법이 있을 법 한데 찾지 못해서 이렇게 했습니다😥
+
+`**this.scene.launch("top-bar");` // Scene 동시 실행**
+
+## Time Event
+
+javascript에서 사용하는 setTimeout 이나 setInterval 같은 시간 관련 함수 입니다.
+
+물론 setTimeout 이나 setInterval 를 사용해도 되지만 가끔씩 잘 적용되지 않는 경우가 있어
+
+Phaser 에서 제공하는 Time Evnet를 사용하는 것이 이벤트를 제어하기도 쉽고 더 좋은 것 같습니다.
+
+```jsx
+// setTimeout과 동일한 기능을 하는 time event
+// 3초 카운트다운 후 핵심 게임 로직들 실행
+this.time.delayedCall(3000, () => {
+  // 핵심 게임 로직들
+});
+```
+
+## Event & Registry
+
+런칭 막바지 쯤, 용빈 주임님이 재도전을 하면 할수록 시간이 너무 빨리 줄어드는 것 같다고 하셔서 확인을 해보니
+
+첫 판은 괜찮은데 재도전을 할 수록 시간이 점점 빨리 줄어드는게 보였습니다.
+
+무슨 문제인진 모르겠지만 시간 관련 이벤트가 중복으로 호출된다는 느낌을 받았습니다.
+
+로그를 확인해보니 제 생각이 맞았었습니다.
+
+**registry** 라는 vue로 치면 store 같이 전역으로 사용할 수 있는 데이터 매니저가 있습니다.
+
+main 과 uiscene 에서 시간, 점수들을 공유해야 했기 때문에 registry 를 사용했습니다.
+
+Scene이 종료되면 자동으로 사라지는 줄 알았는데 재도전을 하면 한번 더 등록하기 때문에
+
+이벤트가 중첩으로 호출 되고 있었습니다.
+
+registry에 event를 등록한 후, 해제하지 않으면 계속 남아있는 줄도 모르고 썼다가 큰일 날 뻔 했습니다.
+
+화면 전환 혹은 게임 종료 시 수동으로 종료를 해줘야 한다는 것도 알게 되었습니다.
+
+**ui.scene.ts**
+
+```jsx
+this.registry.events.on('changedata', this.updateScore, this); // changedata 이벤트 등록
+```
+
+**main.scene.ts**
+
+```jsx
+// 게임 종료시 모든 object, physics, time, event, sound 종료
+private handleCountDownFinished() {
+  // pause physics event
+  this.physics.pause();
+  // remove Time event
+  this.time.removeAllEvents();
+  // 바구니 drag off
+  this.input.off("drag");
+
+  // event off
+  this.events.off('addScore')
+  this.events.off('subScore')
+  this.events.off('resetScore')
+  **this.registry.events.off('changedata');**
+
+  this.clockSound.stop();
+  this.clockGetSound.stop();
+  this.countdown.stop();
+
+  this.scene.stop();
+  this.scene.run("game_over", { score: this.score });
+}
+```
 
 ## 느낀점
 
+정말 스스로 많이 부족함을 느꼈습니다.
+
+그러나 개발을 하면 할수록 막연하게 생각했던 객체 지향에 대해 드디어 깨닫기 시작한 것 같습니다.
+
+현실세계의 것을 코드로~~ 상속~~  등등 객체지향의 막연한 개념과 얕은 지식으로만 알고 있었는데
+
+반복적이고 장황한 코드를 줄이기 위해 Object Class를 생성하여 코드를 줄이는데 성공 했습니다.
+
+- before - 불편
+
+  ![img](https://jjalbang.today/files/jjalbox/2021/11/20211103_61823a4fbac8b.gif)
+
+  일단 만들어 보고 나중에 리팩터링 해야지 하는 마음으로 일단 급하게 코드를 짰는데
+
+  지금 보면 진짜 답답해 보인다.
+
+  **main.ts**
+<details>
+<summary>BEFORE-CODE</summary>
+
+```jsx
+// rabbit
+const rabbits = this.physics.add.group({
+  collideWorldBounds: true,
+  velocityY: this.gameConfig.velocityY,
+  maxSize: this.gameConfig.rabbit.count,
+  gravityY: this.gameConfig.gravity,
+});
+
+// mouse
+const mouses = this.physics.add.group({
+  collideWorldBounds: true,
+  velocityY: this.gameConfig.velocityY + 50,
+  maxSize: this.gameConfig.mouse.count,
+  gravityY: this.gameConfig.gravity
+});
+
+// bombs
+const bombs = this.physics.add.group({
+  collideWorldBounds: true,
+  velocityY: this.gameConfig.velocityY + 100,
+  maxSize: this.gameConfig.bomb.count,
+  gravityY: this.gameConfig.gravity
+});
+
+// clock
+const clocks = this.physics.add.group({
+  collideWorldBounds: true,
+  velocityY: this.gameConfig.velocityY + 100,
+  maxSize: this.gameConfig.clock.count,
+  gravityY: this.gameConfig.gravity
+});
+
+rabbits.clear();
+mouses.clear();
+bombs.clear();
+clocks.clear();
+const createRabbit = () => {
+  const x = this.getXPos(0, width);
+  const y = this.getXPos(50, 90);
+  rabbits.create(x , y, 'rabbit');
+}
+
+const createMouse = () => {
+  const x = this.getXPos(100, width - 100);
+  const y = this.getXPos(50, 90);
+  mouses.create(x, y, 'mouse');
+}
+
+const createBomb = () => {
+  const x = this.getXPos(100, width - 100);
+  const y = this.getXPos(0, 90);
+  bombs.create(x, y, 'bomb');
+}
+
+const createClock = () => {
+  const x = this.getXPos(100, width - 100);
+  const y = this.getXPos(0, 90);
+  clocks.create(x, y, 'clock');
+}
+
+this.time.addEvent({
+  delay: this.gameConfig.rabbit.delay,
+  callback: createRabbit,
+  callbackScope: this,
+  loop: true,
+  startAt: 0
+});
+
+this.time.addEvent({
+  delay: this.gameConfig.mouse.delay,
+  callback: createMouse,
+  callbackScope: this,
+  loop: true,
+  startAt: 0
+});
+
+this.time.addEvent({
+  delay: this.gameConfig.bomb.delay,
+  callback: createBomb,
+  callbackScope: this,
+  loop: true,
+  startAt: 0
+});
+
+this.time.addEvent({
+  delay: this.gameConfig.clock.delay,
+  callback: createClock,
+  callbackScope: this,
+  loop: true,
+  startAt: 0
+});
+```
+
+</details>
+
+    
+
+- after-편안
+
+  ![img](https://jjalbang.today/files/jjalbox/2020/11/20201115_5fb0ffd5e2e4b.gif)
+
+<details>
+<summary>AFTER-CODE</summary>
+
+  **main.ts**
+
+    ```jsx
+    const rabbitPosition: PositionInfo = {
+      startX: 0,
+      startY: 50,
+      widthX: width,
+      widthY: 90
+    }
+    
+    const bombPosition: PositionInfo = {
+      startX: 100,
+      startY: 0,
+      widthX: width - 100,
+      widthY: 90
+    }
+    
+    const rabbits = new ObjectController(this, 'rabbit', this.gameConfig.rabbit, rabbitPosition).init();
+    const mouses = new ObjectController(this, 'mouse', this.gameConfig.mouse, rabbitPosition).init();
+    const bombs = new ObjectController(this, 'bomb', this.gameConfig.bomb, bombPosition).init();
+    const clocks = new ObjectController(this, 'clock', this.gameConfig.clock, bombPosition).init();
+    ```
+
+  **object.controller.ts**
+
+    ```jsx
+    import Phaser from "phaser";
+    import {GameConfig, GameValance, ObjectInfo, PositionInfo} from "../util/game.config";
+    
+    export class ObjectController  {
+      private scene: Phaser.Scene;
+      private key: string;
+      private objectGroup: Phaser.Physics.Arcade.Group;
+      private objectConfig: ObjectInfo;
+      private positionConfig: PositionInfo;
+      private gameConfig: GameConfig;
+    
+      constructor(scene: Phaser.Scene, key: string, objectConfig: ObjectInfo, positionConfig: PositionInfo, gameConfig: GameConfig) {
+        this.scene = scene;
+        this.key = key;
+        this.positionConfig = positionConfig;
+        this.objectConfig = objectConfig;
+        this.gameConfig = gameConfig;
+      }
+    
+      init() {
+        this.objectGroup = this.scene.physics.add.group({
+          collideWorldBounds: true,
+          velocityY: this.gameConfig.velocityY,
+          maxSize: this.objectConfig.count,
+          gravityY: this.gameConfig.gravity,
+        });
+    
+        ...
+    
+        return this.objectGroup;
+      }
+    }
+    ```
+</details>
+
+
+요즘은 유니티같은 클릭 몇번과 짧은 타이핑으로 게임을 구현할 수 있는 프레임워크도 있습니다.
+
+그에 비해 Phaser 프레임워크는 아무것도 없는 빈 화면부터 시작해야 하기 때문에 진입 장벽이 높을 것 같습니다.
+
+물론 예제 코드들이 많긴 하지만 익숙해지는 시간이 많이 소요가 됩니다.
+
+하지만 이런 점이 오히려 개발자 스러운 것 같다는 생각이 들었습니다.
+
+불편했지만 하나하나 찾아가면서 코드를 작성한게 오히려 개인적으로 큰 깨달음을 얻을 수 있었습니다.
+
+게임 개발에만 집중할 수 있었다면 더 빠르고 효율적으로 만들 수 있을거란 생각이 들었지만
+
+이 경험을 바탕으로 다음번엔 좀 더 빠르고 효율적으로 개발을 할 수 있을거라는 자신감이 생겼습니다.
+
+내년에도 기회가 있다면 좀 더 고 퀄리티로 만들어보고 싶습니다.
+
+And Special Tanks to… **Chat GPT**
+
+![img](https://media3.giphy.com/media/dOJt6XZlQw8qQ/giphy.gif?cid=7941fdc6k0csevxoys907h9t9f00qvp9g51ymed5o1lcyyb7&ep=v1_gifs_search&rid=giphy.gif&ct=g)
+
+---
+
+# 조용빈
 <!--조용빈-->
 ## - 게임플레이 외적 부분
 게임 플레이 외에 부수적인 부분을 담당했습니다.
@@ -67,4 +524,4 @@ phaser3도 너무 오랜만이기도 하고, 인터넷에 예제도 별로 없�
 
 
 
-1
+
