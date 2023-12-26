@@ -60,8 +60,7 @@ labs: [https://labs.phaser.io/edit.html?src=src\\physics\\arcade\\sprite overlap
 
 그래서 여기도 화면 제일 하단에 보이지 않는 투명한 얇은 바닥을 두고 그곳에 닿으면 파괴되도록 해서 개발 시간을 약간 아낄 수 있었습니다.
 
-
-<img src="../assets/images/ihhwang/rabbit-02.png" height="600" alt="rabbit-02">
+![rabbit-02](./assets/images/ihhwang/rabbit-02.png)
 
 ### 시계 획득시 제한시간 증가
 
@@ -173,7 +172,7 @@ Phaser는 영역 구분이 잘 안되고 반드시 Scene 위에 다른 Scene 을
 
 Vue.js 로 표현하면 자식 컴포넌트 같은 개념입니다.
 
-<img src="../assets/images/ihhwang/rabbit-01.png" height="600" alt="rabbit-01">
+![rabbit-01](./assets/images/ihhwang/rabbit-01.png)
 
 **UI Scnee**
 
