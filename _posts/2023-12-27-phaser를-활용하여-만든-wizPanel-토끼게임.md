@@ -3,7 +3,7 @@ layout: post
 title:  "phaser를 활용하여 만든 wizPanel 토끼게임"
 date:   2023-12-27 09:00:00 +0900
 author: ybcho
-categories: phaser3
+categories: ['phaser3']
 ---
 <hr/>
 <!--나중에 통합-->
@@ -104,7 +104,7 @@ this.physics.add.overlap(
 **countdown.controller.ts**
 
 ```jsx
-start(callback: any) { // 본 게임은 30초
+function start(callback) { // 본 게임은 30초
   this.stop();
 	// 최초 시간 등록
   this.timerEvent =  this.scene.time.addEvent({
@@ -121,11 +121,11 @@ start(callback: any) { // 본 게임은 30초
   })
 }
 
-addSecond(currentTime: string, time: number, callback: any) {
+function addSecond(currentTime: string, time: number, callback: any) {
   const remainTime = (Number(currentTime) * 1000) + time;
   this.duration = remainTime
   // 시간 재설정
-  this.timerEvent!.reset({
+  this.timerEvent.reset({
     delay: remainTime,
     callback: () => {
       this.label.text = ''
@@ -195,7 +195,7 @@ javascript에서 사용하는 setTimeout 이나 setInterval 같은 시간 관련
 
 Phaser 에서 제공하는 Time Evnet를 사용하는 것이 이벤트를 제어하기도 쉽고 더 좋은 것 같습니다.
 
-```jsx
+```tsx
 // setTimeout과 동일한 기능을 하는 time event
 // 3초 카운트다운 후 핵심 게임 로직들 실행
 this.time.delayedCall(3000, () => {
@@ -233,9 +233,9 @@ this.registry.events.on('changedata', this.updateScore, this); // changedata 이
 
 **main.scene.ts**
 
-```jsx
+```tsx
 // 게임 종료시 모든 object, physics, time, event, sound 종료
-private handleCountDownFinished() {
+function handleCountDownFinished() {
   // pause physics event
   this.physics.pause();
   // remove Time event
@@ -247,7 +247,7 @@ private handleCountDownFinished() {
   this.events.off('addScore')
   this.events.off('subScore')
   this.events.off('resetScore')
-  **this.registry.events.off('changedata');**
+  this.registry.events.off('changedata');
 
   this.clockSound.stop();
   this.clockGetSound.stop();
@@ -280,7 +280,7 @@ private handleCountDownFinished() {
 <details>
 <summary>BEFORE-CODE</summary>
 
-```jsx
+```tsx
 // rabbit
 const rabbits = this.physics.add.group({
   collideWorldBounds: true,
@@ -385,65 +385,63 @@ this.time.addEvent({
 <details>
 <summary>AFTER-CODE</summary>
 
-  **main.ts**
+**main.ts**
+```tsx
+const rabbitPosition: PositionInfo = {
+  startX: 0,
+  startY: 50,
+  widthX: width,
+  widthY: 90
+}
 
-    ```jsx
-    const rabbitPosition: PositionInfo = {
-      startX: 0,
-      startY: 50,
-      widthX: width,
-      widthY: 90
-    }
-    
-    const bombPosition: PositionInfo = {
-      startX: 100,
-      startY: 0,
-      widthX: width - 100,
-      widthY: 90
-    }
-    
-    const rabbits = new ObjectController(this, 'rabbit', this.gameConfig.rabbit, rabbitPosition).init();
-    const mouses = new ObjectController(this, 'mouse', this.gameConfig.mouse, rabbitPosition).init();
-    const bombs = new ObjectController(this, 'bomb', this.gameConfig.bomb, bombPosition).init();
-    const clocks = new ObjectController(this, 'clock', this.gameConfig.clock, bombPosition).init();
-    ```
+const bombPosition: PositionInfo = {
+  startX: 100,
+  startY: 0,
+  widthX: width - 100,
+  widthY: 90
+}
 
-  **object.controller.ts**
+const rabbits = new ObjectController(this, 'rabbit', this.gameConfig.rabbit, rabbitPosition).init();
+const mouses = new ObjectController(this, 'mouse', this.gameConfig.mouse, rabbitPosition).init();
+const bombs = new ObjectController(this, 'bomb', this.gameConfig.bomb, bombPosition).init();
+const clocks = new ObjectController(this, 'clock', this.gameConfig.clock, bombPosition).init();
+```
 
-    ```jsx
-    import Phaser from "phaser";
-    import {GameConfig, GameValance, ObjectInfo, PositionInfo} from "../util/game.config";
-    
-    export class ObjectController  {
-      private scene: Phaser.Scene;
-      private key: string;
-      private objectGroup: Phaser.Physics.Arcade.Group;
-      private objectConfig: ObjectInfo;
-      private positionConfig: PositionInfo;
-      private gameConfig: GameConfig;
-    
-      constructor(scene: Phaser.Scene, key: string, objectConfig: ObjectInfo, positionConfig: PositionInfo, gameConfig: GameConfig) {
-        this.scene = scene;
-        this.key = key;
-        this.positionConfig = positionConfig;
-        this.objectConfig = objectConfig;
-        this.gameConfig = gameConfig;
-      }
-    
-      init() {
-        this.objectGroup = this.scene.physics.add.group({
-          collideWorldBounds: true,
-          velocityY: this.gameConfig.velocityY,
-          maxSize: this.objectConfig.count,
-          gravityY: this.gameConfig.gravity,
-        });
-    
-        ...
-    
-        return this.objectGroup;
-      }
-    }
-    ```
+**object.controller.ts**
+
+```tsx
+import Phaser from "phaser";
+import {GameConfig, GameValance, ObjectInfo, PositionInfo} from "../util/game.config";
+
+export class ObjectController  {
+  private scene: Phaser.Scene;
+  private key: string;
+  private objectGroup: Phaser.Physics.Arcade.Group;
+  private objectConfig: ObjectInfo;
+  private positionConfig: PositionInfo;
+  private gameConfig: GameConfig;
+
+  constructor(scene: Phaser.Scene, key: string, objectConfig: ObjectInfo, positionConfig: PositionInfo, gameConfig: GameConfig) {
+    this.scene = scene;
+    this.key = key;
+    this.positionConfig = positionConfig;
+    this.objectConfig = objectConfig;
+    this.gameConfig = gameConfig;
+  }
+
+  init() {
+    this.objectGroup = this.scene.physics.add.group({
+      collideWorldBounds: true,
+      velocityY: this.gameConfig.velocityY,
+      maxSize: this.objectConfig.count,
+      gravityY: this.gameConfig.gravity,
+    })
+
+    return this.objectGroup;
+  }
+}
+```
+
 </details>
 
 
