@@ -278,7 +278,7 @@ function handleCountDownFinished() {
 
 <details>
 <summary>BEFORE-CODE</summary>
-
+<div markdown="1">
 **main.ts**
 
 
@@ -376,7 +376,7 @@ this.time.addEvent({
 });
 ```
 
-
+</div>
 </details>
 
     
@@ -387,7 +387,7 @@ this.time.addEvent({
 
 <details>
 <summary>AFTER-CODE</summary>
-
+<div markdown="1">
 **main.ts**
 
 
@@ -449,7 +449,7 @@ export class ObjectController  {
 }
 ```
 
-
+</div>
 </details>
 
 
