@@ -275,9 +275,12 @@ function handleCountDownFinished() {
 
   지금 보면 진짜 답답해 보인다.
 
-  **main.ts**
+
 <details>
 <summary>BEFORE-CODE</summary>
+
+**main.ts**
+
 
 ```tsx
 // rabbit
@@ -373,6 +376,7 @@ this.time.addEvent({
 });
 ```
 
+
 </details>
 
     
@@ -385,6 +389,8 @@ this.time.addEvent({
 <summary>AFTER-CODE</summary>
 
 **main.ts**
+
+
 ```tsx
 const rabbitPosition: PositionInfo = {
   startX: 0,
@@ -406,7 +412,9 @@ const bombs = new ObjectController(this, 'bomb', this.gameConfig.bomb, bombPosit
 const clocks = new ObjectController(this, 'clock', this.gameConfig.clock, bombPosition).init();
 ```
 
+
 **object.controller.ts**
+
 
 ```tsx
 import Phaser from "phaser";
@@ -440,6 +448,7 @@ export class ObjectController  {
   }
 }
 ```
+
 
 </details>
 
@@ -488,7 +497,7 @@ And Special Tanks to… **Chat GPT**
 (처음엔 일일이 숫자를 주며 배치를....)
 
 
-```ts
+```tsx
 const center = this.cameras.main.width / 2;
 
 const container = this.add.image(center, 420, "container");
@@ -522,7 +531,7 @@ this.rankBtn
 rexUI 다이얼로그가 자동으로 뒤 객체들을 클릭하지 못하게 만들어주지 않기 때문에
 버튼에 이벤트를 걸어 뒤 버튼들을 disable 시켜주었습니다.
 layout()으로 객체들을 다이얼로그에 맞게 배치되도록 하였습니다.
-```ts
+```tsx
 this.retryDialog = this.rexUI.add
       .dialog({
         x: center,
@@ -576,13 +585,13 @@ this.retryDialog = this.rexUI.add
       .layout()
       .setVisible(false);
 
-    disableButton(){
+    function disableButton() {
       this.rankBtn.disableInteractive();
       this.confirmBtn.disableInteractive();
       this.retryBtn.disableInteractive();
     }
 
-    activateButton(){
+    function activateButton(){
       this.rankBtn.setInteractive({ cursor: "pointer" });
       this.confirmBtn.setInteractive({ cursor: "pointer" });
       this.retryBtn.setInteractive({ cursor: "pointer" });
@@ -600,8 +609,8 @@ this.retryDialog = this.rexUI.add
 
 rexUI의 scrollablePanel을 이용하여 스크롤이 되는 리스트를 만들었습니다.
 
-```ts
-setScrollPanel() {
+```tsx
+function setScrollPanel() {
     const center = this.cameras.main.width / 2;
     if (this.scrollPanel) {
       this.scrollPanel.destroy();
@@ -645,7 +654,7 @@ setScrollPanel() {
 
 새로고침 아이콘을 클릭 시 time.addEvent를 이용하여 특정 시간만큼 이미지가 돌아가도록 설정하였습니다.
 
-```ts
+```tsx
 this.reload = this.add
         .image(center + 230, 240, "reload")
         .setScale(0.6)
@@ -678,7 +687,7 @@ this.reload = this.add
 
 탭 구현은 원하는 예제를 못찾아 꼼수로 이미지를 겹쳐 탭처럼 보이도록 하였습니다.
 
-```ts
+```tsx
 const tab1 = this.add
       .image(this.center, 180, "tab1")
       .setScale(0.77)
