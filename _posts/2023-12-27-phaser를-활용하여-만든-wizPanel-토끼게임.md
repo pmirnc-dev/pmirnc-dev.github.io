@@ -472,35 +472,293 @@ And Special Tanks to… **Chat GPT**
 게임 플레이 외에 부수적인 부분을 담당했습니다.
 
 ### 인트로
-![intro](/assets/images/ybcho/api-menual.png)
+기획 디자인을 처음 보고 이걸 어떻게 만들지 생각하다가 그냥 이미지를 다 따서 만들자
+생각 했습니다.
+
+![intro](/assets/images/ybcho/game/intro.png)
 
 ### 게임결과
+![game_result](/assets/images/ybcho/game/game_result.png)
+
+**객체 배치**
+
+배치는 setOrigin 0.5를 줘서 객체 기준점을 중앙으로 설정하고 메인 카메라의 넓이를
+이용하여 화면 중앙값을 구해 중앙 기준으로 배치시켰습니다.
+
+(처음엔 일일이 숫자를 주며 배치를....)
+
+
+```ts
+const center = this.cameras.main.width / 2;
+
+const container = this.add.image(center, 420, "container");
+container.setScale(0.7).setOrigin(0.5).setDepth(0);
+this.add
+        .image(center, 150, "game_result")
+        .setScale(0.7)
+        .setOrigin(0.5)
+        .setDepth(0);
+this.rankBtn = this.add.image(center, 750, "rank_btn");
+this.rankBtn
+        .setScale(0.7)
+        .setOrigin(0.5)
+        .setDepth(0)
+        .setInteractive({ cursor: "pointer" })
+        .on("pointerup", () => {
+          this.playSound();
+          this.scene.stop();
+          this.scene.switch("rankingList");
+        });
+```
+
+**다이얼로그**
+
+![retry](/assets/images/ybcho/game/retry.png)
+
+[https://rexrainbow.github.io/phaser3-rex-notes/docs/site/ui-dialog](https://rexrainbow.github.io/phaser3-rex-notes/docs/site/ui-dialog)
+
+다이얼로그를 이해하는데 많은 시간이 걸렸고 만드는데 이미지가 제멋대로 배치되서 너무 힘들었습니다ㅠ
+
+rexUI 다이얼로그가 자동으로 뒤 객체들을 클릭하지 못하게 만들어주지 않기 때문에
+버튼에 이벤트를 걸어 뒤 버튼들을 disable 시켜주었습니다.
+layout()으로 객체들을 다이얼로그에 맞게 배치되도록 하였습니다.
+```ts
+this.retryDialog = this.rexUI.add
+      .dialog({
+        x: center,
+        y: 450,
+        width: 430,
+        height: 310,
+        background: this.rexUI.add
+          .roundRectangle(0, 0, 450, 377, 20, 0xffffff)
+          .setDepth(2),
+        content: this.add
+          .image(0, 0, "dialog_text")
+          .setScale(0.7)
+          .setOrigin(0.5)
+          .setDepth(3),
+        actions: [
+          this.add
+            .image(0, 0, "cancel_btn")
+            .setScale(0.7)
+            .setOrigin(0.5)
+            .setDepth(3)
+            .setInteractive({ cursor: "pointer" })
+            .on("pointerup", () => {
+              this.activateButton();
+              this.playSound();
+              this.retryDialog.popUp(300).setVisible(false);
+            }),
+          this.modalOkBtn,
+        ],
+        space: {
+          top: 50,
+          bottom: 0,
+          title: 0,
+          titleLeft: 0,
+          content: 50,
+          action: 15,
+        },
+        expand: {
+          title: false,
+          description: false,
+          content: false,
+          actions: false,
+          choices: true,
+        },
+        align: {
+          title: "center",
+          content: "center",
+          choices: "center",
+          actions: "center", // 'center'|'left'|'right'
+        },
+      })
+      .layout()
+      .setVisible(false);
+
+    disableButton(){
+      this.rankBtn.disableInteractive();
+      this.confirmBtn.disableInteractive();
+      this.retryBtn.disableInteractive();
+    }
+
+    activateButton(){
+      this.rankBtn.setInteractive({ cursor: "pointer" });
+      this.confirmBtn.setInteractive({ cursor: "pointer" });
+      this.retryBtn.setInteractive({ cursor: "pointer" });
+    }
+```
+
 
 ### 랭킹
 
-### 위즈패널 backend 와 통신
+**스크롤 패널**
 
+![ranking](/assets/images/ybcho/game/ranking.png)
+
+[https://rexrainbow.github.io/phaser3-rex-notes/docs/site/ui-scrollablepanel/](https://rexrainbow.github.io/phaser3-rex-notes/docs/site/ui-scrollablepanel/)
+
+rexUI의 scrollablePanel을 이용하여 스크롤이 되는 리스트를 만들었습니다.
+
+```ts
+setScrollPanel() {
+    const center = this.cameras.main.width / 2;
+    if (this.scrollPanel) {
+      this.scrollPanel.destroy();
+    }
+    this.scrollPanel = this.rexUI.add
+      .scrollablePanel({
+        x: center,
+        y: 570,
+        width: 500,
+        height: 600,
+        scrollMode: "y",
+        mouseWheelScroller: {
+          focus: true,
+          speed: 0.2,
+        },
+        background: this.rexUI.add
+          .roundRectangle(0, 450, 450, 377, 20, 0xffffff)
+          .setDepth(2),
+        panel: {
+          child: this.CreatePanel(),
+          mask: { padding: 10 },
+        },
+        slider: {
+          thumb: this.rexUI.add
+            .roundRectangle(0, 0, 5, 100, 13, 0x000000, 0.3)
+            .setDepth(3),
+        },
+        space: {
+          left: 5,
+          right: 5,
+          top: 95,
+          bottom: 30,
+          panel: -20,
+        },
+      })
+      .setOrigin(0.5)
+      .layout();
+  }
+```
+**랭킹 새로고침**
+
+새로고침 아이콘을 클릭 시 time.addEvent를 이용하여 특정 시간만큼 이미지가 돌아가도록 설정하였습니다.
+
+```ts
+this.reload = this.add
+        .image(center + 230, 240, "reload")
+        .setScale(0.6)
+        .setOrigin(0.5)
+        .setDepth(0)
+        .setInteractive({ cursor: "pointer" })
+        .on("pointerdown", async () => {
+          this.playSound();
+          const update = this.time.addEvent({
+            delay: 10,
+            callback: () => {
+              this.reload.rotation += 0.1;
+            },
+            loop: true,
+          });
+          const { data } = await getRankingList(site, mb_sn);
+          this.myRanking = data.myRanking;
+          this.userList = data.data;
+          setTimeout(() => {
+            this.setScrollPanel(); //setScrollPanel에선 기존 panel destroy
+            update.remove();
+            this.reload.setRotation(0);
+          }, 1500);
+        });
+```
+
+**탭구현**
+
+![winner](/assets/images/ybcho/game/winner.png)
+
+탭 구현은 원하는 예제를 못찾아 꼼수로 이미지를 겹쳐 탭처럼 보이도록 하였습니다.
+
+```ts
+const tab1 = this.add
+      .image(this.center, 180, "tab1")
+      .setScale(0.77)
+      .setOrigin(0.5)
+      .setDepth(3);
+    const tab_text1 = this.add
+      .image(this.center + 10, 220, "tab_text1")
+      .setScale(0.77)
+      .setOrigin(0.5)
+      .setDepth(3);
+    const tab2 = this.add
+      .image(this.center, 180, "tab2")
+      .setScale(0.77)
+      .setOrigin(0.5)
+      .setDepth(3)
+      .setVisible(false);
+    const tab_text2 = this.add
+      .image(this.center, 220, "tab_text2")
+      .setScale(0.77)
+      .setOrigin(0.5)
+      .setDepth(3)
+      .setVisible(false);
+    const tab_btn1 = this.add
+      .image(this.center - 109, 176, "tab_btn1")
+      .setScale(0.77)
+      .setOrigin(0.5, 1)
+      .setDepth(4)
+      .setInteractive({ cursor: "pointer" })
+      .on("pointerup", async () => {
+        this.playSound();
+        tab1.setVisible(true);
+        tab2.setVisible(false);
+        tab_text1.setVisible(true);
+        tab_text2.setVisible(false);
+        notice.setVisible(false);
+        const { data } = await getWinnerList(site);
+        this.userList = data;
+        this.setScrollPanel("지난주 당첨자"); //탭 클릭시 기존 panel destroy
+      });
+    const tab_btn2 = this.add
+      .image(this.center + 113, 176, "tab_btn2")
+      .setScale(0.77)
+      .setOrigin(0.5, 1)
+      .setDepth(4)
+      .setInteractive({ cursor: "pointer" })
+      .on("pointerup", async () => {
+        this.playSound();
+        tab2.setVisible(true);
+        tab1.setVisible(false);
+        tab_text2.setVisible(true);
+        tab_text1.setVisible(false);
+        notice.setVisible(true);
+        const { data } = await getRankingList(site, mb_sn);
+        this.myRanking = data.myRanking;
+        this.userList = data.data;
+        this.setScrollPanel("이번주 랭킹"); //탭 클릭시 기존 panel destroy
+      });
+```
 
 
 ## 이슈 & 해결
->   저에겐 하나하나가 다 이슈였습니다....
+저에겐 하나하나가 다 이슈였습니다....
 
 ### - 요소 배치
-    1.팝업창에 이미지를 추가 했는데 보이질 않았습니다.
-    잘못 추가했는지 검색하고 didalog()를 잘못 이해했나 원인을 찾아 보았지만 해결이 안되서
-    노가다로 테스트를 하며 결국 원인을 찾았는데 depth 문제였습니다. 
-    이미지가 팝업 배경이미지 뒤로 배치가 되서 안보였던것 뿐이였습니다. 알고보니 정말 어이없는 제 실수였습니다.
+1. 팝업창에 이미지를 추가 했는데 보이질 않았습니다.
+잘못 추가했는지 검색하고 didalog()를 잘못 이해했나 원인을 찾아 보았지만 해결이 안되서
+노가다로 테스트를 하며 결국 원인을 찾았는데 depth 문제였습니다. 
+이미지가 팝업 배경이미지 뒤로 배치가 되서 안보였던것 뿐이였습니다. 알고보니 정말 어이없는 제 실수였습니다.
 
-    2.아무리 이미지, 도형을 배치해도 엉뚱한 위치에 배치가 되서 한참을 헤메었습니다.
-    문서를 보니 layout()이라는 부모?객체에 알맞게 정렬해 주는 메서드가 있어 사용하여 해결했습니다.
+2. 아무리 이미지, 도형을 배치해도 엉뚱한 위치에 배치가 되서 한참을 헤메었습니다.
+문서를 보니 layout()이라는 부모?객체에 알맞게 정렬해 주는 메서드가 있어 사용하여 해결했습니다.
+
 ### - 탭
-    디자인이 중간에 변경되어 탭 기능이 추가되었습니다.
-    rexUI 플러그인에 탭 기능이 있긴했지만 사용하지 않고 이미지를 겹쳐 탭처럼 보이게끔 하여 해결했습니다.
+디자인이 중간에 변경되어 탭 기능이 추가되었습니다.
+rexUI 플러그인에 탭 기능이 있긴했지만 사용하지 않고 이미지를 겹쳐 탭처럼 보이게끔 하여 해결했습니다.
 
 ### - CORS 에러
-    백엔드에 처음 연동했는데 cors에러가 발생해 조정훈 부장님께서 아무리 cors 설정을 하셨지만 계속 에러가 발생했습니다.
-    유부장님께서 backend에서 위즈패널backend로 api를 호출할 수 있도록 만들어 주셔서 해결되었습니다.
-    (브라우저에서 요청시에 발생하는 문제로, backend에서 backend로 요청시에는 발생하지 않는다고 합니다) 
+백엔드에 처음 연동했는데 cors에러가 발생해 조정훈 부장님께서 아무리 cors 설정을 하셨지만 계속 에러가 발생했습니다.
+유부장님께서 backend에서 위즈패널backend로 api를 호출할 수 있도록 만들어 주셔서 해결되었습니다.
+(브라우저에서 요청시에 발생하는 문제로, backend에서 backend로 요청시에는 발생하지 않는다고 합니다) 
 
 
 
