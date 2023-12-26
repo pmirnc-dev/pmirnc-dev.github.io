@@ -269,7 +269,7 @@ function handleCountDownFinished() {
 
 - before - 불편
 
-  ![img](https://jjalbang.today/files/jjalbox/2021/11/20211103_61823a4fbac8b.gif)
+  ![img](/assets/images/ihhwang/before.gif)
 
   일단 만들어 보고 나중에 리팩터링 해야지 하는 마음으로 일단 급하게 코드를 짰는데
 
@@ -379,7 +379,7 @@ this.time.addEvent({
 
 - after-편안
 
-  ![img](https://jjalbang.today/files/jjalbox/2020/11/20201115_5fb0ffd5e2e4b.gif)
+  ![img](/assets/images/ihhwang/after.gif)
 
 <details>
 <summary>AFTER-CODE</summary>
