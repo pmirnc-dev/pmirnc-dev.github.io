@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "phaser를 활용하여 만든 wizPanel 토끼게임"
-date:   2023-12-27 09:00:00 +0900
+date:   2023-12-26 09:00:00 +0900
 author: ybcho
 categories: ['phaser3']
 ---
