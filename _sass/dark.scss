@@ -20,6 +20,15 @@ $avatarBackgroundColor: transparent;
 		color: #ddd;
 	}
 
+	blockquote {
+		background: #333333;
+		border-left: 3px solid #ccc;
+
+		* {
+			background: inherit;
+		}
+	}
+
 	.social [class^="icon-"] {
 		color: $dark_text_color
 	}

@@ -500,6 +500,20 @@ main {
 //  }
 //}
 
+blockquote {
+  background: #eaeaea;
+  border-left: 3px solid #333333;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+
+  * {
+    background: inherit;
+  }
+  p {
+    display: inline-block;
+  }
+}
+
 
 #posts-label {
   font-size: 15px;
