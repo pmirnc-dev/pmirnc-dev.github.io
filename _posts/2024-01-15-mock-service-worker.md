@@ -12,13 +12,18 @@ categories: [msw, testing]
 
 **mock service worker**
 
-클라이언트에서 서버로 보내는 HTTP 요청을 가로채 모의로 클라이언트에 응답해주는 라이브러리 입니다.
+클라이언트에서 서버로 보내는 HTTP 요청을 가로채 모의로 클라이언트에 응답해주는 라이브러리입니다.
 
 실제로 서버에 응답이 가지 않고 원하는 응답을 임의로 만들어 클라이언트 단에서 **모의** api 테스트를 할 수 있습니다.
 
 혹시나 백엔드 개발자가 바빠 api 명세를 늦게 주거나 작업이 늦어질 때 프론트단에서 네트워크 요청을 재현해 쉽게 테스트하고 작업할 수 있습니다.
 
-정말 간단합니다.
+### service worker 란?
+[service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+
+웹 브라우저에서 백그라운드에서 실행되는 스크립트입니다.
+
+(웹 페이지와는 별도로 작동하며 백그라운드 동기화, 푸시 알림, 캐싱 등 용도로도 사용 가능)
 
 ## msw 라이브러리 설치
 ```
@@ -38,7 +43,7 @@ msw 를 사용하기 위해 service worker 를 먼저 브라우저에 설치해�
 
 ## handlers
 
-handlers 에서 원하는 요청과 응답을 만들 수 있습니다.
+handlers 에서 실제 네트워크 요청을 가로채고 이에 대응하는 모의 응답을 정의하는 함수들을 작성합니다.
 
 ex) '/api/user/sign-in' 로 post 요청을 보냈을 때
 
@@ -110,3 +115,21 @@ new Vue({
 ![ex1_result](/assets/images/ejsin/msw/ex1_result.png)
 
 handlers 에서 등록했던 응답값이 잘 나옵니다.
+
+## 정리
+
+1. msw npm 설치
+
+2. msw 를 브라우저의 service worker 에 설치 (npx msw init [해당 프로젝트의 public 디렉토리])
+
+3. src/mocks 
+   - handlers.js (mock 함수들 작성)
+   - browser.js (service worker 에 handlers 등록)
+
+4. 프로젝트에서 worker 실행 ( worker.start() )
+
+---
+
+### Reference
+
+https://mswjs.io/
