@@ -16,6 +16,11 @@ web-report-template을 이용하여 walkerhill 사이트 작성하면서 느꼈�
 2. 게시판
 
     로그인과 마찬가지로 페이지가 없기 때문에 패스
+    - 고칠점??
+
+        다양한 형태의 게시판이 필요해 보입니다.
+
+        ![목록만 반영](/assets/images/mclee/240126/모자이크처리.jpg)
 
 
 3. walkerhill 사이트에 어떤 페이지들이 있는지
