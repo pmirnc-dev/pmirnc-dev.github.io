@@ -13,6 +13,7 @@ categories: TensorFlow MobileNet
 
  TensorFlow는 구글에서 개발한 오픈 소스 머신러닝 라이브러리입니다. 딥러닝에서 데이터를 의미하는 Tensor와 딥러닝 모델을 구성하는 연산들의 그래프에 따라 수행되는 형태인 Flow를 합쳐 만들어진 이름이며, 주로 심층 신경망을 비롯한 다양한 기계 학습 및 딥러닝 모델을 구축하고 학습하는 데 사용됩니다. 
 
+<br>
 
 ## MobileNet이란?
 
@@ -20,6 +21,7 @@ categories: TensorFlow MobileNet
 
  MobileNet은 2017년 구글이 개발한 경량 심층 신경망 아키텍처 중 하나로 매우 경량화된 CNN 모델입니다. 스마트폰 및 기타 모바일 장치와 같이 리소스가 제한된 환경에서도 효율적으로 동작하도록 설계되어, 이미지 분류, 객체 감지, 시멘틱 세그멘테이션등 다양한 컴퓨터 비전 작업에 널리 사용되고 있습니다.
 
+<br>
 
 ## MobileNet 구조 및 성능
 
@@ -46,6 +48,8 @@ Depthwise Separable Convolution은 Depthwise Convolution (깊이별 합성곱)�
 
  따라서, 깊이별 합성곱은 각각의 채널에서 강아지 이미지의 다양한 부분을 감지하고, 점별 합성곱은 이러한 부분들을 조합하여 강아지의 특징을 더욱 효과적으로 추출하여 강아지 품종을 분류하는 데 사용됩니다. 이러한 합성곱 연산을 통해 MobileNet은 강아지 이미지를 효과적으로 분류하고 품종을 식별할 수 있습니다.
 
+
+<br>
 
 ## 스크립트를 통해 JavaScript 프로젝트에서 사용하기.
 
@@ -78,6 +82,7 @@ Depthwise Separable Convolution은 Depthwise Convolution (깊이별 합성곱)�
 </script>
 ```
 
+<br>
 
 ## NPM을 통해 JavaScript 프로젝트에서 사용하기.
 
@@ -98,6 +103,7 @@ const predictions = await model.classify(img);
 // 예측 결과를 콘솔에 출력
 console.log('Predictions: ', predictions);
 ```
+
 
 ## vue에서 활용한 mobileNet 이미지 분류 코드
 
@@ -154,22 +160,26 @@ export default {
 </script>
 ```
 
+<br>
+
 ## 결과
 ![mobilenetImg3.png](/assets/images/jwyoo/mobilenetImg3.png)
 
-
+<br>
 
 ### 후기
 모델이 특정 이미지를 잘못 분류하는 경우가 종종 있습니다. 분류 오류를 해결하는 가장 효과적인 방법은 데이터셋을 개선하고 미리 학습된 모델 이외에 모델을 조정하는 것입니다. 그러나 완벽한 분류는 어려울 수 있으며, 항상 모델의 한계와 데이터의 제한을 염두에 두어야 합니다.
 
 
+<hr/>
+
 ### 공식사이트
-https://www.tensorflow.org/js/models?hl=ko
+[https://www.tensorflow.org/js/models?hl=ko](https://www.tensorflow.org/js/models?hl=ko)
 
 ### 참고
-[https://www.researchgate.net/figure/Depthwise-separable-convolutions_fig1_358585116](https://www.researchgate.net/figure/Depthwise-separable-convolutions_fig1_358585116)
-[https://velog.io/@woojinn8/LightWeight-Deep-Learning-5.-MobileNet](https://velog.io/@woojinn8/LightWeight-Deep-Learning-5.-MobileNet)
-[https://github.com/tensorflow/tfjs-models/tree/master/mobilenet](https://github.com/tensorflow/tfjs-models/tree/master/mobilenet)
+[https://www.researchgate.net/figure/Depthwise-separable-convolutions_fig1_358585116](https://www.researchgate.net/figure/Depthwise-separable-convolutions_fig1_358585116) 
+[https://velog.io/@woojinn8/LightWeight-Deep-Learning-5.-MobileNet](https://velog.io/@woojinn8/LightWeight-Deep-Learning-5.-MobileNet) 
+[https://github.com/tensorflow/tfjs-models/tree/master/mobilenet](https://github.com/tensorflow/tfjs-models/tree/master/mobilenet) 
 
 
 
