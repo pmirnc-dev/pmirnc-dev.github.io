@@ -5,6 +5,9 @@ date:   2024-02-15 09:00:00 +0900
 author: ihhwang
 categories: ['javascript', 'closure']
 ---
+<hr/>
+
+안녕하세요. 
 
 You Don’t Know JS Yet 책 리뷰를 위해 읽고 있다가 클로저라는 단어는 많이 듣긴 했는데
 
