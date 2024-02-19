@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "walkerhill 리뷰"
+title: "walkerhill 리뉴얼 리뷰"
 date: 2024-01-26 17:00:00 +0900
 author: mclee
 categories: Vue3 typescript
