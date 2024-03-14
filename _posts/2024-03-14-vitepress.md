@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "vitepress 사용기"
-date:   2024-03-14 9:54:07 +0900
+date:   2024-03-14 09:54:07 +0900
 author: tkkim
 categories: vue vitepress 
 ---
