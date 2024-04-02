@@ -9,7 +9,7 @@ categories: jest NestJS
 
 Nest Cli 로 프로젝트를 설치하면 기본적으로 Jest가 함께 설치가 되는데 이 Jest가 어떤 역할을 하고 있는지 아시나요?
 
-[package-json](/assets/images/dhjeon/240402/package-json-jest.png)
+![package-json](/assets/images/dhjeon/240402/package-json-jest.png)
 
 Jest는 JavaScript로 작성된 코드를 쉽게 테스트할 수 있도록 도와주는 테스팅 프레임워크 입니다.
 
@@ -46,7 +46,7 @@ Nest Cli를 통해 프로젝트를 셋업하면 별도의 설치 없이 Jest를 
 
 package.json을 살펴보면 `.spec.ts` 라는 이름이 붙은 파일의 경우 테스트 파일로 읽도록 설정이 되어있습니다. 
 
-[app.spec.ts.file](/assets/images/dhjeon/240402/app-spec.png)
+![app.spec.ts.file](/assets/images/dhjeon/240402/app-spec.png)
 
 그래서 Nest Cli로 프로젝트를 만들면 spec 파일이 함께 있는 것을 볼 수 있는데요.
 
@@ -72,7 +72,7 @@ package.json을 살펴보면 `.spec.ts` 라는 이름이 붙은 파일의 경우
 
 Nest 모듈을 사용하지 않는 다는 건 일반 함수를 분리하여 이를 Nest 모듈 내에 사용하는 방식을 의미합니다. 제가 작업을 하면서 Jest를 어떻게 활용했는지 에제를 통해 보여드리려고 합니다.
 
-[dir1](/assets/images/dhjeon/240402/dir1.png);
+![dir1](/assets/images/dhjeon/240402/dir1.png)
 
 테스트 시나리오는 아래와 같습니다.
 
@@ -244,7 +244,7 @@ describe("유니서베이 문항 순서 변환 테스트", () => {
 
 위 테스트 케이스를 실행 시키면 `changeQuestionsIndex` 반환값이 제가 원하는 데이터 형태가 아니기 때문에 실패한 테스트를 반환합니다.
 
-[test-result](/assets/images/dhjeon/240402/result1.png); 
+![test-result](/assets/images/dhjeon/240402/result1.png) 
 
 
 이제 이 함수를 성공하는 테스트 케이스로 만들기 위해 `changeQuestionsIndex` 함수를 완성해보겠습니다.
@@ -287,7 +287,7 @@ export const changeQuestionsIndex = (
 
 함수를 작성하고 테스트를 다시 해보면 제가 원하는 형태의 데이터를 반환하기 때문에 성공하는 테스트 케이스로 바뀝니다.
 
-[test-result2](/assets/images/dhjeon/240402/result2.png);
+![test-result2](/assets/images/dhjeon/240402/result2.png)
 
 그렇다면 제가 원하는 데이터 형태를 변경한다면?
 
@@ -305,7 +305,7 @@ expectedData = [
     ];
 ```
 
-[test-result3](/assets/images/dhjeon/240402/result3.png);
+![test-result3](/assets/images/dhjeon/240402/result3.png)
 
 테스트 케이스는 실패하면서 잘못된 곳을 알려주기 때문에 어떤 부분이 잘못됐는지 확인하여 함수를 수정할 수 있습니다.
 
@@ -470,7 +470,7 @@ export class QuotaCalculationService {
 
 ['서울', '인천/경기'] 라는 값이 전달되면 ['서울','인천','경기','세종'] 을 반환하는 함수를 작성해야합니다.
 
-[test-result4](/assets/images/dhjeon/240402/result4.png);
+![test-result4](/assets/images/dhjeon/240402/result4.png)
 
 각 케이스 별로 반환하는 정보를 확인할 수 있습니다. getRegionData 함수가 원하는 값을 반환하도록 함수를 작성해 줍니다.
 
@@ -494,7 +494,7 @@ export class QuotaCalculationService {
 }
 ```
 
-[test-result5](/assets/images/dhjeon/240402/result5.png);
+![test-result5](/assets/images/dhjeon/240402/result5.png)
 
 이렇게 각 케이스 별로 반환 값을 확인할 수 있기 때문에 혹시나 놓친 케이스가 있는지 확인하기도 쉽고 번거롭게 해당 함수를 사용하는 컨트롤러에 api를 요청하지 않고도 함수를 확인할 수 있습니다.
 
