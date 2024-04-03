@@ -498,4 +498,178 @@ export class QuotaCalculationService {
 
 이렇게 각 케이스 별로 반환 값을 확인할 수 있기 때문에 혹시나 놓친 케이스가 있는지 확인하기도 쉽고 번거롭게 해당 함수를 사용하는 컨트롤러에 api를 요청하지 않고도 함수를 확인할 수 있습니다.
 
+저희는 DB 관련한 로직의 경우 repository로 따로 분리해서 사용하고 있는데요. 만약 서비스 함수 내에서 repository를 사용하여 조회를 할 경우는 어떻게 해야할까요?
+
+```typescript
+// projectService
+@Injectable()
+export class ProjectService {
+
+  constructor(
+    private readonly projectRepository: ProjectRepository,
+  ) {}
+
+  async findOneBySurveyId(surveyId: string) {
+    return this.projectRepository.findOne(surveyId); // 서비스 함수 내에서 레포지토리 호출
+  }
+}
+```
+
+정말 간단한 예시로 파라미터로 surveyId를 전달 받아 repository에서 findOne 하는 경우 입니다.
+
+```typescript
+@Injectable()
+export class ProjectRepository {
+  constructor(
+    @InjectModel(Project.name, ConnectionNames.PANEL_HUB_V3)
+    private readonly projectModel: Model<ProjectDocument>,
+  ) {}
+
+  async findOne(surveyId: string): Promise<ProjectDto> {
+    return this.projectModel.findOne({ surveyId });
+  }
+}
+```
+
+findOne은 surveyId를 전달받아 해당 하는 프로젝트 정보를 반환해주는 함수입니다.
+
+```typescript
+export const project = {
+  "_id" :  new Types.ObjectId("6604cf7d5d4537c754a6b733"),
+  "managers" : [
+    {
+      "userId" : "dhjeon@pmirnc.com",
+      "name" : "다훈"
+    }
+  ],
+  "title" : "asdasads",
+  "regionType" : "국내",
+  "comments" : {
+    "rejectComment" : "",
+    "estimateComment" : ""
+  },
+  "suppliers" : [
+    "GS",
+    "LIME",
+    "WIZ_PANEL"
+  ],
+  "deviceTypes" : [
+    "테블릿"
+  ],
+  "profileSurvey" : false,
+  "profileFilter" : {},
+  "introHtml" : "",
+  "outroHtml" : "",
+  "exceptSurveyIds" : [],
+  "includeSurveyIds" : [],
+  "createDate" : new Date("2024-03-28T11:00:48.229+09:00"),
+  "startDate" : new Date("2024-03-28T11:01:00.000+09:00"),
+  "endDate" : new Date("2024-04-27T23:59:59.000+09:00"),
+  "status" : "진행",
+  "lang" : "en",
+  "addRespondentInfo" : "",
+  "partnerName" : "",
+  "partnerId" : "",
+  "partnerInfo" : null,
+  "panelReady" : false,
+  "overseas" : false,
+  "joinUrl" : "https://naver.com/[UID]",
+  "testUrl" : "https://naver.com/[UID]",
+  "quotaUrl" : "",
+  "payment" : {
+    "status" : true,
+    "date" : new Date("2024-04-01T09:39:07.703+09:00"),
+    "cost" : 2444,
+    "method" : "card",
+    "orderId" : "결제 완료됐을 경우 부여받은 ID 기입"
+  },
+  "quotaStatus" : "균등",
+  "preliminaryQuestion" : true,
+  "reward" : {
+    "GS" : {
+      "qualified" : 110,
+      "terminate" : 50,
+      "quotaFull" : 50,
+      "_id" : new Types.ObjectId("6604cf935d4537c754a6b73f")
+    },
+    "LIME" : {
+      "qualified" : 100,
+      "terminate" : 20,
+      "quotaFull" : 20,
+      "_id" : new Types.ObjectId("6604cf935d4537c754a6b740")
+    },
+    "WIZ_PANEL" : {
+      "qualified" : 90,
+      "terminate" : 30,
+      "quotaFull" : 30,
+      "_id" : new Types.ObjectId("6604cf935d4537c754a6b741")
+    }
+  },
+  "surveyCategory" : {
+    "category" : "생활용품",
+    "etcValue" : ""
+  },
+  "surveyId" : "82a52d1f-66ae-4e42-aac5-1489fb99d3fd",
+  "projectId" : 300181,
+  "creatorId" : "dhjeon@pmirnc.com",
+  "updateId" : "dhjeon@pmirnc.com",
+  "groupId" : "PMI",
+  "createdAt" : new Date("2024-03-28T11:01:33.199+09:00"),
+  "updatedAt" : new Date("2024-04-02T16:23:44.908+09:00"),
+  "__v" : 0,
+  "demoGraphic" : {
+    "age" : [],
+    "region" : [],
+    "gender" : [
+      "남성",
+      "여성"
+    ],
+    "_id" : new Types.ObjectId("6604cf935d4537c754a6b73e")
+  },
+  "estimatedCount" : 2222,
+  "estimatedLOI" : 2
+}
+```
+
+조회되는 가상의 값을 정의하고 findOne 을 호출 했을 때 어떤 값을 내보내고 Jest를 사용해서 확인해 볼 수 있습니다.
+
+```typescript
+describe("프로젝트 서비스 테스트", () => {
+  let projectService: ProjectService;
+  let projectRepository: ProjectRepository;
+  let projectModel: Model<ProjectDocument>;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [],
+      providers: [
+        ProjectService,
+        ProjectRepository,
+        {
+          provide: getModelToken(Project.name, ConnectionNames.PANEL_HUB_V3),
+          useValue: {},
+        }
+      ]
+    }).compile();
+
+    projectService = module.get<ProjectService>(ProjectService);
+    projectRepository = module.get<ProjectRepository>(ProjectRepository);
+    projectModel = module.get<Model<ProjectDocument>>(getModelToken(Project.name, ConnectionNames.PANEL_HUB_V3))
+  })
+
+  test('surveyId를 통해 프로젝트 하나를 조회한다.', async () => {
+    const surveyId = '82a52d1f-66ae-4e42-aac5-1489fb99d3fd';
+
+    jest.spyOn(projectRepository, 'findOne')
+      .mockImplementationOnce(() => Promise.resolve(project)); // findOne 함수가 가상으로 반환하는 값을 넣어준다.
+
+    const findOneBySurveyId = await projectService.findOneBySurveyId(surveyId)
+    expect(findOneBySurveyId).toStrictEqual(project); // 반환할 때 예상하는 값을 넣어준다.
+  })
+})
+```
+
+.mockImplementationOnce(() => Promise.resolve(project)) 통해서 반환하는 값을 위에서 정의한 project를 주었고 findOneBySurveyId의 예상 값도 project를 주었기 때문에 해당 케이스는 실패하지 않는 케이스입니다.
+
+만약 findOne을 호출한 후 findOneBySurveyId 에서 가공하여 다른 값을 반환한다면 실패하는 케이스가 되어 .toStrictEqual(project) 여기에 가공한 데이터를 전달해주면 성공하는 케이스로 만들 수 있습니다.
 
