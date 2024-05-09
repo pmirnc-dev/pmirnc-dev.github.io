@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Turborepo를 활용하여 모노레포 환경 구축하기 (React,NestJS)"
-date:   2024-0509 09:00:00 +0900
+date:   2024-05-09 09:00:00 +0900
 author: dhjeon
 categories: react nestjs
 published: true
