@@ -54,8 +54,9 @@ export class CatsController {
 ```
 
 ### custom provider
+custom provider는 기본적으로 제공되는 provider 외에 사용자가 직접 정의하는 provider를 의미합니다.
 
-커스텀 프로바이더는 다음과 같을 때 사용할 수 있습니다.
+custom provider는 다음과 같을 때 사용할 수 있습니다.
 
 * 외부 라이브러리를 provider로 등록하고 싶을 때
 * 상황에 맞게 동적으로 인스턴스를 생성해야 할 때
@@ -120,7 +121,7 @@ class provider는 일반적으로 provider를 등록할때 사용하는 방법�
             provide: CatService, //일반적으로 주입했을 때와 같은 방법
             useClass: CatService,
         },
-        CatService //위와 같음
+        //CatService 위와 같음
     ]
 })
 
