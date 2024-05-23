@@ -1,11 +1,13 @@
 ---
 layout: post
-title:  "nestjs custom provider"
-date:   2024-05-23 09:00:00 +0900
+title: "nestjs custom provider"
+date: 2024-05-23 09:00:00 +0900
 author: ybcho
-categories: ['nestjs']
+categories: nestjs
 ---
 <hr/>
+
+
 ### nestjs provider란?
 > DI(종속성 주입)를 통해 다른 컴포넌트에 재사용 가능한 기능 또는 서비스를 제공하는 기본 구성 요소입니다.<br/>
 > 앱이 제공하고자 하는 핵심 기능을 수행하는 역할을 합니다.
