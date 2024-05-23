@@ -75,6 +75,7 @@ custom provider를 등록하는 방법은 4가지 방법이 있습니다.
 
 ### value provider (useValue)
 value provider는 상수 값을 주입해야하거나, 외부 라이브러리를 네스트 컨테이너에 주입해야하거나, 실제 구현을 mock 객체로 대체해야할 때 사용합니다.
+
 ```ts
 @Module({
     controllers: [AnimalController],
@@ -144,9 +145,8 @@ export class AnimalController {
 factory provider는 factory 함수를 정의하여 동적으로 인스턴스를 생성할 때 사용합니다. inject 속성으로 factory 함수에 인자를 전달 할 수 있습니다.
 
 > ※ Factory 함수는 인자를 받아 객체를 return 해주는 함수(인자에 따라 동적으로 객체 리턴)
+
 ```ts
-
-
 @Module({
     controllers: [AnimalController],
     providers: [
