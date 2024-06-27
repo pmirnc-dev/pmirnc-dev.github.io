@@ -13,15 +13,6 @@ categories: ['git', 'github']
 
 다들 많이 사용하셔서 알겠지만 정리 & 복습 차원으로 같이 보시죠.
 
-# 목차
-
-1. [버전관리란?](#버전관리란?)
-2. [Git의 역사?](#git의-역사)
-3. [Git의 구조](#git의-구조)
-4. [Git 시작하기](#git-시작하기)
-5. [Git Clone](#clone)
-5. [Git Conflict](#conflict)
-
 # 버전관리란?
 
 > 형상관리 혹은 버전 관리는 프로그램을 개발함에 있어 소프트웨어의 **변경사항을 체계적으로 추적하고 통제하는 것**으로,
@@ -127,16 +118,21 @@ Git이 처리할 것들이 있는 장소입니다.
 
 ## 작업
 
-이제 프로젝트 작업을 시작해보겠습니다. 여기서는 git에 대한 간단한 테스트만 할 예정이라
+프로젝트 작업을 시작해보겠습니다. 여기서는 git에 대한 간단한 테스트만 할 예정이라
 
 readme.md 와 .gitignore 정도만 추가해보겠습니다.
 
 .md는 markdown 파일이며 readme.md 는 이 프로젝트를 설명하는 안내문 이라고 볼 수 있습니다.
 
-.gitignore는 프로젝트를 git에 저장할 때 변경사항에 포함하지 않는 파일들 입니다. 주로 시스템이나 라이브러리 파일들은 용량도 크고 무겁기 때문에 포함하지 않습니다. 
+.gitignore는 프로젝트를 git에 저장할 때 변경사항에 포함하지 않는 파일들 입니다. 
 
-https://www.toptal.com/developers/gitignore
-해당 사이트에 접속하여 os, ide, 프로그래밍 언어 정보를 입력하면 필요한 ignore 정보를 알아서 만들어줍니다.
+주로 시스템이나 라이브러리 파일들은 용량도 크고 무겁기 때문에 포함하지 않습니다. 
+
+https://www.toptal.com/developers/gitignore 사이트에 접속하여 os, ide, 프로그래밍 언어 정보를 입력하면 
+
+필요한 ignore 정보를 알아서 만들어줍니다.
+
+예시)
 
 ```
 # Created by https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode
@@ -247,7 +243,9 @@ Changes to be committed:
 
 ### commit
 
-이제 staging에 있는 파일들을 commit 해줍니다. commit은 staging된 파일들의 스냅샷을 로컬 저장소에 저장하게 해줍니다. commit을 통해 변경 이력을 남기고, 이후에 특정 시점으로 되돌아가거나 다른 사람들과 협업할 때 중요한 역할을 합니다.
+이제 staging에 있는 파일들을 commit 해줍니다. commit은 staging된 파일들의 스냅샷을 로컬 저장소에 저장하게 해줍니다. 
+
+commit을 통해 변경 이력을 남기고, 이후에 특정 시점으로 되돌아가거나 다른 사람들과 협업할 때 중요한 역할을 합니다.
 
 
 ```
@@ -262,6 +260,7 @@ D:\dev\GitStudy> git commit -m "docs: First Commit!"
 #### 메세지 규칙
 
 여기서 -m은 메세지를 의미하며 커밋에 대한 메세지를 추가할 수 있습니다.
+
 혼자 할때는 아무렇게나 적어도 되지만 팀으로 협업할때는 규칙을 적용하면 보다 편하게 소통할 수 있습니다.
 
 
@@ -403,8 +402,11 @@ push가 완료되면 GitHub는 다음과 같이 변합니다.
 
 ![git](/assets/images/ihhwang/git-history/git08.png)
 
+<br>
 
-팀으로 협업하기
+---
+
+# 팀으로 협업하기
 
 이제 팀으로 프로젝트를 진행할 때를 살펴보겠습니다.
 
@@ -474,6 +476,7 @@ Create pull request 버튼을 클릭하면 github 에서 자동으로 conflict �
 ![git](/assets/images/ihhwang/git-history/git19.png)
 
 mrege가 완료되면 보라색으로 Merged 상태로 바뀌며 branch 삭제여부도 나옵니다.
+
 더이상 사용하지 않을거라면 깔끔하게 삭제를 하고 계속 이어서 작업을 하려면 그냥 두시면 됩니다.
 
 ![git](/assets/images/ihhwang/git-history/git20.png)
@@ -527,11 +530,12 @@ vscode 기준으로 설명하겠습니다.
 
 # Conflict
 가끔 작업을 하다보면 같은 코드를 수정하고 branch를 병합하면 충돌이 발생하는 경우가 있습니다.
-처음 겪게되면 무척 당황스러운데 걱정 할 필요 없습니다.
-(업무 분담 및 소통의 중요성)
+
+처음 겪게되면 무척 당황스러운데 걱정 할 필요 없습니다.(업무 분담 및 소통의 중요성)
 
 
 충돌 상황을 재연하기 위해 먼저 master 에서 main.js에 코드를 한 줄 수정 후 push까지 진행하겠습니다.
+
 그 다음 다른 branch로 이동하여 똑같은 부분을 다른 코드로 수정해봅니다.
 
 ![git](/assets/images/ihhwang/git-history/git29.png)
