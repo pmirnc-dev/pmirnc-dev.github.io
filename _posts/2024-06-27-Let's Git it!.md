@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Do you know Closure?"
-date:   2024-02-15 09:00:00 +0900
+title:  "Let's Git it!"
+date:   2024-06-27 09:00:00 +0900
 author: ihhwang
 categories: ['git', 'github']
 ---
