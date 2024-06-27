@@ -586,8 +586,5 @@ console.log('야 나두!');
 ---
 # 참조
 
-* You Don’t Know JS Yet
-* https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures
-* https://adjh54.tistory.com/64
-* https://ko.javascript.info/closure#ref-1091
-* https://poiemaweb.com/js-closure
+* [https://rogerdudler.github.io/git-guide/index.ko.html](https://rogerdudler.github.io/git-guide/index.ko.html)
+* [https://learngitbranching.js.org/?locale=ko](https://learngitbranching.js.org/?locale=ko)
