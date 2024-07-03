@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Let's Git it!"
-date:   2024-06-27 09:00:00 +0900
+date:   2024-07-04 09:00:00 +0900
 author: ihhwang
 categories: ['git', 'github']
 ---
@@ -579,7 +579,283 @@ console.log('야 나두!');
 
 ![git](/assets/images/ihhwang/git-history/git34.png)
 
-끝!!
+여기까지는 자주 사용했던 것들을 나열해봤고 자주 쓰진 않지만 유용한 기능들을 소개해보겠습니다.
+
+---
+
+# Commit 되돌리기
+
+git study 준비를 하면서 다양한 기능들이 있는 걸 알게 되었습니다.
+
+진작 알았다면 좋았을 법한 기능들이 많았습니다.
+
+
+
+## 1. Amend
+
+Amend 는 commit 메세지를 수정할 때 사용합니다.
+
+예를 들어 A 라는 기능을 추가 후, 커밋 메세지를 잘못 작성하여 수정을 하고 싶습니다.
+
+이 때, Amend 를 사용하여 메세지 내용을 수정할 수 있습니다.
+
+readmd.md 파일의 내용을 살짝 수정했습니다.
+
+    # Git Study!
+
+    ## Let's git it! 
+
+    다함께 git을 연습해봐요.
+    
+    Git Study 를 위한 Repository 입니다.
+
+
+
+메세지에 `doc: readme.md 수정 ` 을 적고 커밋을 합니다.
+
+![git](/assets/images/ihhwang/git-history/git35.png)
+
+메세지 내용을 수정하기 위해 터미널에 다음과 같이 입력합니다.
+
+    PS D:\dev\GitStudy> git commit --amend
+
+터미널에 vi 편집기가 나오게 되고 commit 메세지를 편집할 수 있습니다.
+
+![git](/assets/images/ihhwang/git-history/git36.png)
+
+vi 편집기의 저장&나가기는 :wq 입니다.
+
+몰랐다면 자주 쓰이는 리눅스 명령어 정도는 알고 있으면 편합니다.
+
+commit의 메세지 내용이 변한 것을 확인할 수 있습니다.
+
+![git](/assets/images/ihhwang/git-history/git37.png)
+
+## 2. Reset
+
+reset 명령어는 현재 브랜치의 HEAD를 이동시키고, 작업 디렉토리와 인덱스를 조장하여 이전 commit으로 되돌립니다.
+
+옵션은 다음과 같습니다.
+
+
+| 옵션             | 설명                                                                                           |
+| -------------- | -------------------------------------------------------------------------------------------- |
+| soft           | - HEAD를 지정한 커밋으로 이동. <br>- 작업 디렉토리와 인덱스는 그대로 유지.<br>- 변경사항은 스테이징에 남아있음.                      |
+| mixed(default) | - HEAD를 지정한 커밋으로 이동.<br>- 인덱스를 해당 커밋의 상태로 변경.<br>- 변경사항은 작업 디렉토리에 남아있지만 <br>  스테이징 영역에서 제거됨. |
+| hard           | - HEAD를 지정한 커밋으로 이동.<br>- 작업 디렉토리와 인덱스를 해당 커밋의 상태로 변경                                        |
+
+이번에도 readmd.md 에 새로 한 줄을 추가하고 commit을 해보겠습니다.
+
+![git](/assets/images/ihhwang/git-history/git38.png)
+
+![git](/assets/images/ihhwang/git-history/git39.png)
+
+git log 를 입력하면 commit 이력이 나옵니다.
+
+![git](/assets/images/ihhwang/git-history/git40.png)
+
+### soft
+
+터미널에 `git reset --soft [hash값]` 을 입력해봅니다.
+
+    PS D:\dev\GitStudy> git reset --soft adfbf49
+
+커맨드 입력 후 다시 git log를 입력하면 doc: reset test2 가 사라졌고  
+HEAD는 이전 commit 으로 이동한 것을 볼 수 있습니다.
+이전 변경 사항은 스테이징에 올라가 있습니다.
+
+![git](/assets/images/ihhwang/git-history/git41.png)
+
+### mixed(default)
+
+mixed는 기본 값이므로 생략해도 됩니다.
+
+    PS D:\dev\GitStudy> git reset adfbf49    
+
+
+이번엔 스테이징에서도 제외된 것을 볼 수 있습니다.
+
+![git](/assets/images/ihhwang/git-history/git42.png)
+
+### hard
+
+이번엔 hard 를 테스트 해보겠습니다.
+
+    PS D:\dev\GitStudy> git reset --hard adfbf49
+
+변경했던 내역조차 사라진 것을 볼 수 있습니다.
+
+[git](/assets/images/ihhwang/git-history/git43.png)
+
+reset 옵션을 사용하려면 hard는 웬만하면 사용하지 않고 default인 mixed만 사용하는 것이 좋을 것 같습니다.
+
+## 3. Revert
+
+이전의 reset hard는 변경사항을 없애버리기 때문에 
+
+혼자 하는 프로젝트면 상관이 없는데 팀 프로젝트면 위험할 수 있습니다.
+
+커밋의 내용을 되돌리려면 revert를 사용합니다.
+
+readme.md 에 새로운 내용을 입력하고 commit을 했습니다.
+
+터미널에 `git revert [hash값]` 를 입력하면 됩니다.
+
+    PS D:\dev\GitStudy> git revert fefd774
+
+Amend 와 같이 vi 편집창이 나오고 편집할 내용이 없다면 esc -> :wq 로 빠져나옵니다.
+
+[git](/assets/images/ihhwang/git-history/git44.png)
+
+commit tree와 git log에 revert 이력이 남아있는 것을 볼 수 있습니다.
+
+[git](/assets/images/ihhwang/git-history/git45.png)
+
+[git](/assets/images/ihhwang/git-history/git46.png)
+
+# Stash
+
+stash는 현재 작업중인 내용을 commit 하기엔 좀 애매한 경우 사용할 수 있는 임시저장 기능입니다.
+
+예를 들어 같은  A 프로젝트 건으로 A branch에서 작업을 하고 있었는데 B 프로젝트에서 요청사항이 들어와서 B branch로 변경해야 합니다.
+
+저의 경우엔 아직 작업 중인 내역들을 commit을 하려니 에러가 발생하여 `TODO` 를 달아놓고
+
+주석처리 해놓은 다음에 commit 을 했었습니다.
+
+그러면 stash를 실습해보겠습니다.
+
+먼저 아무 작업 내역을 만듭니다.
+
+`ihhwang/branch_test` branch의 `main.js`에 `gugudan` 이라는 함수를 만들고 있습니다.
+
+[git](/assets/images/ihhwang/git-history/git47.png)
+
+터미널에서 `git stash` 를 입력해보겠습니다.
+
+    PS D:\dev\GitStudy> git stash
+
+
+방금까지 작업했던 내용들이 사라지고 다음과 같은 메세지가 출력됩니다.
+
+`Saved working directory and index state WIP on ihhwang/branch_test ~~` 
+
+git stash list 를 입력하면 저장된 스택 내역을 확인할 수 있습니다.
+
+[git](/assets/images/ihhwang/git-history/git48.png)
+
+급한 요청사항을 마치고 다시 원래 작업으로 복귀하려고 합니다.
+
+이전 작업 내역을 불러오는 방법은 2가지가 있습니다.
+
+1. pop
+2. apply 'stash@{index}'
+
+`pop` 은 가장 최근의 stack을 가져오고 삭제를 합니다.
+
+`apply 'stash@{index}'` 는 stach가 여러개 있을 때 특정 index 값을 가져오는 것 입니다.
+
+임시로 stash를 하나 더 만든 뒤 `git stash list` 를 입력했습니다.
+
+[git](/assets/images/ihhwang/git-history/git49.png)
+
+`git stash pop` 을 하고 list를 다시 보면 제일 최근에 작업한 내용이 다시 반영이 됐고 list에서 사라진 것을 확인할 수 있습니다.
+
+    PS D:\dev\GitStudy> git stash pop
+
+[git](/assets/images/ihhwang/git-history/git50.png)
+
+apply를 사용할경우 shash 이름을 작은 따옴표로 감싸야 합니다.
+
+    PS D:\dev\GitStudy> git stash apply 'stash@{0}'
+
+# 기타
+
+## cherry pick
+`cherry pick`이란 다른 브랜치에 있는 커밋을 선택적으로 내 브랜치에 적용시킬 때 사용하는 명령어입니다.
+
+위의 `gugudan` 기능을 commit 후 master branch로 이동합니다.
+
+[git](/assets/images/ihhwang/git-history/git52.png)
+
+`7b62b76` 커밋만 master 브랜치에 적용해보겠습니다.
+
+    PS D:\dev\GitStudy> git cherry-pick 7b62b76
+
+다음과 같이 conflict 가 발생하는군요.
+
+[git](/assets/images/ihhwang/git-history/git53.png)
+
+병합 편집기를 통해 conflict를 해결하겠습니다.
+
+[git](/assets/images/ihhwang/git-history/git54.png)
+
+수신과 현재 영역에서 적용할 코드를 적용하고 병합 완료 버튼을 누르면 master에 병합이 된 것을 확인할 수 있습니다.
+
+[git](/assets/images/ihhwang/git-history/git55.png)
+
+## rebase
+
+git merge는 여러 branch 들이 존재할 때, 하나의 branch로 통합하는 개념이라면,
+
+git rebase는 branch의 base를 재설정 한다는 의미입니다.
+
+다음과 같이 여러 작업들이 merge되면 그래프의 가지수가 늘어납니다.
+
+[git](/assets/images/ihhwang/git-history/git56.png)
+
+master 에서 ihhwang/test branch를 만들어줍니다.
+
+addNum function을 만든 뒤 commit을 합니다.
+
+이어서 subNum function을 만든 뒤 commit을 합니다.
+
+마지막으로 mulNum function을 만든 뒤 commit을 합니다.
+
+git log를 보면 상위 3개에 내가 추가했던 commit들이 보입니다.
+
+[git](/assets/images/ihhwang/git-history/git57.png)
+
+`git rebase -i HEAD~3` 을 입력하면 vi 편집기 화면이 나옵니다.
+
+[git](/assets/images/ihhwang/git-history/git58.png)
+
+여기서 `pick` 도 있고 Commands: 에 여러가지 옵션들과 설명들이 있습니다.
+
+남기고 싶은 항목은 `pick` 으로 두고 병합하려는 항목엔 `squash` or `s` 로 바꿔줍니다.
+
+[git](/assets/images/ihhwang/git-history/git59.png)
+
+수정 후 빠져나오면 다음과 같은 vi 편집기가 나옵니다.
+
+여기도 남기고 싶은 메세지만 남깁니다.
+
+[git](/assets/images/ihhwang/git-history/git60.png)
+
+저는 다 지우고 이렇게 남기겠습니다.
+
+[git](/assets/images/ihhwang/git-history/git61.png)
+
+편집기를 빠져나오면 3개의 commit이 하나로 합쳐진 것을 볼 수 있습니다.
+
+[git](/assets/images/ihhwang/git-history/git62.png)
+
+[git](/assets/images/ihhwang/git-history/git63.png)
+
+remote 서버로 push를 하고 pull request를 진행합니다.
+
+혹시 중간에 rebase를 하던 도중 잘못 한 것 같아 다시 되돌려야 한다면
+
+git rebase --abort를 통해 rebase 이전으로 되돌아갈 수 있다.
+
+나는 rebase를 한번도 안써봤는데 rebase도 생각보다 많이 쓴다고 한다. 
+
+rebase 와 merge 중 어떤 것을 사용해야 할지 모르는 경우엔 다음과 같이 자신의 상황에 맞게 쓰면 될 것 같다.
+
+>일반적인 해답을 굳이 드리자면 로컬 브랜치에서 작업할 때는 히스토리를 정리하기 위해서 Rebase 할 수도 있지만, 
+> 리모트 등 어딘가에 Push로 내보낸 커밋에 대해서는 절대 Rebase 하지 말아야 한다.
+
+끝!
 
 ![그럼이만](/assets/images/ihhwang/img.gif)
 
@@ -588,3 +864,5 @@ console.log('야 나두!');
 
 * [https://rogerdudler.github.io/git-guide/index.ko.html](https://rogerdudler.github.io/git-guide/index.ko.html)
 * [https://learngitbranching.js.org/?locale=ko](https://learngitbranching.js.org/?locale=ko)
+* [https://git-scm.com/book/ko/v2](https://git-scm.com/book/ko/v2)
+* [https://flyingsquirrel.medium.com/git-rebase-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-ce6816fa859d](https://flyingsquirrel.medium.com/git-rebase-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-ce6816fa859d)
