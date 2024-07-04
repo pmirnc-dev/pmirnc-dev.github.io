@@ -3,7 +3,8 @@ layout: post
 title:  "Let's Git it!"
 date:   2024-07-04 09:00:00 +0900
 author: ihhwang
-categories: ['git', 'github']
+categories: git github
+published: true
 ---
 <hr/>
 
