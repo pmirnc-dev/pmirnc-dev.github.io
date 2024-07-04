@@ -685,7 +685,7 @@ mixed는 기본 값이므로 생략해도 됩니다.
 
 변경했던 내역조차 사라진 것을 볼 수 있습니다.
 
-[git](/assets/images/ihhwang/git-history/git43.png)
+![git](/assets/images/ihhwang/git-history/git43.png)
 
 reset 옵션을 사용하려면 hard는 웬만하면 사용하지 않고 default인 mixed만 사용하는 것이 좋을 것 같습니다.
 
@@ -705,13 +705,13 @@ readme.md 에 새로운 내용을 입력하고 commit을 했습니다.
 
 Amend 와 같이 vi 편집창이 나오고 편집할 내용이 없다면 esc -> :wq 로 빠져나옵니다.
 
-[git](/assets/images/ihhwang/git-history/git44.png)
+![git](/assets/images/ihhwang/git-history/git44.png)
 
 commit tree와 git log에 revert 이력이 남아있는 것을 볼 수 있습니다.
 
-[git](/assets/images/ihhwang/git-history/git45.png)
+![git](/assets/images/ihhwang/git-history/git45.png)
 
-[git](/assets/images/ihhwang/git-history/git46.png)
+![git](/assets/images/ihhwang/git-history/git46.png)
 
 # Stash
 
@@ -729,7 +729,7 @@ stash는 현재 작업중인 내용을 commit 하기엔 좀 애매한 경우 사
 
 `ihhwang/branch_test` branch의 `main.js`에 `gugudan` 이라는 함수를 만들고 있습니다.
 
-[git](/assets/images/ihhwang/git-history/git47.png)
+![git](/assets/images/ihhwang/git-history/git47.png)
 
 터미널에서 `git stash` 를 입력해보겠습니다.
 
@@ -742,7 +742,7 @@ stash는 현재 작업중인 내용을 commit 하기엔 좀 애매한 경우 사
 
 git stash list 를 입력하면 저장된 스택 내역을 확인할 수 있습니다.
 
-[git](/assets/images/ihhwang/git-history/git48.png)
+![git](/assets/images/ihhwang/git-history/git48.png)
 
 급한 요청사항을 마치고 다시 원래 작업으로 복귀하려고 합니다.
 
@@ -757,13 +757,13 @@ git stash list 를 입력하면 저장된 스택 내역을 확인할 수 있습�
 
 임시로 stash를 하나 더 만든 뒤 `git stash list` 를 입력했습니다.
 
-[git](/assets/images/ihhwang/git-history/git49.png)
+![git](/assets/images/ihhwang/git-history/git49.png)
 
 `git stash pop` 을 하고 list를 다시 보면 제일 최근에 작업한 내용이 다시 반영이 됐고 list에서 사라진 것을 확인할 수 있습니다.
 
     PS D:\dev\GitStudy> git stash pop
 
-[git](/assets/images/ihhwang/git-history/git50.png)
+![git](/assets/images/ihhwang/git-history/git50.png)
 
 apply를 사용할경우 shash 이름을 작은 따옴표로 감싸야 합니다.
 
@@ -776,7 +776,7 @@ apply를 사용할경우 shash 이름을 작은 따옴표로 감싸야 합니다
 
 위의 `gugudan` 기능을 commit 후 master branch로 이동합니다.
 
-[git](/assets/images/ihhwang/git-history/git52.png)
+![git](/assets/images/ihhwang/git-history/git52.png)
 
 `7b62b76` 커밋만 master 브랜치에 적용해보겠습니다.
 
@@ -784,15 +784,15 @@ apply를 사용할경우 shash 이름을 작은 따옴표로 감싸야 합니다
 
 다음과 같이 conflict 가 발생하는군요.
 
-[git](/assets/images/ihhwang/git-history/git53.png)
+![git](/assets/images/ihhwang/git-history/git53.png)
 
 병합 편집기를 통해 conflict를 해결하겠습니다.
 
-[git](/assets/images/ihhwang/git-history/git54.png)
+![git](/assets/images/ihhwang/git-history/git54.png)
 
 수신과 현재 영역에서 적용할 코드를 적용하고 병합 완료 버튼을 누르면 master에 병합이 된 것을 확인할 수 있습니다.
 
-[git](/assets/images/ihhwang/git-history/git55.png)
+![git](/assets/images/ihhwang/git-history/git55.png)
 
 ## rebase
 
@@ -802,7 +802,7 @@ git rebase는 branch의 base를 재설정 한다는 의미입니다.
 
 다음과 같이 여러 작업들이 merge되면 그래프의 가지수가 늘어납니다.
 
-[git](/assets/images/ihhwang/git-history/git56.png)
+![git](/assets/images/ihhwang/git-history/git56.png)
 
 master 에서 ihhwang/test branch를 만들어줍니다.
 
@@ -814,33 +814,33 @@ addNum function을 만든 뒤 commit을 합니다.
 
 git log를 보면 상위 3개에 내가 추가했던 commit들이 보입니다.
 
-[git](/assets/images/ihhwang/git-history/git57.png)
+![git](/assets/images/ihhwang/git-history/git57.png)
 
 `git rebase -i HEAD~3` 을 입력하면 vi 편집기 화면이 나옵니다.
 
-[git](/assets/images/ihhwang/git-history/git58.png)
+![git](/assets/images/ihhwang/git-history/git58.png)
 
 여기서 `pick` 도 있고 Commands: 에 여러가지 옵션들과 설명들이 있습니다.
 
 남기고 싶은 항목은 `pick` 으로 두고 병합하려는 항목엔 `squash` or `s` 로 바꿔줍니다.
 
-[git](/assets/images/ihhwang/git-history/git59.png)
+![git](/assets/images/ihhwang/git-history/git59.png)
 
 수정 후 빠져나오면 다음과 같은 vi 편집기가 나옵니다.
 
 여기도 남기고 싶은 메세지만 남깁니다.
 
-[git](/assets/images/ihhwang/git-history/git60.png)
+![git](/assets/images/ihhwang/git-history/git60.png)
 
 저는 다 지우고 이렇게 남기겠습니다.
 
-[git](/assets/images/ihhwang/git-history/git61.png)
+![git](/assets/images/ihhwang/git-history/git61.png)
 
 편집기를 빠져나오면 3개의 commit이 하나로 합쳐진 것을 볼 수 있습니다.
 
-[git](/assets/images/ihhwang/git-history/git62.png)
+![git](/assets/images/ihhwang/git-history/git62.png)
 
-[git](/assets/images/ihhwang/git-history/git63.png)
+![git](/assets/images/ihhwang/git-history/git63.png)
 
 remote 서버로 push를 하고 pull request를 진행합니다.
 
