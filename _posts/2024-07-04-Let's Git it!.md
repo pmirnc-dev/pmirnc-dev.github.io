@@ -40,7 +40,7 @@ by 위키피디아
 
 # Git의 구조
 
-![structure1.png](/assets/images/ihhwang/git-history/structure1.png)
+![structure1.png](/assets/images/ihhwang/git-history/structrue1.png)
 
 나무위키에서 가져온 git의 동작 구조 입니다.
 
@@ -73,7 +73,6 @@ by 위키피디아
 
 ### git 정보 설정
 config 파일에 git 정보가 설정이 되어 있지 않다면 error 사항이 꽃필 것이다.
-![만신](/assets/images/ihhwang/git-history/ksm1.jpg)
 
 ```
 git config --global user.name "username"
