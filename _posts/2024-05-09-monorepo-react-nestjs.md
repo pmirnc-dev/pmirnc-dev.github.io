@@ -26,11 +26,7 @@ published: true
 
 모노레포란 2 개 이상의 프로젝트 코드를 하나의 레포지토리에서 관리하는 방법을 의미합니다.     
 
-저희 프로젝트의 대부분 레포지토리 마다 각각 다른 프로젝트를 담당하고 있는 모놀리식으로 구성되어있는데요.      
-
-레포지토리 마다 각각의 프로젝트라고 한다면 다른 레포지토리와 비슷하게 프론트와 백엔드를 함께 관리하는 비즈챗 프로젝트도 모노리식과 동일한게 아닌가 라는 생각이 들 수 있습니다. 
-
-프론트와 백엔드의 환경이 분리되어있기 때문에 각각의 프로젝트로 생각하면 될 것 같아요. 저희 대부분의 프로젝트도 하나의 레포지토리 안에 각각 프론트와 백엔드가 함께 있지만 서로간의 환경이 분리되어있어 따로 관리되었다면, 모노레포 구조 안에서는 프론트와 백엔드를 함께 관리할 수 있습니다.
+저희 프로젝트의 대부분 레포지토리 마다 각각 다른 프로젝트를 담당하고 있는 멀티레포로 구성되어있는데 이를 하나의 레포지토리에서 관리할 수 있습니다.
 
 ![repo-sample](/assets/images/dhjeon/240509/sample.png)
 
@@ -65,7 +61,7 @@ npm install turbo --global
 npx create-turbo@latest
 ```
 
-위 명령어를 통하여 turbo 환경을 구축할 수 있습니다. 하지만 저는 한땀한땀.. 설치하면서 진행했습니다. 구축된 파일 구조는 아래 이미지와 같습니다.
+위 명령어를 통하여 turbo 환경을 구축할 수 있습니다. 하지만 저는 이미 구성되어있는 프로젝트 내에서 진행해야하므로 필요한 부분만 설치하면서 구조를 변경해 나갔습니다.
 
 ![프로젝트 구조](/assets/images/dhjeon/240509/project.png)
 
@@ -77,7 +73,7 @@ npx create-turbo@latest
 
 apps 안에 있는 프로젝트에 함께 사용될 패키지 모음입니다.
 
-turbo의 경우 패키지 기반으로 관리되어집니다. 해당 디렉토리 안에서 생성된 패키지를 apps 내의 프로젝트에서 공유하여 사용할 수 있습니다.
+turbo의 경우 패키지 기반으로 관리 되어집니다. 해당 디렉토리 안에서 생성된 패키지를 apps 내의 프로젝트에서 공유하여 사용할 수 있습니다.
 
 현재 비즈챗 프로젝트에서는 enum type, interface, utility function 등 프론트와 백엔드 간 서로 공유할 수 있는 파일을 패키지화하여 사용하고 있습니다.
 
@@ -197,7 +193,6 @@ export class CreateProjectDto implements CreateProjectState {
 
 만약 공용 인터페이스가 수정됐을 경우 해당 인터페이스를 사용한 곳에서 타입이 다른 경우가 있다면 콘솔창에 에러가 발생하여 타입이 맞지 않은 곳을 쉽게 확인할 수 있습니다.
 
-<br />
 
 ## 주의할 점
 
@@ -207,13 +202,15 @@ export class CreateProjectDto implements CreateProjectState {
 
 단순히 한 곳을 위해 수정을 해야한다면 공유 패키지를 사용하는 것이 적합하지 않을 수 있습니다.
 
-### Compile Option
+### Compiler Option - module
 
 모노레포 레퍼런스를 확인해보면 대부분의 레퍼런스가 프론트 관련한 프로젝트로 되어있어 저희 프로젝트와 환경이 달랐습니다.
 
 비즈챗의 경우 프론트는 React, 백엔드는 NestJS로 구성되어있는데 각각의 컴파일 되는 모듈이 다릅니다.
 
-NestJS의 경우 컴파일 시 CommonJS 기반으로 되고, React의 경우 ESNext 기반으로 컴파일 되어집니다.
+NestJS의 경우 CommonJS 기반으로 모듈이 구성되고, React의 경우 ESNext 기반으로 모듈이 내보내집니다.
+
+[CommonJS vs Esm](https://velog.io/@tenacious_mzzz/Node.JS%EC%97%90%EC%84%9C-CommonJS-vs-ES-modules){:target="_blank"}
 
 서로 간 공유를 하기 위해서는 이 환경을 일치시켜줘야합니다.
 
@@ -255,8 +252,6 @@ export default defineConfig(({ mode }) => {
 
 플러그인 등록과 함께 사용할 패키지도 optimizeDeps에 포함시키면 외부에 위치한(packages)에 접근하여 사용할 수 있습니다.
 
-<br />
-
 ### Vite Option
 
 프론트의 경우 Vite 로 구성되어있는데 패키지 인식이 잘 되지 않는 문제가 있었습니다.       
@@ -275,7 +270,6 @@ dev 환경에서 프로젝트 실행 시 무조건 캐시 초기화 되도록 --
 
 [관련 내용 Vite 공식 문서 - https://ko.vitejs.dev/guide/dep-pre-bundling](https://ko.vitejs.dev/guide/dep-pre-bundling){:target="_blank"}
 
-<br />
 
 ### arm 기반 mac 으로 실행 시 추가 플러그인 필요 
 
@@ -289,11 +283,11 @@ npm i @rollup/rollup-darwin-arm64
 
 ---
 
-예전에도 같은 이유로 모노레포를 찾아본 적이 있었는데 그 당시에는 관련 레퍼런스를 찾기 어려워 적용을 시키지 못 했었습니다.       
-
-
-
 ## 레퍼런스
+
+[NestJS Monorepo 관련 공식 문서](https://docs.nestjs.com/cli/monorepo){:target="_blank"}
+
+[https://github.com/belgattitude/nextjs-monorepo-example](https://github.com/belgattitude/nextjs-monorepo-example){:target="_blank"}
 
 [https://beomy.github.io/tech/etc/monorepo-concept/](https://beomy.github.io/tech/etc/monorepo-concept/){:target="_blank"}
 
