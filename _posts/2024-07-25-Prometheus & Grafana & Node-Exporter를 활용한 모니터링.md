@@ -21,7 +21,7 @@ published: true
 
 #### **Node-Exporter 설치**
 
-```Node
+```
 1. Node-Exporter 다운로드 및 설치
 
 sudo adduser prometheus
@@ -75,7 +75,7 @@ curl -X GET http://localhost:9100/metrics
 
 #### **Prometheus & Grafana 설치(docker compose 활용)**
 
-```Prometheus
+```
 1. Prometheus 설치 전 작업
 
 mkdir grafana
