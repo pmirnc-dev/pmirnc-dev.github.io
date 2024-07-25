@@ -21,7 +21,8 @@ published: true
 
 #### **Node-Exporter 설치**
 
-  <!--Node-Exporter 다운로드 및 설치-->
+```Node
+1. Node-Exporter 다운로드 및 설치
 
 sudo adduser prometheus
 
@@ -33,7 +34,7 @@ mv node_exporter-1.8.2.linux-amd64 node_exporter
 
 exit
 
-  <!--Node-Exporter 시스템 서비스 등록-->
+2. Node-Exporter 시스템 서비스 등록
 
 sudo su
 
@@ -57,7 +58,7 @@ WantedBy=multi-user.target
 
 ---
 
-  <!--node_exporter 서비스 확인-->
+3. node_exporter 서비스 확인
 
 systemctl daemon-reload
 
@@ -67,13 +68,15 @@ systemctl status node_exporter
 
 systemctl enable node_exporter
 
-  <!--실행 여부 체크-->
+4. 실행 여부 체크
 
 curl -X GET http://localhost:9100/metrics
+```
 
 #### **Prometheus & Grafana 설치(docker compose 활용)**
 
-  <!--Prometheus 설치 전 작업-->
+```Prometheus
+1. Prometheus 설치 전 작업
 
 mkdir grafana
 
@@ -99,7 +102,7 @@ scrape_configs:
 
 sudo chmod -R 777 prometheus/
 
-  <!--Prometheus 다운로드 및 설치-->
+2. Prometheus 다운로드 및 설치
 
 vi docker-compose.yml
 
@@ -126,6 +129,7 @@ restart: always
 ---
 
 sudo docker-compose up
+```
 
 ---
 
