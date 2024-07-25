@@ -7,6 +7,8 @@ categories: Prometheus Grafana Node-Exporter Docker-compose Linux
 published: true
 ---
 
+<hr />
+
 실시간 서버 모니터링을 위해 찾아본 오픈소스 도구들입니다. 현업에서도 사용중이기 때문에, 신뢰성이 높습니다.
 
 1. **Prometheus**: 시계열 데이터베이스로, 서버 및 애플리케이션의 시계열 데이터(매트릭)을 수집하고 저장합니다.
