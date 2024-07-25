@@ -19,113 +19,113 @@ published: true
 
 ### 설치 및 설정
 
-1. **Node-Exporter 설치**
+#### **Node-Exporter 설치**
 
-   # Node-Exporter 다운로드 및 설치
+  <!--Node-Exporter 다운로드 및 설치-->
 
-   sudo adduser prometheus
+sudo adduser prometheus
 
-   wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
+wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
 
-   tar -xvf node_exporter-1.8.2.linux-amd64.tar.gz
+tar -xvf node_exporter-1.8.2.linux-amd64.tar.gz
 
-   mv node_exporter-1.8.2.linux-amd64 node_exporter
+mv node_exporter-1.8.2.linux-amd64 node_exporter
 
-   exit
+exit
 
-   # Node-Exporter 시스템 서비스 등록
+  <!--Node-Exporter 시스템 서비스 등록-->
 
-   sudo su
+sudo su
 
-   vi /etc/systemd/system/node_exporter.service
+vi /etc/systemd/system/node_exporter.service
 
-   ***
+---
 
-   [Unit]
-   Description=Prometheus Node Exporter
-   Documentation=https://prometheus.io/docs/guides/node-exporter/
-   Wants=network-online.target
-   After=network-online.target
+[Unit]
+Description=Prometheus Node Exporter
+Documentation=https://prometheus.io/docs/guides/node-exporter/
+Wants=network-online.target
+After=network-online.target
 
-   [Service]
-   User=prometheus
-   Restart=on-failure
-   ExecStart=/home/prometheus/node_exporter/node_exporter
+[Service]
+User=prometheus
+Restart=on-failure
+ExecStart=/home/prometheus/node_exporter/node_exporter
 
-   [Install]
-   WantedBy=multi-user.target
+[Install]
+WantedBy=multi-user.target
 
-   ***
+---
 
-   # node_exporter 서비스 확인
+  <!--node_exporter 서비스 확인-->
 
-   systemctl daemon-reload
+systemctl daemon-reload
 
-   systemctl start node_exporter
+systemctl start node_exporter
 
-   systemctl status node_exporter
+systemctl status node_exporter
 
-   systemctl enable node_exporter
+systemctl enable node_exporter
 
-   # 실행 여부 체크
+  <!--실행 여부 체크-->
 
-   curl -X GET http://localhost:9100/metrics
+curl -X GET http://localhost:9100/metrics
 
-2. **Prometheus & Grafana 설치(docker compose 활용)**
+#### **Prometheus & Grafana 설치(docker compose 활용)**
 
-   # Prometheus 설치 전 작업
+  <!--Prometheus 설치 전 작업-->
 
-   mkdir grafana
+mkdir grafana
 
-   sudo chmod 777 grafana
+sudo chmod 777 grafana
 
-   mkdir -p prometheus/conifg
+mkdir -p prometheus/conifg
 
-   vi prometheus/config/prometheus.yml
+vi prometheus/config/prometheus.yml
 
-   ***
+---
 
-   global:
-   scrape_interval: 15s
-   evaluation_interval: 15s
+global:
+scrape_interval: 15s
+evaluation_interval: 15s
 
-   scrape_configs:
+scrape_configs:
 
-   - job_name: 'node_exporter'
-     static_configs:
-     - targets: ['setip:9100']
+- job_name: 'node_exporter'
+  static_configs:
+  - targets: ['setip:9100']
 
-   ***
+---
 
-   sudo chmod -R 777 prometheus/
+sudo chmod -R 777 prometheus/
 
-   # Prometheus 다운로드 및 설치
+  <!--Prometheus 다운로드 및 설치-->
 
-   vi docker-compose.yml
+vi docker-compose.yml
 
-   ***
+---
 
-   version: '3.8'
+version: '3.8'
 
-   services:
-   prometheus:
-   image: prom/prometheus
-   container_name: prometheus
-   ports: - "9090:9090"
-   volumes: - /path:/prometheus - /path:/etc/prometheus/prometheus.yml
-   command: - "--config.file=/etc/prometheus/prometheus.yml" - "--storage.tsdb.retention.time=1y" - "--web.enable-lifecycle" - "--web.enable-admin-api"
-   restart: always
+services:
+prometheus:
+image: prom/prometheus
+container_name: prometheus
+ports: - "9090:9090"
+volumes: - /path:/prometheus - /path:/etc/prometheus/prometheus.yml
+command: - "--config.file=/etc/prometheus/prometheus.yml" - "--storage.tsdb.retention.time=1y" - "--web.enable-lifecycle" - "--web.enable-admin-api"
+restart: always
 
-   grafana:
-   image: "grafana/grafana"
-   container_name: grafana
-   ports: - "3000:3000"
-   volumes: - /path:/var/lib/grafana
-   restart: always
+grafana:
+image: "grafana/grafana"
+container_name: grafana
+ports: - "3000:3000"
+volumes: - /path:/var/lib/grafana
+restart: always
 
-   ***
+---
 
-   sudo docker-compose up
+sudo docker-compose up
 
 ---
 
