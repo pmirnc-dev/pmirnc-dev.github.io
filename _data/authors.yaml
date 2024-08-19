@@ -71,6 +71,7 @@ jseom:
     description: |-
         조직의 유일무이한 존재
         제일 바쁩니다
+    quit: true
 tkkim:
     username: tkkim
     name: 김태경
