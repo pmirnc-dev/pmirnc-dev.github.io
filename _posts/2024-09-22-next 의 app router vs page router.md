@@ -7,7 +7,7 @@ categories: next next.js ssr
 published: true
 ---
 
-<hr>
+<hr />
 처음 Create Next App 으로 Next.js 를 시작할 때
 App Router 와 Page Router 방식 중 선택하라고 합니다.
 
@@ -90,7 +90,7 @@ export default function MainContent() {
 
 불편했던 또는 필요했던 기능들이 추가 되었으니 더욱 편리한 코드 작업을 할 수 있습니다.
 
-<hr>
+<hr />
 
 앱 라우터는 편리함을 넘어서 실질적으로 터보팩을 사용하는 등 성능 및 퍼포먼스 향상이 되었습니다. 
 
