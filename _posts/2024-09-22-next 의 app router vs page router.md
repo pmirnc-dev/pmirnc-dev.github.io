@@ -4,7 +4,7 @@ title: "Next.js 의 app router 와 서버 컴포넌트"
 date: 2024-09-22 15:00:00 +0900
 author: ejsin
 categories: next next.js ssr
-published: false
+published: true
 ---
 
 <hr>
@@ -74,7 +74,7 @@ export default function HomePage() {
 "use client"
 
 export default function MainContent() {
-    return ...
+    return <div>client rendering</div>
 }
 ```
 
@@ -83,6 +83,8 @@ export default function MainContent() {
 ***서버 컴포넌트*** 의 사용으로 인해 앱 라우터 방식이 페이지 라우터 방식보다 훨씬
 
 <u>리액트스럽게(더욱 선언적으로) 코드를 작성할 수 있습니다.</u>
+
+![components](/assets/images/ejsin/page_vs_app/components.png)
 
 이거 말고도 중첩 레이아웃, 자동 에러 및 로딩 처리 등 이전 버전들에서
 
@@ -102,4 +104,5 @@ next 는 리액트 처럼 공식 문서가 정말 정리가 잘 되어 있습니
 [출처 및 참고]
 
 - https://nextjs.org/docs
+- https://tech.kakaopay.com/post/react-server-components/
 - https://dionarodrigues.dev/blog/react-server-components-overview
