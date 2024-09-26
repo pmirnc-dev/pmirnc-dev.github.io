@@ -8,6 +8,7 @@ published: true
 ---
 
 <hr />
+
 처음 Create Next App 으로 Next.js 를 시작할 때
 App Router 와 Page Router 방식 중 선택하라고 합니다.
 
