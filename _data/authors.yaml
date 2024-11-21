@@ -80,6 +80,7 @@ tkkim:
     description: |-
         그림그리기, 노래듣기 좋아합니다. (노래 추천 환영합니다)
         발전해나가는 개발자가 되겠습니다.
+    quit: true
 ymshim:
     username: ymshim
     name: 심영민
