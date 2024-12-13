@@ -23,6 +23,7 @@ dhjeon:
     description: |-
         PMI 개발부에서 요리를 하고 있습니다.
         사시미를 잘씁니다. 회 떠 드릴까요?
+    quit: true
 sh.kim:
     username: sh.kim
     name: 김상협
