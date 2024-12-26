@@ -3,7 +3,7 @@ layout: post
 title: "성능을 위한 Cache 캐싱 전략"
 date: 2024-12-25 20:30:00
 author: mclee
-categories: nestjs, cache, typescript
+categories: nestjs cache typescript
 ---
 
 # 웹 애플리케이션 성능을 위한 캐싱 전략
