@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Zod, React Hook Form"
+title:  "Zod, React Hook Form으로 심플하게 form 작성하기"
 date:   2024-12-26 13:47:00 +0900
 author: ymshim
 categories: js ts nextJS nestJS
@@ -8,17 +8,18 @@ categories: js ts nextJS nestJS
 
 <hr/>
 
-## Zod, React Hook Form
+# Zod, React Hook Form으로 심플하게 form 작성하기
 Zod, React Hook Form 라이브러리를 사용하여 반복적이고 지루하지만<br> 
-절대로 대충해서 안되는 스키마 선언과 유효성 검사를 조금 더 간결하고 편리하게 해보도록 해보겠습니다. 
+절대로 대충해서 안되는 스키마 선언과 유효성 검사를 조금 더 간결하게 해보도록 하겠습니다. 
 
 
-### Frontend
+## 1. Frontend
 
-간단히 리액트 프로젝트를 생성하고 회원가입 폼을 만들어 보겠습니다.
+간단히 리액트 프로젝트를 생성하고 로그인 폼을 만들어 보겠습니다.
 
+### 기본 SignIn Component
 ```tsx
-export default function Home() {
+export default function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
@@ -71,11 +72,12 @@ export default function Home() {
     );
 }
 ```
-
-익숙한 Form 입니다.<br>
-handleOnSubmit 함수를 실행할때 정해진 스키마와 그에 맞는 유효성을 검사하기 위해 작업을 실행하며 여러 실수를 불러 일으킬 수 있습니다.
+익숙한 form 입니다.<br>
+`handleOnSubmit` 함수를 실행할 때 로그인을 위한 스키마와 그에 맞는 유효성을 검사하기 위해 작업하게 됩니다.<br>
+이 과정들은 반복적이고 자칫 실수를 불러 이르킬 수 있습니다.
 
 ### Zod와 React Hook Form 사용하기
+### SignInSchema
 ```ts
 import { z } from 'zod';
 
@@ -96,6 +98,10 @@ export const SignInSchema = z.object({
 
 export type SingInDto = z.infer<typeof SignInSchema>;
 ```
+Zod의 `object` 메서드로 schema를 생성합니다.<br>
+그리고 `infer`로 해당 스키마로 DTO type도 같이 생성해줍니다.
+
+### React Hook Form/Zod SignIn Component
 ```tsx
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -103,7 +109,7 @@ import axios from "axios";
 import { useState } from "react";
 import {SignInSchema, SingInDto} from "@/app/libs/zod/schemas/user.zod.schema";
 
-export default function Home() {
+export default function SignIn() {
     const {
         register,
         handleSubmit,
@@ -162,14 +168,13 @@ export default function Home() {
     );
 }
 ```
-zod로 스키마를 생성하고<br>
-React Hook Form의 useForm 함수로 resolver와 defaultValues를 설정한 뒤<br>
-register로 input에 등록해주면 모든 작업은 끝입니다.<br>
-우린 useForm이 반환한 formState의 errors에서 스키마에 설정한 message를 예쁘게 뿌려주기만 하면 끝입니다.<br>
+React Hook Form의 `useForm` 메서드로 `resolver`와 `defaultValues`를 할당한 뒤<br>
+`register`로 input 태그에 해당 하는 value를 등록해주면 모든 작업은 끝입니다.<br>
+`formState`의 `errors`에서 zod schema에 설정한 `message`를 사용자에게 보여주면 끝입니다.<br>
 
 ### Backend
-
-백엔드에서 zod 활용법을 소개합니다. 
+nest 공식 문서에서 찾은 Zod 활용법을 소개합니다. 
+### SignInSchema
 ```ts
 import { z } from 'zod';
 
@@ -191,10 +196,10 @@ export const SignInSchema = z.object({
 export type SingInDto = z.infer<typeof SignInSchema>;
 ```
 
-첫번째로 zod로 스키마를 작성해봅시다.<br>
+Zod schema를 작성해봅시다.<br>
 어디서 많이 본 형태입니다.<br>
-Frontend에서 작성한 Schema와 완벽히 동일합니다.<br>
-
+Frontend에서 작성한 schema와 완벽히 동일합니다.<br>
+### ZodValidationPipe
 ```ts
 import {
     PipeTransform,
@@ -213,26 +218,25 @@ export class ZodValidationPipe implements PipeTransform {
             this.schema.parse(value);
             return value;
         } catch (error) {
-            console.log(error);
             throw new BadRequestException('Validation failed');
         }
     }
 }
 
 ```
-그 후 위에서 작성한 zod schema로 유효성 검사를 해줄 Pipe를 생성합니다.<br>
-만약 Frontend에서 올바르지 못한 데이터 타입의 발견된다면 해당 Pipe에서 error가 나고 Frontend는 BadRequestException을 받게 됩니다.
-이제 모든 작업 끝났습니다.<br>
-바로 컨트롤러로 이동하여 사용해봅시다.
+그 후 Zod schema로 유효성 검사를 해줄 Pipe를 생성합니다.<br>
+만약 Frontend에서 올바르지 못한 데이터 타입의 발견된다면 해당 Pipe에서 error가 발생하고 Frontend는 BadRequestException을 받게 됩니다.<br>
+바로 컨트롤러에서 사용해봅시다.
 
+### UserController
 ```ts
 @Controller()
-export class AppController {
-    constructor(private readonly appService: AppService) {}
+export class UserController {
+    constructor(private readonly userService: UserService) {}
 
     @Post('/signIn')
     signIn(@Body(new ZodValidationPipe(SignInSchema)) body: SingInDto) {
-        console.log(body);
+        // ....
         return '회원가입이 완료되었습니다.';
     }
 }
@@ -241,23 +245,28 @@ ZodValidationPipe와 Zod Schema 그리고 Schema를 토대로 만든 Dto 이 세
 
 
 ### 마치며
-우린 이 2가지 라이브러리로 기존에 사용했던 class-validator를 사용하지 않았습니다.<br>
-물론 모노레포와 같이 백엔드에서 수정 또는 프론트에서 수정시 연동되지는 않지만<br>
-스키마를 완벽히 통일시키면서<br>
-Frontend는 인터페이스 생성/유효성 검증<br>
-Backend는 DTO 생성/유효성 검증<br>
-을 조금 더 명확하고 간단하게 할 수 있게 되었습니다.<br>
-팀원과 작업을 한다면 백엔드에서 스키마를 작성 후 그대로 프론트로 또는 반대 이렇게 정하여 작업을 한다면<br>
-비즈니스 로직에 더욱 집중할 수 있어 보이지만 이 또한 팀원간의 소통이 매우 중요하다고 생각합니다.<br>
-피넷 리뉴얼 작업을 하면서 모노레포를 구성하면서 결국 실패했지만 아주 좋은 경험이었고 저에게 이 zod라는 라이브러리를 남겨주었습니다.<br>
-이미 많은 개발자들은 zod를 사용하고 있고 늦게라도 알고 적용해 볼 수 있어 좋은 경험이 되었습니다.<br>
-zod와 Use React Form은 다른 2가지 라이브러리이고 이건 이 둘의 활용법을 안내해드렸습니다.<br>
-각각의 라이브러리가 궁금하시다면 아래 링크로......!
+monorepo와 같이 백엔드에서 수정 또는 프론트에서 수정시 연동되지는 않지만<br>
+스키마를 통일시키면서<br><br>
+`Frontend는 인터페이스 생성/유효성 검증`<br>
+`Backend는 DTO 생성(class-validator를 대체)/유효성 검증`<br><br>
+을 전보다 명확하고 심플하게 할 수 있게 되었습니다.<br>
+혼자 작업하면 더욱 편하게 작업 할 수 있으며<br>
+팀 작업을 한다면 백/프론트의 한쪽이 맡아서 스키마를 작성하고 공유한다면<br>
+비즈니스 로직에 더욱 집중할 수 있어 보이지만 이 또한 팀원간의 소통이 중요하다고 생각합니다.<br>
+피넷 리뉴얼 프로젝트에 monorepo를 구성하기 위한 여러 시도 끝에 결국 실패했지만 좋은 경험이었고<br>
+저에게 Zod라는 멋진 녀석을 남겨주었습니다.<br>
+이미 많은 개발자들은 Zod를 사용하고 있습니다.<br>
+2024.12.26 기준<br>
+`npm Weekly Downloads 12,662,457`<br>
+`github Star 34,709`<br>
+늦게라도 알고 적용해 볼 수 있어 다행입니다.<br>
+이번 포스팅에서는 Zod와 React Hook Form 둘의 활용법을 소개해드렸습니다.<br>
+각각의 라이브러리가 궁금하시다면 아래 링크로...
 
 ### React Hook Form
 [https://react-hook-form.com/get-started](https://github.com/YoungminShimPMI/data_binding_test){:target="_blank"}
 
-### Nest의 zod 활용
+### Nest의 Zod 활용
 [https://docs.nestjs.com/pipes](https://ko.vuejs.org/api/sfc-script-setup){:target="_blank"}
 
 ### Zod
