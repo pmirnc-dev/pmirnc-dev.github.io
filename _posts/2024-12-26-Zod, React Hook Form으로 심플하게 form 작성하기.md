@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Zod, React Hook Form으로 심플하게 form 작성하기"
-date:   2024-12-26 13:47:00 +0900
+date:   2024-12-26 10:32:00 +0900
 author: ymshim
 categories: js ts nextJS nestJS
 ---
