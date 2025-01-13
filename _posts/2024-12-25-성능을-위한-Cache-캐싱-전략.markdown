@@ -1,0 +1,191 @@
+---
+layout: post
+title: "성능을 위한 Cache 캐싱 전략"
+date: 2024-12-25 20:30:00
+author: mclee
+categories: nestjs cache typescript
+---
+<hr/>
+
+# 웹 애플리케이션 성능을 위한 캐싱 전략
+
+## **소개**
+- **캐싱이란?**
+    - 캐싱은 데이터를 임시 저장하여 요청 처리 속도를 향상시키는 기술입니다.
+    - 서버, 클라이언트, 데이터베이스 등 다양한 계층에서 캐시를 활용할 수 있습니다.
+
+- **캐싱의 중요성**
+    - 성능 향상: 데이터베이스나 API 호출을 줄여 응답 시간을 단축합니다.
+    - 비용 절감: 네트워크 트래픽과 서버 부하를 줄입니다.
+    - 확장성: 더 많은 사용자를 처리할 수 있는 인프라를 제공합니다.
+
+---
+
+## **1. 캐시의 유형**
+
+### **1-1. 클라이언트 측 캐싱**
+- 브라우저 캐시:
+    - HTTP 헤더를 통해 캐시 제어 (`Cache-Control`, `ETag` 등).
+    - 정적 파일(css, js, 이미지)을 브라우저에 저장.
+
+- 예시:
+```http
+Cache-Control: max-age=3600, public
+ETag: "abc123"
+```
+
+### **1-2. 서버 측 캐싱**
+- 서버 메모리(in-memory) 캐싱:
+    - Redis, Memcached를 활용하여 자주 사용하는 데이터를 저장.
+    - 실시간 데이터 저장 및 조회에 효과적.
+
+- 예시:
+```javascript
+const redis = require("redis");
+const client = redis.createClient();
+
+client.set("key", "value", "EX", 3600); // 1시간 TTL
+client.get("key", (err, value) => {
+  console.log(value);
+});
+```
+
+### **1-3. 데이터베이스 캐싱**
+- 쿼리 결과를 캐싱하여 중복 쿼리를 방지.
+- Materialized View 또는 캐싱된 결과를 활용.
+
+- 예시 (PostgreSQL):
+```sql
+CREATE MATERIALIZED VIEW cached_data AS
+SELECT * FROM heavy_query;
+```
+
+---
+
+## **2. 캐싱 전략**
+
+### **2-1. TTL(Time-To-Live) 설정**
+- 캐시 데이터의 유효 기간을 설정하여 오래된 데이터를 자동으로 삭제.
+- 예시:
+```javascript
+client.set("user:123", JSON.stringify(userData), "EX", 3600); // 1시간 TTL
+```
+
+### **2-2. 캐시 무효화(Invalidation)**
+- 데이터가 변경될 때 캐시를 업데이트하거나 삭제.
+    - 수동 삭제: 특정 키를 명시적으로 제거.
+    - TTL 기반 자동 삭제: 설정된 유효 기간에 따라 삭제.
+
+- 예시:
+```javascript
+client.del("user:123"); // 캐시 수동 삭제
+```
+
+### **2-3. 레이지 로딩(Lazy Loading)**
+- 요청이 있을 때 캐시를 채우는 방식.
+- 처음 요청 시 데이터를 저장하고 이후 요청에서 캐시를 사용.
+
+- 예시:
+```javascript
+client.get("user:123", (err, value) => {
+  if (!value) {
+    // 데이터베이스에서 조회 후 캐시에 저장
+    const userData = db.getUserById(123);
+    client.set("user:123", JSON.stringify(userData), "EX", 3600);
+  } else {
+    console.log(JSON.parse(value));
+  }
+});
+```
+
+### **2-4. 사전 로딩(Prefetching)**
+- 예상되는 요청 데이터를 미리 캐시에 저장.
+- 배치 작업으로 캐시를 채우거나 업데이트.
+
+- 예시 (NestJS): 현재 진행중인 프로젝트 코드
+```typescript
+export class ProjectService {
+  constructor(
+    private readonly projectRepository: ProjectRepository,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private readonly httpService: HttpService,
+  ) {}
+
+  async projectListSelectBox() {
+    try {
+      let allFilter: Record<string, any> =
+        await this.cacheManager.get('listSelectBoxData'); // 캐시 확인
+
+      if (!allFilter) {
+        // 캐시에 없으면 데이터 준비
+        const paidBox = await this.projectRepository.getPaidBox();
+        paidBox.splice(0, 0, { value: '', label: 'Paid' });
+
+        const searchBox = await this.projectRepository.getSearchBox();
+        searchBox.splice(0, 0, { value: '', label: '전체' });
+
+        const commonSelectBox = await this.commonSelectBox(true);
+
+        allFilter = { ...commonSelectBox, paidBox, searchBox };
+
+        // 모든 데이터를 캐시에 저장
+        await this.cacheManager.set('listSelectBoxData', allFilter, SELECT_BOX_TTL);
+      }
+
+      return allFilter; // 캐시 데이터를 반환
+    } catch (e) {
+      throw new HttpException(
+        { message: ['목록 옵션 불러오는데 실패하였습니다.'] },
+        500,
+      );
+    }
+  }
+}
+```
+
+### 주요 차이점
+
+| **구분**               | **사전 로딩 (Prefetching)**                             | **레이지 로딩 (Lazy Loading)**                             |
+|------------------------|------------------------------------------------------|----------------------------------------------------------|
+| **캐시 로드 시점**      | 캐시에 데이터가 없을 때 **모든 데이터를 한 번에 로드**  | 요청 시마다 필요한 데이터를 확인하고 개별적으로 로드       |
+| **DB 호출 횟수**        | 캐시에 없으면 **1번의 DB 호출**로 모든 데이터를 가져옴  | 요청 시마다 **여러 번의 DB 호출** 가능 (데이터 개별 로드) |
+| **응답 속도**           | 초기 요청이 느림 (모든 데이터를 준비해야 함)            | 요청마다 필요한 데이터만 준비하므로 특정 요청이 느릴 수 있음 |
+| **효율성**             | 불필요한 데이터를 준비할 가능성 있음                   | 요청마다 필요한 데이터만 준비하므로 효율적                |
+| **코드 구조**          | 단순한 캐시 확인 및 준비                              | 필요한 데이터별로 분리하여 로드                           |
+
+---
+
+## **3. 캐싱 도구**
+
+### **3-1. Redis**
+- 빠른 성능의 인메모리 데이터 저장소.
+- Pub/Sub, Sorted Sets, TTL 지원.
+
+### **3-2. Memcached**
+- 간단한 키-값 저장소로 빠른 읽기와 쓰기에 적합.
+
+### **3-3. 브라우저 캐싱 도구**
+- Lighthouse: 웹 애플리케이션의 캐싱 전략 점검.
+- DevTools: 네트워크 요청에서 캐시 동작 확인.
+
+---
+
+## **4. 캐싱 전략 설계 시 고려사항**
+- 데이터 일관성:
+    - 최신 데이터와 캐시 데이터의 동기화.
+- 캐시 적중률(Cache Hit Ratio):
+    - 얼마나 많은 요청이 캐시에서 처리되는지.
+- 캐시 크기:
+    - 메모리 용량과 데이터 보관 기간 조정.
+- 보안:
+    - 민감한 데이터를 캐시에 저장하지 않도록 설정.
+
+---
+
+## **결론**
+- 캐싱은 성능 최적화와 비용 절감에 효과적인 도구입니다.
+- 적절한 캐싱 전략을 통해 사용자 경험을 향상시키고 서버 부하를 줄일 수 있습니다.
+- 캐싱 도구와 전략을 상황에 맞게 선택하고 활용하세요.
+
+
+
