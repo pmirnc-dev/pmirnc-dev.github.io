@@ -21,8 +21,7 @@ dhjeon:
     image: /assets/authors/dhjeon.png
     position: 요리사
     description: |-
-        PMI 개발부에서 요리를 하고 있습니다.
-        사시미를 잘씁니다. 회 떠 드릴까요?
+        수고 많으셨습니다.
     quit: true
 sh.kim:
     username: sh.kim
@@ -45,8 +44,8 @@ yrbyeon:
     image: /assets/authors/yrbyeon.png
     position: 야구선수
     description: |-
-        PMI 개발부에서 서핑을 하고 있고 4번타자를 하고 있습니다.
-        투타 겸업 중입니다. 목표는 월드시리즈 우승입니다.
+        수고 많으셨습니다.
+    quit: true
 ybcho:
     username: ybcho
     name: 조용빈
@@ -70,8 +69,7 @@ jseom:
     image: /assets/authors/jseom.png
     position: 컴퓨존 매니아
     description: |-
-        조직의 유일무이한 존재
-        제일 바쁩니다
+        수고 많으셨습니다.
     quit: true
 tkkim:
     username: tkkim
@@ -79,8 +77,7 @@ tkkim:
     image: /assets/authors/tkkim.png
     position: 점심 패스마스터
     description: |-
-        그림그리기, 노래듣기 좋아합니다. (노래 추천 환영합니다)
-        발전해나가는 개발자가 되겠습니다.
+        수고 많으셨습니다.
     quit: true
 ymshim:
     username: ymshim
