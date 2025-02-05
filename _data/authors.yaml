@@ -97,3 +97,20 @@ ejsin:
         "도망친 곳에 낙원은 없다."
         낙원을 찾기 위해 도망가지 않는 개발자입니다.
         헬스와 롤을 좋아한다면 언제나 환영입니다.
+cyson:
+    username: cyson
+    name: 손채연
+    image: /assets/authors/cyson.png
+    position: 애기엄마
+    description: |-
+        딸래미와 같이 회사 다닙니다
+        피앰아이에서 웹 백엔드 개발을 배우고 있습니다.
+ysson:
+    username: ysson
+    name: 손예슬
+    image: /assets/authors/ysson.png
+    position: 애기
+    description: |-
+        안녕하세요 애기입니다
+        피앰아이에서 웹 프론트 개발을 배우고 있습니다
+        응애 밥 줘ㅓㅓㅓㅓㅓ
