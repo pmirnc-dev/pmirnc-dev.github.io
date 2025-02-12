@@ -139,6 +139,15 @@ hykim:
     username: hykim
     name: 김회윤
     image: /assets/authors/hykim.png
-    position: 슬퍼
+    position: 개발 비기너
     description: |-
-        나 슬퍼
+        IT 사업본부에서 새롭게 시작하게 되었습니다.
+        갈길이 멀지만 차근차근 걸어가 보겠습니다.
+jsshin:
+    username: jsshin
+    name: 신요셉
+    image: /assets/authors/jsshin.png
+    position: 강태공
+    description: |-
+        안녕하세요 피앰아이 강태공입니다.
+        다들 낚일 준비 되셨죠?
