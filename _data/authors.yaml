@@ -114,3 +114,24 @@ ysson:
         안녕하세요 애기입니다
         피앰아이에서 웹 프론트 개발을 배우고 있습니다
         응애 밥 줘ㅓㅓㅓㅓㅓ
+shpark:
+    username: shpark
+    name: 박수현
+    image: /assets/authors/shpark.png
+    position: 아직 못정함
+    description: |-
+        아직은 배워야 할 게 많아서 "개발자"보다는 "개발 중"인 사람이지만, 빠르게 적응해서 팀에 도움이 되는 사람이 되겠습니다.
+thtak:
+    username: thtak
+    name: 탁태호
+    image: /assets/authors/thtak.png
+    position: 제빵사
+    description: |-
+        PMI IT 사업본부의 제빵사입니다.
+jwjung:
+    username: jwjung
+    name: 정재우
+    image: /assets/authors/jwjung.png
+    position: 왈도
+    description: |-
+        힘세고 강한 아침! 만일 내게 묻는다면 나는 재우.    
