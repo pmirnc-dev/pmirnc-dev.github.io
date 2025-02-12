@@ -134,4 +134,11 @@ jwjung:
     image: /assets/authors/jwjung.png
     position: 왈도
     description: |-
-        힘세고 강한 아침! 만일 내게 묻는다면 나는 재우.    
+        힘세고 강한 아침! 만일 내게 묻는다면 나는 재우.
+hykim:
+    username: hykim
+    name: 김회윤
+    image: /assets/authors/hykim.png
+    position: 슬퍼
+    description: |-
+        나 슬퍼
