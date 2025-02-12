@@ -154,6 +154,18 @@ $avatarBackgroundColor: transparent;
 		background-color: rgba(0, 0, 0, 0.5);
 	}
 
+
+	.navigation {
+
+		li {
+			border-bottom: 1px solid #ececec;
+		}
+
+		a {
+			color: white;
+		}
+	}
+
 }
 .dark table {
 	th, td {

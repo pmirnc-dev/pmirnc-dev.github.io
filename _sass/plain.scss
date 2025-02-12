@@ -157,24 +157,31 @@ main {
     padding: 0;
     margin-top: 0;
 
+    li {
+      border-bottom: 1px solid #000000;
+    }
+
     li:last-child {
-      a {
-        border-bottom: 0;
-      }
+      border-bottom: 0;
     }
 
     a {
       display: block;
-      font-family: 'Merriweather';
+      font-family: 'Merriweather', sans-serif;
       text-align: center;
       padding: 1rem 0;
       text-decoration: none;
-      border-bottom: 1px solid #ececec;
+      color: black;
 
       @media screen and (max-width: $mobileW) {
         padding: 2rem 0;
       }
     }
+
+    a:hover {
+      font-weight: bold;
+    }
+
   }
 }
 
@@ -238,6 +245,13 @@ main {
   @media screen and (max-width: $mobileW) {
     padding: 0 !important;
     margin-top: 0;
+  }
+}
+.posts {
+  .pagination {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
   }
 }
 .post-container {
