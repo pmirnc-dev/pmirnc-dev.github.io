@@ -118,9 +118,9 @@ shpark:
     username: shpark
     name: 박수현
     image: /assets/authors/shpark.png
-    position: 아직 못정함
+    position: 쨔쓰
     description: |-
-        아직은 배워야 할 게 많아서 "개발자"보다는 "개발 중"인 사람이지만, 빠르게 적응해서 팀에 도움이 되는 사람이 되겠습니다.
+        아직은 배워야 할 게 많아서
 thtak:
     username: thtak
     name: 탁태호
