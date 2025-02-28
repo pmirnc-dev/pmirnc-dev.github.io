@@ -128,6 +128,7 @@ thtak:
     position: 제빵사
     description: |-
         PMI IT 사업본부의 제빵사입니다.
+    quit: true
 jwjung:
     username: jwjung
     name: 정재우
@@ -151,3 +152,4 @@ jsshin:
     description: |-
         안녕하세요 피앰아이 강태공입니다.
         다들 낚일 준비 되셨죠?
+    quit: true
