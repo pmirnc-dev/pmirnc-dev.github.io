@@ -136,6 +136,7 @@ jwjung:
     position: 왈도
     description: |-
         힘세고 강한 아침! 만일 내게 묻는다면 나는 재우.
+    quit: true
 hykim:
     username: hykim
     name: 김회윤
@@ -144,6 +145,7 @@ hykim:
     description: |-
         IT 사업본부에서 새롭게 시작하게 되었습니다.
         갈길이 멀지만 차근차근 걸어가 보겠습니다.
+    quit: true
 jsshin:
     username: jsshin
     name: 신요셉
