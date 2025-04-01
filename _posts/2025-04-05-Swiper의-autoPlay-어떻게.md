@@ -22,6 +22,7 @@ pmi 게이트웨이의 공지사항을 보여주는 바를 보시면 현재 auto
 progress를 어떻게 구현하면 좋을까요?
 슬라이드 전환 시간에 맞춰 진행 상태를 업데이트하려면 setInterval() 함수로 시간을 수동으로 관리해야 할 것 입니다.
 여기에 마우스 이벤트에 따라 정지/재생하는 기능까지 추가한 예시코드를 보여드리겠습니다.
+
 ```text
   useEffect(() => {
     if (!isPaused) {
@@ -48,6 +49,7 @@ progress를 어떻게 구현하면 좋을까요?
     setIsPaused(false);  // 마우스 벗어나면 재개
   };
 ```
+
 이렇게만 봐도 복잡해 보이지 않습니까? 또한 결과물도 수동으로 progress를 업데이트 시키면 매끄럽게 진행되지 않고 끊김이 중간중간 있을 것 같고 슬라이더와 progress bar가 잘 동기화될 수 있을 지도 확실하지 않습니다.
 
 Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을 제공해 오고 있습니다. Swiper의 progress는  기본적으로 슬라이드가 진행되는 동안, 슬라이드의 이동 상태를 백분율로 추적하여 화면에 표시할 수 있도록 해주는 기능입니다. 이 기능을 사용하면 복잡한 로직없이 손쉽게 progress Bar를 만들 수 있습니다.
@@ -79,6 +81,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 
 
 ### (1) 기본 AutoPlay 기능 구현
+
  ```text
 <Swiper
       ref={swiperRef}  // Swiper 인스턴스를 swiperRef에 저장, 이 객체를 통해 각각의 Swiper 객체에 접근
@@ -98,6 +101,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
       ...
     </Swiper>
 ```
+
 &nbsp;
 
 ### (2) Progress Bar 구현
@@ -106,14 +110,17 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 -  이 함수에서는 3개의 인자(arguments)로 swiper, timeLeft, progress를 넘겨받아 사용할 수 있습니다.
 - handleAutoplayTimeLeft 함수의 역할은 현재 슬라이더의 현재 진행상태인 progress를 넘겨받아서 상태로 저장해 줍니다.
 - 이때 인자로 받은 progress는 0부터 1사이의 값을 가지므로 진행률(%)로 변환하기 위해 * 100을 했습니다.
+
 ```text
   const handleAutoplayTimeLeft = (swiper: SwiperCore, timeLeft: number, progress: number) => {
    //setProgress((progress) * 100); 
     setProgress((1 - progress) * 100); 
   };
 ```
+
 - progress 의 상태를 보여주는 ui요소인 progress bar를 만들어 줍니다.
 - progress 만큼 너비가 채워지면서(0부터 100까지) 사용자는 진행상태를 볼 수 있습니다.
+
 ```text
 	<div>
       <div
@@ -121,6 +128,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
       />
 	</div>
 ```
+
 &nbsp;
 
 ## 3. Swiper AutoPlay 살펴보기, Method
@@ -138,6 +146,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 ### (3) 마우스 Hover에 따라 슬라이드 정지/재생
 
 - 먼저 Swiper를 전체를 감싸는 html dom 요소에 마우스 이벤트 핸들러를 추가해줍니다.
+
 ```text
         <div className={styles.sliderWrapper} 
              onMouseEnter={handleMouseEnter} 
@@ -147,7 +156,9 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 	       </Swiper>
 	   </div>
 ```
+
 - AutoPlay의 네 개의 Method 중에서 일시정지와 재개의 역할을 하는 pause(), resume()을 사용해서 마우스가 현재 swiper 요소에 들어왔을때는 일시정지, 요소를 벗어나면 재개되도록 하는 함수를 만들어줍니다.
+
 ```text
   const handleMouseEnter = () => {
     if (swiperRef.current) {
@@ -161,6 +172,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
       }
   };
  ``` 
+
 &nbsp;
 
 ## 4. start, stop vs pause, resume
