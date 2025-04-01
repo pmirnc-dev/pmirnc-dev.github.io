@@ -3,7 +3,7 @@ layout: post
 title:  "Swiper의 autoPlay 어떻게?"
 date:   2025-03-26 09:00:00 +0900
 author: ysson
-categories: js react
+categories: ["js", "react"]
 published: true
 ---
 <hr/>
@@ -80,7 +80,11 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 
 ### (1) 기본 AutoPlay 기능 구현
  ```typescript jsx
- <Swiper
+import Swiper, { Autoplay } from 'swiper';
+import { Swiper as SwiperCore } from 'swiper';
+import React, { useState, useRef } from 'react';
+type SwiperRef = React.RefObject<SwiperCore>;
+<Swiper
       ref={swiperRef}  // Swiper 인스턴스를 swiperRef에 저장, 이 객체를 통해 각각의 Swiper 객체에 접근
       loop={true}  // 슬라이드를 반복하도록 설정
       autoplay={{  //autoplay 설정
@@ -106,18 +110,17 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 -  이 함수에서는 3개의 인자(arguments)로 swiper, timeLeft, progress를 넘겨받아 사용할 수 있습니다.
 - handleAutoplayTimeLeft 함수의 역할은 현재 슬라이더의 현재 진행상태인 progress를 넘겨받아서 상태로 저장해 줍니다.
 - 이때 인자로 받은 progress는 0부터 1사이의 값을 가지므로 진행률(%)로 변환하기 위해 * 100을 했습니다.
-```typeScript
+```typescript jsxcript
   const handleAutoplayTimeLeft = (swiper: SwiperCore, timeLeft: number, progress: number) => {
    //setProgress((progress) * 100); 
-    setProgress((1 - progress) * 100); //진행률 %로 계산
+    setProgress((1 - progress) * 100); 
   };
 ```
 - progress 의 상태를 보여주는 ui요소인 progress bar를 만들어 줍니다.
 - progress 만큼 너비가 채워지면서(0부터 100까지) 사용자는 진행상태를 볼 수 있습니다.
 ```jsx
-	<div className={styles.progressBarWrapper}>
+	<div>
       <div
-        className={styles.progressBar}
         style={{ width: `${progress}%` }} 
       />
 	</div>
@@ -141,24 +144,25 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 - 먼저 Swiper를 전체를 감싸는 html dom 요소에 마우스 이벤트 핸들러를 추가해줍니다.
 ```jsx
         <div className={styles.sliderWrapper} 
-             onMouseEnter={handleMouseEnter} // 요소 위에 마우스를 올렸을 때
-             onMouseLeave={handleMouseLeave} > // 요소를 벗어났을 때
+             onMouseEnter={handleMouseEnter} 
+             onMouseLeave={handleMouseLeave} > 
            <Swiper>
            ...
-	           <div className={styles.progressBarWrapper}>
-	           ...
-               </div>
 	       </Swiper>
 	   </div>
 ```
 - AutoPlay의 네 개의 Method 중에서 일시정지와 재개의 역할을 하는 pause(), resume()을 사용해서 마우스가 현재 swiper 요소에 들어왔을때는 일시정지, 요소를 벗어나면 재개되도록 하는 함수를 만들어줍니다.
 ```ts
   const handleMouseEnter = () => {
-      swiperRef.current.autoplay.pause();
+    if (swiperRef.current) {
+        swiperRef.current.autoplay.pause();
+    }
   };
 
   const handleMouseLeave = () => {
-      swiperRef.current.autoplay.resume();
+      if (swiperRef.current) {
+          swiperRef.current.autoplay.resume();
+      }
   };
  ``` 
 &nbsp;
