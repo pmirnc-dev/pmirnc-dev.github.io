@@ -114,7 +114,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 ```
 - progress 의 상태를 보여주는 ui요소인 progress bar를 만들어 줍니다.
 - progress 만큼 너비가 채워지면서(0부터 100까지) 사용자는 진행상태를 볼 수 있습니다.
-```html
+```jsx
 	<div className={styles.progressBarWrapper}>
       <div
         className={styles.progressBar}
@@ -139,7 +139,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 ### (3) 마우스 Hover에 따라 슬라이드 정지/재생
 
 - 먼저 Swiper를 전체를 감싸는 html dom 요소에 마우스 이벤트 핸들러를 추가해줍니다.
-```Html
+```jsx
         <div className={styles.sliderWrapper} 
              onMouseEnter={handleMouseEnter} // 요소 위에 마우스를 올렸을 때
              onMouseLeave={handleMouseLeave} > // 요소를 벗어났을 때
@@ -147,6 +147,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
            ...
 	           <div className={styles.progressBarWrapper}>
 	           ...
+               </div>
 	       </Swiper>
 	   </div>
 ```
