@@ -121,10 +121,10 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 - progress 의 상태를 보여주는 ui요소인 progress bar를 만들어 줍니다.
 - progress 만큼 너비가 채워지면서(0부터 100까지) 사용자는 진행상태를 볼 수 있습니다.
 
-```text
+```html
 	<div>
       <div
-        style={{ width: `${progress}%` }} 
+        style={{ width: progress + '%' }} 
       />
 	</div>
 ```
