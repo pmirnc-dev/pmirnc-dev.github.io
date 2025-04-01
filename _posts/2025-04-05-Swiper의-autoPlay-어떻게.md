@@ -79,7 +79,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 
 
 ### (1) 기본 AutoPlay 기능 구현
- ```ts
+ ```typescript jsx
  <Swiper
       ref={swiperRef}  // Swiper 인스턴스를 swiperRef에 저장, 이 객체를 통해 각각의 Swiper 객체에 접근
       loop={true}  // 슬라이드를 반복하도록 설정
