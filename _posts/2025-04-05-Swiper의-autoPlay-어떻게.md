@@ -106,7 +106,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 -  이 함수에서는 3개의 인자(arguments)로 swiper, timeLeft, progress를 넘겨받아 사용할 수 있습니다.
 - handleAutoplayTimeLeft 함수의 역할은 현재 슬라이더의 현재 진행상태인 progress를 넘겨받아서 상태로 저장해 줍니다.
 - 이때 인자로 받은 progress는 0부터 1사이의 값을 가지므로 진행률(%)로 변환하기 위해 * 100을 했습니다.
-```
+```text
   const handleAutoplayTimeLeft = (swiper: SwiperCore, timeLeft: number, progress: number) => {
    //setProgress((progress) * 100); 
     setProgress((1 - progress) * 100); 
