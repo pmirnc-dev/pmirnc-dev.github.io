@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Swiper의 autoPlay 어떻게?"
-date:   2025-03-26 09:00:00 +0900
+title:  "Swiper의 autoPlay, 어떻게?"
+date:   2025-04-01 09:00:00 +0900
 author: ysson
 categories: ["js", "react"]
 published: true
@@ -21,7 +21,7 @@ pmi 게이트웨이의 공지사항을 보여주는 바를 보시면 현재 auto
 ## 2. Swiper AutoPlay 살펴보기,  Event / Parameters
 progress를 어떻게 구현하면 좋을까요?
 슬라이드 전환 시간에 맞춰 진행 상태를 업데이트하려면 setInterval() 함수로 시간을 수동으로 관리해야 할 것 입니다.
-여기에 마우스 이벤트에 따라 정지/재생하는 기능까지 추가한 예시코드를 보여드리겠습니다.
+여기에 마우스 이벤트에 따라 정지, 재생하는 기능까지 추가한 예시코드를 보여드리겠습니다.
 
 ```text
   useEffect(() => {
@@ -50,7 +50,7 @@ progress를 어떻게 구현하면 좋을까요?
   };
 ```
 
-이렇게만 봐도 복잡해 보이지 않습니까? 또한 결과물도 수동으로 progress를 업데이트 시키면 매끄럽게 진행되지 않고 끊김이 중간중간 있을 것 같고 슬라이더와 progress bar가 잘 동기화될 수 있을 지도 확실하지 않습니다.
+이렇게만 봐도 복잡해 보입니다.. 하지만!
 
 Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을 제공해 오고 있습니다. Swiper의 progress는  기본적으로 슬라이드가 진행되는 동안, 슬라이드의 이동 상태를 백분율로 추적하여 화면에 표시할 수 있도록 해주는 기능입니다. 이 기능을 사용하면 복잡한 로직없이 손쉽게 progress Bar를 만들 수 있습니다.
 
@@ -70,12 +70,12 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 
 | Name               | Arguments                        | Description |
 |--------------------|--------------------------------|-------------|
-| `autoplay`        | (swiper)                       | 슬라이드가 자동 재생으로 변경될 때 이벤트가 발생합니다. |
+| `autoplay`        | (swiper)                       | 슬라이드가 자동 재생으로 변경될 때 이벤트 발생. |
 | `autoplayPause`   | (swiper)                       | 자동 재생이 일시정지될 때. |
 | `autoplayResume`  | (swiper)                       | 자동 재생이 다시 시작될 때. |
 | `autoplayStart`   | (swiper)                       | 자동 재생이 시작될 때. |
 | `autoplayStop`    | (swiper)                       | 자동 재생이 중지될 때. |
-| `autoplayTimeLeft`| (swiper, timeLeft, progress) | 자동 재생이 활성화된 동안 지속적으로 이벤트가 발생. |
+| `autoplayTimeLeft`| (swiper, timeLeft, progress) | 자동 재생이 활성화된 동안 지속적으로 이벤트 발생. |
 
 슬라이더의 상태를 추적해주는 이벤트를 통해서 여러가지 핸들러와 추가적인 설정을 해줄 수 있습니다.
 그 중 **autoPlayTimeLeft** 와 같은 이벤트는 인자를 통해 슬라이드 전환에 남은 시간(ms)을 추적하게 해주며 슬라이드 전환까지의 진행상황 비율(progress)를 넘겨주고 있습니다. 이를 통해 진행률을 확인할 수 있습니다.
@@ -121,7 +121,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 ```
 
 - progress 의 상태를 보여주는 ui요소인 progress bar를 만들어 줍니다.
-- progress 만큼 너비가 채워지면서(0부터 100까지) 사용자는 진행상태를 볼 수 있습니다.
+- progress 만큼의 progress Bar의 너비를 설정하면, progress Bar의 width는 0부터 100%까지 채워질 것 입니다.
 
 ```html
 	<div>
@@ -160,7 +160,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 	   </div>
 ```
 
-- AutoPlay의 네 개의 Method 중에서 일시정지와 재개의 역할을 하는 pause(), resume()을 사용해서 마우스가 현재 swiper 요소에 들어왔을때는 일시정지, 요소를 벗어나면 재개되도록 하는 함수를 만들어줍니다.
+- AutoPlay의 네 개의 Method 중에서 pause(), resume()을 사용해서 마우스가 현재 swiper 요소에 들어왔을때는 일시정지, 요소를 벗어나면 재개되도록 하는 함수를 만들어줍니다.
 
 ```text
   const handleMouseEnter = () => {
@@ -180,11 +180,10 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 
 ## 4. start, stop vs pause, resume
 여기서 왜 **start()**, **stop()** 이 아니라 **pause()** , **resume()** 을 썼는지에 궁금할 것 같습니다. 둘의 차이점을 보면 바로 이해될 것 같습니다.
-**start()** 와 **stop()** 를 쓰면 이 두 함수는 단순 정지와 재생의 역할을 하기 때문에 슬라이더를 멈추면 초가 초기화되고 재생시키면 0부터 다시 시작하게 됩니다. 하지만 일시정지와 재개의 기능을 하는 **pause()** 와 **resume()** 를 사용하면 초가 초기화 되지 않고 자연스러운 진행상태를 보여줄 수 있습니다.
-nexon 홈페이지의 progress Bar처럼 슬라이더가 멈췄다가 진행되는 상태을 자연스럽게 보여주기 위해서는 **pause()** 와 **resume()** 을 쓰는게 더 적합하다고 생각했습니다. 
-네 개의 함수의 역할을 잘 구분해서 적재적소에 쓰면 좋을 것 같습니다!
+**start()** 와 **stop()** 를 쓰면 이 두 함수는 단순 정지와 재생의 역할을 하기 때문에 nexon 홈페이지의 progress Bar처럼 슬라이더를 멈추면 초가 초기화되고 재생시키면 0부터 다시 시작하게 됩니다. 
+하지만 일시정지와 재개의 기능을 하는 **pause()** 와 **resume()** 를 사용하면 초가 초기화 되지 않습니다. 멈췄다가 재개하면 남은 시간동안 진행되며 좀 더 자연스러운 progress bar를 보여줄 수 있습니다.
 
 &nbsp;
 
 ## 5. 마치며
-처음엔 api 명세를 읽지 않고 start(), stop()을 쓰며 pause(), resume() 같은 기능을 구현하려고 하다보니 setInterval이며 animate며... 점점 코드가 산으로 갔습니다. 처음부터 명세를 읽었더라면 삽질하는 시간을 줄였을 것 같습니다. 다음부턴 api 명세를 보고 기능을 쓰도록 해야겠다는 생각을 했습니다!
+처음엔 api 명세를 읽지 않고 start(), stop()을 쓰며 pause(), resume() 같은 기능을 구현하려고 하다보니 setInterval이며 animate며... 점점 코드가 어려워지고 산으로 갔었습니다. 처음부터 명세를 읽었더라면 삽질하는 시간을 줄였을 것 같습니다. 다음부턴 api 명세를 보고 기능을 쓰도록 해야겠다는 생각을 했습니다!
