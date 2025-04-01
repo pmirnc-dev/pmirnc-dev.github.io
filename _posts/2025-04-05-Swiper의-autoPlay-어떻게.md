@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Swiper의 autoPlay, 어떻게?"
+title:  "Swiper의 autoPlay 어떻게?"
 date:   2025-03-26 09:00:00 +0900
 author: ysson
 categories: js react
