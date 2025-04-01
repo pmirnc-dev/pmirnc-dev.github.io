@@ -124,7 +124,7 @@ Swiper에서는 초창기부터 진행 상태를 보여주는 progress 기능을
 ```text
 	<div>
       <div
-        style={{ width: `${progress}%` }} 
+        style={{ width: '${progress}%' }} 
       />
 	</div>
 ```
