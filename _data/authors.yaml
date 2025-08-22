@@ -2,9 +2,9 @@ hsyoo :
     username: hsyoo
     name: 유호석
     image: /assets/authors/hsyoo.png
-    position: 애기아빠
+    position: 애기 둘 아빠
     description: |-
-        아기 아빠입니다.
+        아기 아빠입니다. 아이 2명됐어요
 ihhwang:
     username: ihhwang
     name: 황인호
@@ -85,9 +85,8 @@ ymshim:
     image: /assets/authors/ymshim.png
     position: 애플 매니아
     description: |-
-        PMI 개발부에서 웹 개발을 담당하고 있습니다.
-        항상 발전하는 개발자를 꿈꾸고 있습니다.
-        음악과 여행을 좋아합니다.
+        수고 많으셨습니다.
+    quit: true
 ejsin:
     username: ejsin
     name: 신은진
