@@ -104,6 +104,7 @@ cyson:
     description: |-
         딸래미와 같이 회사 다닙니다
         피앰아이에서 웹 백엔드 개발을 배우고 있습니다.
+    quit: true
 ysson:
     username: ysson
     name: 손예슬
@@ -113,6 +114,7 @@ ysson:
         안녕하세요 애기입니다
         피앰아이에서 웹 프론트 개발을 배우고 있습니다
         응애 밥 줘ㅓㅓㅓㅓㅓ
+    quit: true
 shpark:
     username: shpark
     name: 박수현
